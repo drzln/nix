@@ -60,6 +60,7 @@ in
 
       home.packages = with pkgs;
         [
+          git-remote-gcrypt
           android-tools
           coreutils-prefixed
           gnirehtet
