@@ -47,7 +47,7 @@
       dig
       vim
       git
-      gh
+      # gh
     ];
 
 }
