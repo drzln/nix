@@ -1,0 +1,500 @@
+plugin:
+  path: "~/code/github/drzln/nix-node-plo/modules/home-manager/blackmatter/components/nvim/plugins/"
+
+plugins:
+  # - author: L3MON4D3
+  #   name: LuaSnip
+  #   branch: main
+  # - author: Wansmer
+  #   name: treesj
+  #   branch: main
+  # - author: ThePrimeagen
+  #   name: refactoring.nvim
+  #   branch: main
+  
+  # - author: SchemaStore
+  #   name: schemastore
+  #   branch: main
+  # - author: RRethy
+  #   name: vim-illuminate
+  #   branch: main
+  # - author: RishabhRD
+  #   name: nvim-lsputils
+  #   branch: main
+  # - author: Pocco81
+  #   name: dap-buddy.nvim
+  #   branch: main
+  # - author: NvChad
+  #   name: nvim-colorizer.lua
+  #   branch: main
+  # - author: NTBBloodbath
+  #   name: rest.nvim
+  #   branch: main
+  # - author: NTBBloodbath
+  #   name: galaxyline.nvim
+  #   branch: main
+  # - author: MunifTanjim
+  #   name: nui.nvim
+  #   branch: main
+  # - author: MarcHamamji
+  #   name: runner.nvim
+  #   branch: main
+
+  # - author: LudoPinelli
+  #   name: comment-box.nvim
+  #   branch: main
+  # - author: LnL7
+  #   name: vim-nix
+  #   branch: main
+  # - author: LeonHeidelbach
+  #   name: trailblazer.nvim
+  #   branch: main
+
+  # - author: camspiers
+  #   name: animate
+  #   branch: main
+  
+  # - author: bennypowers
+  #   name: nvim-regexplainer
+  #   branch: main
+  # - author: aserowy
+  #   name: tmux.nvim
+  #   branch: main
+  # - author: andymass
+  #   name: vim-matchup
+  #   branch: main
+  # - author: amrbashir
+  #   name: nvim-docs-view
+  #   branch: main
+  # - author: akinsho
+  #   name: git-conflict.nvim
+  #   branch: main
+  # - author: ahmedkhalf
+  #   name: project.nvim
+  #   branch: main
+  # - author: ellisonleao
+  #   name: glow.nvim
+  #   branch: main
+  # - author: camspiers
+  #   name: lens
+  #   branch: main
+  # - author: nanotee
+  #   name: nvim-lsp-basics
+  #   branch: main
+
+  - author: mfussenegger
+    name: nvim-dap
+    branch: main
+  - author: lewis6991
+    name: impatient
+    branch: main
+  - author: nvim-neotest
+    name: neotest
+    branch: main
+  - author: nvim-neorg
+    name: neorg
+    branch: main
+  - author: sar
+    name: cmp-lsp.nvim
+    branch: main
+  - author: williamboman
+    name: mason-lspconfig.nvim
+    branch: main
+  - author: cbochs
+    name: grapple.nvim
+    branch: main
+  - author: chaoren
+    name: vim-wordmotion
+    branch: main
+  - author: chrisgrieser
+    name: nvim-various-textobjs
+    branch: main
+  - author: christoomey
+    name: vim-tmux-navigator
+    branch: main
+  - author: cuducos
+    name: yaml.nvim
+    branch: main
+  - author: danielpieper
+    name: telescope-tmuxinator.nvim
+    branch: main
+  - author: declancm
+    name: cinnamon.nvim
+    branch: main
+  - author: diepm
+    name: vim-rest-console
+    branch: main
+  - author: drybalka
+    name: tree-climber.nvim
+    branch: main
+  # - author: esensar
+  #   name: nvim-dev-container
+  #   branch: main
+  # - author: f-person
+  #   name: git-blame.nvim
+  #   branch: main
+  # - author: folke
+  #   name: noice.nvim
+  #   branch: main
+  # - author: folke
+  #   name: which-key.nvim
+  #   branch: main
+  #
+  # # - author: frabjous
+  # #   name: knap
+  # #   branch: main
+  # # - author: folke
+  # #   name: neodev.nvim
+  # #   branch: main
+  # # - author: gennaro-tedesco
+  # #   name: nvim-possession
+  # #   branch: main
+  # # - author: ggandor
+  # #   name: leap.nvim
+  # #   branch: main
+  # # - author: glepnir
+  # #   name: dashboard-nvim
+  # #   branch: main
+  # # - author: glepnir
+  # #   name: lspsaga.nvim
+  # #   branch: main
+  # # - author: gnikdroy
+  # #   name: projections.nvim
+  # #   branch: main
+  # # - author: godlygeek
+  # #   name: tabular
+  # #   branch: main
+  # # - author: gwatcha
+  # #   name: reaper-keys
+  # #   branch: main
+  # # - author: hrsh7th
+  # #   name: cmp-cmdline
+  # #   branch: main
+  # # - author: hrsh7th
+  # #   name: cmp-nvim-lsp
+  # #   branch: main
+  # # - author: hrsh7th
+  # #   name: cmp-path
+  # #   branch: main
+  #
+  # - author: iamcco
+  #   name: markdown-preview.nvim
+  #   branch: main
+  # - author: ibhagwan
+  #   name: fzf-lua
+  #   branch: main
+  # - author: idanarye
+  #   name: nvim-buffls
+  #   branch: main
+  # - author: hashivim
+  #   name: vim-terraform
+  #   branch: main
+  # - author: jay-babu
+  #   name: mason-null-ls.nvim
+  #   branch: main
+  # - author: jbyuki
+  #   name: one-small-step-for-vimkind
+  #   branch: main
+  # - author: jose-elias-alvarez
+  #   name: typescript.nvim
+  #   branch: main
+  # - author: jose-elias-alvarez
+  #   name: null-ls
+  #   branch: main
+  # - author: jubnzv
+  #   name: mdeval.nvim
+  #   branch: main
+  # - author: kcl-lang
+  #   name: vim-kcl
+  #   branch: main
+  # - author: kkharji
+  #   name: sqlite.lua
+  #   branch: main
+  # - author: kkoomen
+  #   name: vim-doge
+  #   branch: main
+  # - author: kosayoda
+  #   name: nvim-lightbulb
+  #   branch: main
+  # - author: leoluz
+  #   name: nvim-dap-go
+  #   branch: main
+  # - author: lewis6991
+  #   name: gitsigns.nvim
+  #   branch: main
+  # - author: lotabout
+  #   name: skim
+  #   branch: main
+  # - author: lukas-reineke
+  #   name: indent-blankline.nvim
+  #   branch: main
+  # - author: maaslalani
+  #   name: nordbuddy
+  #   branch: main
+  # - author: madskjeldgaard
+  #   name: reaper-nvim
+  #   branch: main
+  # - author: mfussenegger
+  #   name: nvim-dap-python
+  #   branch: main
+  # - author: mfussenegger
+  #   name: nvim-jdtls
+  #   branch: main
+  # - author: mfussenegger
+  #   name: nvim-lint
+  #   branch: main
+  # - author: michaelb
+  #   name: sniprun
+  #   branch: main
+  # - author: milisims
+  #   name: nvim-luaref
+  #   branch: main
+  # - author: miversen33
+  #   name: netman.nvim
+  #   branch: main
+  # - author: mrjones2014
+  #   name: legendary.nvim
+  #   branch: main
+  # - author: ms-jpq
+  #   name: chadtree
+  #   branch: main
+  # - author: nanotee
+  #   name: nvim-lua-guide
+  #   branch: main
+  # - author: neovim
+  #   name: nvim-lspconfig
+  #   branch: main
+  # - author: nfrid
+  #   name: markdown-togglecheck
+  #   branch: main
+  # - author: niuiic
+  #   name: divider.nvim
+  #   branch: main
+  # - author: norcalli
+  #   name: nvim-colorizer.lua
+  #   branch: main
+  # - author: nvim-lua
+  #   name: lsp-status.nvim
+  #   branch: main
+  # - author: nvim-lua
+  #   name: plenary
+  #   branch: main
+  # - author: nvim-lua
+  #   name: popup.nvim
+  #   branch: main
+  # - author: hrsh7th
+  #   name: cmp-buffer
+  #   branch: main
+  # - author: nvim-neorocks
+  #   name: luarocks-tag-release
+  #   branch: main
+  # - author: nvim-neotest
+  #   name: neotest-go
+  #   branch: main
+  # - author: nvim-neotest
+  #   name: neotest-jest
+  #   branch: main
+  # - author: nvim-neotest
+  #   name: neotest-plenary
+  #   branch: main
+  # - author: nvim-neotest
+  #   name: neotest-python
+  #   branch: main
+  # - author: nvim-orgmode
+  #   name: orgmode
+  #   branch: main
+  # - author: nvim-telescope
+  #   name: telescope-dap.nvim
+  #   branch: main
+  # - author: numToStr
+  #   name: Comment.nvim
+  #   branch: main
+  # - author: numToStr
+  #   name: Navigator.nvim
+  #   branch: main
+  # - author: nvim-telescope
+  #   name: telescope-file-browser.nvim
+  #   branch: main
+  # - author: nvim-telescope
+  #   name: telescope-project.nvim
+  #   branch: main
+  # - author: nvim-telescope
+  #   name: telescope-z.nvim
+  #   branch: main
+  # - author: nvim-telescope
+  #   name: telescope.nvim
+  #   branch: main
+  # - author: nvim-tree
+  #   name: nvim-web-devicons
+  #   branch: main
+  # - author: p00f
+  #   name: nvim-ts-rainbow
+  #   branch: main
+  # - author: nvim-treesitter
+  #   name: playground
+  #   branch: main
+  # - author: williamboman
+  #   name: mason.nvim
+  #   branch: main
+  # - author: nvim-treesitter
+  #   name: nvim-treesitter-textobjects
+  #   branch: main
+  # - author: nvim-treesitter
+  #   name: nvim-treesitter-refactor
+  #   branch: main
+  # - author: t3rro
+  #   name: nvim-ts-rainbow
+  #   branch: main
+  # - author: svermeulen
+  #   name: vimpeccable
+  #   branch: main
+  # - author: suketa
+  #   name: nvim-dap-ruby
+  #   branch: main
+  # - author: sudormrfbin
+  #   name: cheatsheet.nvim
+  #   branch: main
+  # - author: stevearc
+  #   name: overseer.nvim
+  #   branch: main
+  # - author: someone-stole-my-name
+  #   name: yaml-companion.nvim
+  #   branch: main
+  # - author: smjonas
+  #   name: inc-rename.nvim
+  #   branch: main
+  # - author: simrat39
+  #   name: symbols-outline.nvim
+  #   branch: main
+  # - author: simrat39
+  #   name: rust-tools.nvim
+  #   branch: main
+  # - author: shaunsingh
+  #   name: nord.nvim
+  #   branch: main
+  # - author: rouge8
+  #   name: neotest-rust
+  #   branch: main
+  # - author: rest-nvim
+  #   name: rest.nvim
+  #   branch: main
+  # - author: rcarriga
+  #   name: nvim-dap-ui
+  #   branch: main
+  # - author: ray-x
+  #   name: navigator.lua
+  #   branch: main
+  # - author: ray-x
+  #   name: lsp_signature.nvim
+  #   branch: main
+  # - author: ray-x
+  #   name: cmp-treesitter
+  #   branch: main
+  # - author: ravenxrz
+  #   name: DAPInstall.nvim
+  #   branch: main
+  # - author: rafcamlet
+  #   name: tabline-framework.nvim
+  #   branch: main
+  # - author: rafcamlet
+  #   name: nvim-luapad
+  #   branch: main
+  # - author: rafamadriz
+  #   name: friendly-snippets
+  #   branch: main
+  # - author: pwntester
+  #   name: octo.nvim
+  #   branch: main
+  # - author: preservim
+  #   name: vim-markdown
+  #   branch: main
+  # - author: phaazon
+  #   name: hop.nvim
+  #   branch: main
+  # - author: p00f
+  #   name: cphelper.nvim
+  #   branch: main
+  # - author: onsails
+  #   name: lspkind.nvim
+  #   branch: main
+  # - author: ojroques
+  #   name: nvim-lspfuzzy
+  #   branch: main
+  # - author: ziontee113
+  #   name: icon-picker.nvim
+  #   branch: main
+  # - author: zbirenbaum
+  #   name: copilot.lua
+  #   branch: main
+  # - author: zbirenbaum
+  #   name: copilot-cmp
+  #   branch: main
+  # - author: yriveiro
+  #   name: dap-go.nvim
+  #   branch: main
+  # - author: yamatsum
+  #   name: nvim-nonicons
+  #   branch: main
+  # - author: windwp
+  #   name: nvim-ts-autotag
+  #   branch: main
+  # - author: windwp
+  #   name: nvim-projectconfig
+  #   branch: main
+  # - author: willothy
+  #   name: veil.nvim
+  #   branch: main
+  # - author: wellle
+  #   name: targets.vim
+  #   branch: main
+  # - author: unblevable
+  #   name: quick-scope
+  #   branch: main
+  # - author: tpope
+  #   name: vim-rhubarb
+  #   branch: main
+  # - author: tpope
+  #   name: vim-repeat
+  #   branch: main
+  # - author: tpope
+  #   name: vim-fugitive
+  #   branch: main
+  # - author: tjdevries
+  #   name: vlog.nvim
+  #   branch: main
+  # - author: theHamsta
+  #   name: nvim-dap-virtual-text
+  #   branch: main
+  # - author: RRethy
+  #   name: nvim-treesitter-textsubjects
+  #   branch: main
+  # - author: RRethy
+  #   name: nvim-treesitter-endwise
+  #   branch: main
+  # - author: nvim-lualine
+  #   name: lualine.nvim
+  #   branch: main
+  # - author: hrsh7th
+  #   name: nvim-cmp
+  #   branch: main
+  # - author: akinsho
+  #   name: bufferline.nvim
+  #   branch: main
+  # - author: EtiamNullam
+  #   name: relative-source.nvim
+  #   branch: main
+  # - author: JoosepAlviste
+  #   name: nvim-ts-context-commentstring
+  #   branch: main
+  # - author: ldelossa
+  #   name: litee.nvim
+  #   branch: main
+  # - author: ldelossa
+  #   name: gh.nvim
+  #   branch: main
+  # - author: danymat
+  #   name: neogen
+  #   branch: main
+  # - author: nvim-treesitter
+  #   name: nvim-treesitter
+  #   branch: main

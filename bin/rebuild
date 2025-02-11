@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+./bin/nixos-rebuild
+./bin/home-manager-rebuild

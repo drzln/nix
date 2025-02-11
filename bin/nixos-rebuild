@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+NIX_CONFIG="experimental-features = nix-command flakes" sudo nixos-rebuild switch \
+	--flake .#"$(hostname)" \
+	-I /etc/nixos/configuration.nix \
+	--show-trace \
+	--impure

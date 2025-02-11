@@ -1,0 +1,43 @@
+/* Waybar Nord Theming */
+
+/* Base background and font colors */
+* {
+  font-family: "sans-serif";
+  font-size: 12px;
+  color: #d8dee9; /* Nord4 */
+}
+
+window {
+  background: #2e3440; /* Nord0 */
+  border: 1px solid #4c566a; /* Nord3 */
+}
+
+/* Modules styling */
+#clock,
+#cpu,
+#memory,
+#network {
+  padding: 0 10px;
+}
+
+/* Hover effects and active states */
+#clock:hover,
+#cpu:hover,
+#memory:hover,
+#network:hover {
+  background: #3b4252; /* Nord1 */
+}
+
+/* Active or urgent states can use accent colors */
+.urgent {
+  background: #bf616a; /* Nord11 */
+  color: #eceff4; /* Nord6 */
+}
+
+/* Spacing between modules */
+.separator {
+  color: #4c566a; /* Nord3 */
+  padding: 0 5px;
+}
+
+/* Example: If you have a custom launcher or system tray modules, style them similarly */
