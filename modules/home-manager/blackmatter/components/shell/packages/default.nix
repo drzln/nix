@@ -68,6 +68,7 @@ in {
           lazygit
           gh
           sumneko-lua-language-server
+          bundix
           # end these are critical
 
           # i3status
