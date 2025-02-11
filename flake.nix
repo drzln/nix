@@ -1,5 +1,5 @@
 {
-  description = "drzzln systems";
+  description = "nix configurations";
 
   inputs = {
     nixhashsync = {
@@ -28,7 +28,6 @@
 
     home-manager = {
       url = "github:nix-community/home-manager?branch=master";
-      # inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nix-darwin = {
