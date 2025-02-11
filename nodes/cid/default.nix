@@ -264,6 +264,7 @@
       [delta]
         side-by-side = true
     '';
+
   };
 
 }
