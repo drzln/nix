@@ -1,6 +1,10 @@
-{ config, pkgs, inputs, lib, ... }:
-
 {
+  config,
+  pkgs,
+  inputs,
+  lib,
+  ...
+}: {
   ############################################
   # System & Host
   ############################################
@@ -18,9 +22,10 @@
   # Allow unfree packages selectively, etc.
   nixpkgs.config = {
     allowUnfree = true;
-    allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-      "packer"
-    ];
+    allowUnfreePredicate = pkg:
+      builtins.elem (lib.getName pkg) [
+        "packer"
+      ];
     permittedInsecurePackages = [
       "python2.7-pyjwt-1.7.1"
     ];
@@ -155,6 +160,7 @@
   ############################################
 
   environment.systemPackages = with pkgs; [
+    sumneko-lua-language-server
     docker
     docker-client
     tfswitch
@@ -231,9 +237,9 @@
   home-manager.backupFileExtension = "backup";
 
   # Home Manager config for user ldesiqueira
-  home-manager.users.ldesiqueira = { ... }: {
+  home-manager.users.ldesiqueira = {...}: {
     # Example of importing a custom module or theme
-    imports = [ ../../modules/home-manager/blackmatter ];
+    imports = [../../modules/home-manager/blackmatter];
     home.stateVersion = "23.11";
 
     # Let Home Manager manage itself
@@ -264,7 +270,5 @@
       [delta]
         side-by-side = true
     '';
-
   };
-
 }
