@@ -217,7 +217,7 @@
       libiconv
       go
       bat
-      fira-code-nerdfont
+      nerd-fonts.fira-code
       dotnet-sdk_8
       php83Packages.composer
       clang
