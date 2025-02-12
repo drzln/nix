@@ -10,6 +10,7 @@ function M.setup()
 	local exclude_servers = {
 		"taplo",
 		"solargraph",
+		"rubocop",
 		"stylua",
 		"standardrb",
 		"efm",
