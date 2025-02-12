@@ -67,6 +67,7 @@ in {
           traceroute
           lazygit
           gh
+          tree
           sumneko-lua-language-server
           bundix
           # end these are critical
@@ -108,7 +109,6 @@ in {
           # duckdb
           # docker
           # delve
-          # tree
           # yarn
           # typescript
           # lazydocker
