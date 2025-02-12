@@ -12,7 +12,7 @@ function M.setup()
 		"omnisharp_mono",
 		"typst_lsp",
 		"bufls",
-		"solargraph",
+		-- "solargraph",
 		"rubocop",
 		"stylua",
 		"standardrb",
