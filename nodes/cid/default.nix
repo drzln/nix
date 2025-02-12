@@ -35,7 +35,7 @@
   nix.package = pkgs.nixVersions.stable;
   nix.extraOptions = "experimental-features = nix-command flakes";
 
-  services.nix-daemon.enable = true;
+  # services.nix-daemon.enable = true;
 
   # Keep documentation off (man/info etc.) to save space
   documentation.enable = false;
