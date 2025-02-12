@@ -28,7 +28,7 @@ in {
       mkIf cfg.enable
       {
         home.file."${configPath}".source = ./config.lua;
-        home.packages = with pkgs; [unzip go nodejs];
+        home.packages = with pkgs; with php84Packages; [unzip go nodejs composer];
         blackmatter.components.nvim.plugins = {
           neovim.nvim-lspconfig.enable = true;
           williamboman."mason.nvim".enable = true;
