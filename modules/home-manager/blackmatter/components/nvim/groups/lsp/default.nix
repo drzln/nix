@@ -14,9 +14,9 @@ in {
   };
 
   imports = [
-    ../../plugins/neovim/nvim-lspconfig
-    ../../plugins/williamboman/mason.nvim
     ../../plugins/williamboman/mason-lspconfig.nvim
+    ../../plugins/williamboman/mason.nvim
+    ../../plugins/neovim/nvim-lspconfig
     ../../plugins/hrsh7th/cmp-nvim-lsp
     ../../plugins/hrsh7th/nvim-cmp
     # ../../plugins/ray-x/lsp_signature.nvim
@@ -35,6 +35,7 @@ in {
           unzip
           nodejs
           composer
+          solargraph
           zulu23
           dotnetCorePackages.dotnet_9.sdk
           dotnetCorePackages.dotnet_9.runtime
