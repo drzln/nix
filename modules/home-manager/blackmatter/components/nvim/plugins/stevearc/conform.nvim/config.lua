@@ -5,6 +5,7 @@ function M.setup()
 			lua = { "stylua" },
 			nix = { "alejandra" },
 			ruby = { "rubocop" },
+			json = { "prettier" },
 		},
 	})
 end
