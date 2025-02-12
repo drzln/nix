@@ -50,7 +50,7 @@ function M.setup()
 		"java_language_server",
 		"move_analyzer",
 		"r_language_server",
-		"ruby_ls",
+		-- "ruby_ls",
 		"clarity_lsp",
 		"awk_ls",
 		"nimls",
