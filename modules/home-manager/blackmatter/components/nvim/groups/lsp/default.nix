@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 with lib; let
@@ -27,6 +28,7 @@ in {
       mkIf cfg.enable
       {
         home.file."${configPath}".source = ./config.lua;
+        home.packages = with pkgs; [nodejs];
         blackmatter.components.nvim.plugins = {
           neovim.nvim-lspconfig.enable = true;
           williamboman."mason.nvim".enable = true;
