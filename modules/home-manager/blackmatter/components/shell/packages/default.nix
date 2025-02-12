@@ -69,6 +69,7 @@ in {
           gh
           sumneko-lua-language-server
           bundix
+          cargo
           # end these are critical
 
           # i3status
@@ -88,7 +89,6 @@ in {
           # openssl
           # pkg-config
           # rustc
-          # cargo
           # autorandr
           # dmenu
           # rxvt_unicode
