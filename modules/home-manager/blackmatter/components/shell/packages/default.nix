@@ -71,6 +71,7 @@ in {
           sumneko-lua-language-server
           bundix
           cargo
+          awscli2
           # end these are critical
 
           # i3status
