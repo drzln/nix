@@ -9,6 +9,9 @@ function M.setup()
 
 	local exclude_servers = {
 		"taplo",
+		"omnisharp_mono",
+		"typst_lsp",
+		"bufls",
 		"solargraph",
 		"rubocop",
 		"stylua",
@@ -50,7 +53,7 @@ function M.setup()
 		"java_language_server",
 		"move_analyzer",
 		"r_language_server",
-		-- "ruby_ls",
+		"ruby_ls",
 		"clarity_lsp",
 		"awk_ls",
 		"nimls",
