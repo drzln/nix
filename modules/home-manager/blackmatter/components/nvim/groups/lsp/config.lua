@@ -14,6 +14,8 @@ function M.setup()
 		"bufls",
 		-- "solargraph",
 		"rubocop",
+		"pylsp",
+		"cmake",
 		"stylua",
 		"standardrb",
 		"efm",
