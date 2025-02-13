@@ -6,6 +6,7 @@ function M.setup()
 			nix = { "alejandra" },
 			ruby = { "rubocop" },
 			json = { "prettier" },
+			python = { "black" },
 		},
 	})
 end

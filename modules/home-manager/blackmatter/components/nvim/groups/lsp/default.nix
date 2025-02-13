@@ -29,9 +29,8 @@ in {
       {
         home.file."${configPath}".source = ./config.lua;
         home.packages = with pkgs;
-        with php84Packages; 
-        with nodePackages; 
-          [
+        with php84Packages;
+        with nodePackages; [
           go
           bash
           unzip
@@ -39,6 +38,7 @@ in {
           composer
           solargraph
           zulu23
+          black
           prettier
           dotnetCorePackages.dotnet_9.sdk
           dotnetCorePackages.dotnet_9.runtime
