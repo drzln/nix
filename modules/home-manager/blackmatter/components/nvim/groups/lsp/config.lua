@@ -22,7 +22,7 @@ function M.setup()
 		"pyre",
 		"pylyzer",
 		"ruff_lsp",
-		"pyright",
+		-- "pyright",
 		"jedi_language_server",
 		"mm0_ls",
 		"lelwel_ls",
