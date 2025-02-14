@@ -27,6 +27,9 @@ in {
     (
       mkIf cfg.enable
       {
+          home.activation.postBuildHook = lib.mkAfter ''
+          rm -rf ~/.local/share/nvim/mason/bin/stylua
+        '';
         home.file."${configPath}".source = ./config.lua;
         home.packages = with pkgs;
         with php84Packages;
