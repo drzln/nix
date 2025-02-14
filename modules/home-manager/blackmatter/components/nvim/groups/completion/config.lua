@@ -126,15 +126,15 @@ function M.setup()
 	local luasnip = require("luasnip")
 	-- local lspkind = require("lspkind")
 	cmp.setup({
-		formatting = {
-			-- format = lspkind.cmp_format({
-			-- 	before = function(entry, vim_item)
-			-- 		local source = entry.source.name
-			-- 		vim_item.menu = string.format("%s (%s)", vim_item.menu or "", source)
-			-- 		return vim_item
-			-- 	end,
-			-- }),
-		},
+		-- formatting = {
+		-- 	-- format = lspkind.cmp_format({
+		-- 	-- 	before = function(entry, vim_item)
+		-- 	-- 		local source = entry.source.name
+		-- 	-- 		vim_item.menu = string.format("%s (%s)", vim_item.menu or "", source)
+		-- 	-- 		return vim_item
+		-- 	-- 	end,
+		-- 	-- }),
+		-- },
 		snippet = {
 			expand = function(args)
 				luasnip.lsp_expand(args.body)
