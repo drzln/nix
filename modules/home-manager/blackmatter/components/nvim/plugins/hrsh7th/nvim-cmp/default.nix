@@ -1,6 +1,9 @@
-{ lib, config, ... }:
-with lib;
-let
+{
+  lib,
+  config,
+  ...
+}:
+with lib; let
   cfg = config.blackmatter.components.nvim.plugins.${author}.${name};
   common = import ../../../common;
   url = "${common.baseRepoUrl}/${author}/${name}";
@@ -8,18 +11,17 @@ let
   configPath = "${common.includesPath}/${author}/${plugName}.lua";
   author = "hrsh7th";
   name = "nvim-cmp";
-  plugName = name;
+  # plugName = name;
   ref = "main";
   rev = import ./rev.nix;
-in
-{
+in {
   options.blackmatter.components.nvim.plugins.${author}.${name}.enable = mkEnableOption "${author}/${name}";
 
   config = mkMerge [
     (mkIf cfg.enable {
       home.file."${plugPath}".source =
-        builtins.fetchGit { inherit ref rev url; };
-      home.file."${configPath}".source = ./config.lua;
+        builtins.fetchGit {inherit ref rev url;};
+      # home.file."${configPath}".source = ./config.lua;
     })
   ];
 }

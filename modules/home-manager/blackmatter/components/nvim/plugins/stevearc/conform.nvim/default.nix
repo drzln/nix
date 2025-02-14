@@ -9,10 +9,8 @@ with lib; let
   common = import ../../../common;
   url = "${common.baseRepoUrl}/${author}/${name}";
   plugPath = "${common.basePlugPath}/${author}/start/${name}";
-  configPath = "${common.includesPath}/${author}/${plugName}.lua";
   author = "stevearc";
   name = "conform.nvim";
-  plugName = "conform";
   ref = "master";
   rev = import ./rev.nix;
 in {
@@ -25,7 +23,6 @@ in {
         stylua
         alejandra
       ];
-      home.file."${configPath}".source = ./config.lua;
       home.file."${plugPath}".source = builtins.fetchGit {inherit ref rev url;};
     })
   ];
