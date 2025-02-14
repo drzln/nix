@@ -9,7 +9,7 @@ with lib; let
   url = "${common.baseRepoUrl}/${author}/${name}";
   plugPath = "${common.basePlugPath}/${author}/start/${name}";
   author = "yetone";
-  name = "avente.nvim";
+  name = "avante.nvim";
   ref = "main";
   rev = import ./rev.nix;
 in {
