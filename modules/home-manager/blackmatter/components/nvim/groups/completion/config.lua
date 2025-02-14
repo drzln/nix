@@ -123,7 +123,7 @@ function M.setup()
 	-- set_lspkind_config("text")
 
 	local cmp = require("cmp")
-	local luasnip = require("luasnip")
+	-- local luasnip = require("luasnip")
 	-- local lspkind = require("lspkind")
 	cmp.setup({
 		-- formatting = {
@@ -135,19 +135,19 @@ function M.setup()
 		-- 	-- 	end,
 		-- 	-- }),
 		-- },
-		snippet = {
-			expand = function(args)
-				luasnip.lsp_expand(args.body)
-			end,
-		},
+		-- snippet = {
+		-- 	expand = function(args)
+		-- 		-- luasnip.lsp_expand(args.body)
+		-- 	end,
+		-- },
 		mapping = {
 			["<CR>"] = cmp.mapping(function(fallback)
 				if cmp.visible() and cmp.get_active_entry() then
 					-- Confirm currently active completion item
 					cmp.confirm({ select = false })
-				elseif luasnip.expand_or_jumpable() then
+					-- elseif luasnip.expand_or_jumpable() then
 					-- Expand or jump in a snippet
-					luasnip.expand_or_jump()
+					-- luasnip.expand_or_jump()
 				else
 					-- Just do a regular newline
 					fallback()
