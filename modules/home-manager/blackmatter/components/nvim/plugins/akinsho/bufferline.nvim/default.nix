@@ -2,15 +2,13 @@
 with lib;
 let
   cfg = config.blackmatter.components.nvim.plugins.${author}.${name};
-  common = import ../../../common;
-  url = "${common.baseRepoUrl}/${author}/${name}";
   plugPath = "${common.basePlugPath}/${author}/start/${name}";
-  configPath = "${common.includesPath}/${author}/${plugName}.lua";
-  author = "akinsho";
+  url = "${common.baseRepoUrl}/${author}/${name}";
+  common = import ../../../common;
   name = "bufferline.nvim";
-  plugName = "bufferline";
-  ref = "main";
   rev = import ./rev.nix;
+  author = "akinsho";
+  ref = "main";
 in
 {
   options.blackmatter.components.nvim.plugins.${author}.${name}.enable =
@@ -20,7 +18,6 @@ in
     (mkIf cfg.enable {
       home.file."${plugPath}".source =
         builtins.fetchGit { inherit ref rev url; };
-      home.file."${configPath}".source = ./config.lua;
     })
   ];
 }
