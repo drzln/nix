@@ -27,6 +27,7 @@ in {
     ../../plugins/zbirenbaum/copilot-cmp
     ../../plugins/zbirenbaum/copilot.lua
     ../../plugins/rafamadriz/friendly-snippets
+    ../../plugins/yetone/avente.nvim
   ];
 
   config = mkMerge [
@@ -47,6 +48,7 @@ in {
           zbirenbaum."copilot.lua".enable = true;
           zbirenbaum."copilot-cmp".enable = true;
           rafamadriz.friendly-snippets.enable = true;
+          yetone."avente.nvim".enable = true;
         };
       }
     )
