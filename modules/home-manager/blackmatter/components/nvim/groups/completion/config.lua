@@ -142,9 +142,9 @@ function M.getCmpSources()
 	return {
 		-- { name = "copilot" },
 		-- { name = "luasnip" },
-		-- { name = 'treesitter' },
-		-- { name = 'buffer' },
-		-- { name = 'cmdline' },
+		{ name = "buffer" },
+		{ name = "cmdline" },
+		{ name = "treesitter" },
 		{ name = "nvim_lsp" },
 		{ name = "path" },
 	}
