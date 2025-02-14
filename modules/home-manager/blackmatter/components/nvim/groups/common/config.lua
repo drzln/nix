@@ -5,7 +5,7 @@ function M.setup()
 
   -- highlight search results
   vim.opt.hlsearch = true
-  
+
   -- customize file finding
   vim.opt.path:remove '/usr/include'
   vim.opt.path:append '**'
@@ -48,6 +48,13 @@ function M.setup()
 
   -- required for theming but cannot be in theming
   vim.opt.termguicolors = true
+
+  -- projects
+	require('project_nvim').setup {
+		manual_mode = false,
+		detection_methods = { 'lsp', 'pattern' },
+		patterns = { '.git', '_darcs', '.hg', '.bzr', '.svn', 'Makefile', 'package.json' },
+	};
 end
 
 return M
