@@ -112,7 +112,8 @@
     external-nixos-modules = {};
     nixos-modules = local-nixos-modules // external-nixos-modules;
   in {
-    packages = flake-utils.lib.eachSystem ["x86_64-linux" "x86_64-darwin"] (
+    # packages = flake-utils.lib.eachSystem ["x86_64-linux" "x86_64-darwin"] (
+    packages = flake-utils.lib.eachDefaultSystem (
       system: let
         pkgs = import nixpkgs {
           inherit system;
