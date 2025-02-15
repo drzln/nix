@@ -1,6 +1,6 @@
 [
   (self: super: {
-    #neovim_drzln = super.callPackage ../packages/neovim { };
+    neovim = super.callPackage ../packages/neovim {};
   })
   (self: super: {
     cb = super.buildGoPackage {

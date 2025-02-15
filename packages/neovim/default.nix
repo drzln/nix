@@ -20,15 +20,15 @@
 in
   stdenv.mkDerivation {
     pname = "neovim";
-    version = "0.10.1-dev";
+    version = "0.10.4";
 
     src = fetchFromGitHub {
       owner = "neovim";
       repo = "neovim";
-      rev = "20251be15a4ad3f6e7016450ca3338d52b2f0951";
+      rev = "e96f75a4e60c9082e89c7f61e2ce0647e4ebdf43";
       sha256 =
         if stdenv.isLinux
-        then "sha256-OsHIacgorYnB/dPbzl1b6rYUzQdhTtsJYLsFLJxregk=" # Linux sha256
+        then "sha256-TAuoa5GD50XB4OCHkSwP1oXfedzVrCBRutNxBp/zGLY=" # Linux sha256
         else if stdenv.isDarwin
         then "sha256-OsHIacgorYnB/dPbzl1b6rYUzQdhTtsJYLsFLJxregk=" # Darwin sha256
         else throw "Unsupported platform";
@@ -76,7 +76,7 @@ in
     ];
 
     postInstall = ''
-      ${
+       ${
         if stdenv.isLinux
         then ''
           addAutoPatchelfSearchPath ${pkgs.libuv}/lib
@@ -87,8 +87,8 @@ in
         then "install_name_tool -change /old/path/libfoo.dylib ${deps}/lib/libfoo.dylib $out/bin/nvim"
         else ""
       }
-      rm -rf $out/lib
-      rm -rf $out/share
+      #rm -rf $out/lib
+      #rm -rf $out/share
     '';
 
     meta = {

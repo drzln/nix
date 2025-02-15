@@ -67,7 +67,7 @@
     packages = flake-utils.lib.eachDefaultSystem (system: let
       pkgs = mkPkgs system;
     in {
-      neovim_drzln = pkgs.callPackage ./packages/neovim {};
+    neovim   = pkgs.callPackage ./packages/neovim {};
       nixhashsync = nixhashsync.packages.${system}.default;
     });
 
