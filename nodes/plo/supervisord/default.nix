@@ -1,10 +1,8 @@
-{ requirements, ... }:
-let
+{requirements, ...}: let
   namespace = "plo";
-in
-{
+in {
   imports = [
-    requirements.outputs.nixosModules.blackmatter
+    requirements.inputs.self.nixosModules.blackmatter
   ];
 
   blackmatter.components.microservices.supervisord = {

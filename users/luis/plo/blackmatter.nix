@@ -1,6 +1,6 @@
-{ requirements, pkgs, ... }: {
+{requirements, ...}: {
   imports = [
-    requirements.outputs.homeManagerModules.blackmatter
+    requirements.inputs.self.homeManagerModules.blackmatter
   ];
   blackmatter.enable = true;
 

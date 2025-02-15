@@ -1,34 +1,36 @@
-{ config, pkgs, requirements, ... }:
-let
-  pkgs-unstable = requirements.inputs.hyprland.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system};
-  sudo-users-common =
-    {
-      shell = pkgs.zsh;
-      isNormalUser = true;
-      extraGroups = [
-        "networkmanager"
-        "wheel"
-        "docker"
-        "podman"
-        "libvirtd"
-        "audio"
-        "video"
-      ];
-      packages = with pkgs; [
-        home-manager
-      ];
-    };
-in
 {
+  # config,
+  pkgs,
+  requirements,
+  ...
+}: let
+  # pkgs-unstable = requirements.inputs.hyprland.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system};
+  sudo-users-common = {
+    shell = pkgs.zsh;
+    isNormalUser = true;
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "docker"
+      "podman"
+      "libvirtd"
+      "audio"
+      "video"
+    ];
+    packages = with pkgs; [
+      home-manager
+    ];
+  };
+in {
   system.stateVersion = "24.05";
   nixpkgs.config.allowUnfree = true;
   networking.hosts = {
-    "127.0.0.1" = [ "mysql" ];
+    "127.0.0.1" = ["mysql"];
   };
   networking.domain = "local.host.pleme.io";
 
   imports = [
-    requirements.outputs.nixosModules.blackmatter
+    requirements.inputs.self.nixosModules.blackmatter
     ./application_reverse_proxy
     ./supervisord
     ./dev_services
@@ -37,20 +39,26 @@ in
 
   blackmatter.profiles.blizzard.enable = true;
 
-  users.users.luis = {
-    uid = 1001;
-    description = "luis";
-  } // sudo-users-common;
+  users.users.luis =
+    {
+      uid = 1001;
+      description = "luis";
+    }
+    // sudo-users-common;
 
-  users.users.gab = {
-    uid = 1002;
-    description = "gab";
-  } // sudo-users-common;
+  users.users.gab =
+    {
+      uid = 1002;
+      description = "gab";
+    }
+    // sudo-users-common;
 
-  users.users.gaby = {
-    uid = 1003;
-    description = "gaby";
-  } // sudo-users-common;
+  users.users.gaby =
+    {
+      uid = 1003;
+      description = "gaby";
+    }
+    // sudo-users-common;
 
   users.users.supervisor = {
     isSystemUser = true;
@@ -107,7 +115,6 @@ in
   users.groups.graphql = {
     gid = 1800;
   };
-
 
   users.users.opensearch = {
     isSystemUser = true;
