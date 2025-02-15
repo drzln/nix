@@ -1,10 +1,8 @@
 {
-  # config,
   pkgs,
   requirements,
   ...
 }: let
-  # pkgs-unstable = requirements.inputs.hyprland.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system};
   sudo-users-common = {
     shell = pkgs.zsh;
     isNormalUser = true;
