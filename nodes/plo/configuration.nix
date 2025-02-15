@@ -149,4 +149,5 @@ in {
     gab ALL=(ALL) NOPASSWD:ALL
     gaby ALL=(ALL) NOPASSWD:ALL
   '';
+  nixpkgs.config.allowImportFromDerivation = true;
 }
