@@ -49,6 +49,10 @@ function M.setup()
   -- required for theming but cannot be in theming
   vim.opt.termguicolors = true
 
+  -- telescope
+	require('telescope').setup();
+
+	-- require('telescope').load_extension('projects')
   -- projects
 	-- require('project_nvim').setup {
 	-- 	manual_mode = false,
