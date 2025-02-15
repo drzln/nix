@@ -50,7 +50,7 @@ function M.setup()
   vim.opt.termguicolors = true
 
   -- telescope
-	require('telescope').setup();
+	-- require('telescope').setup();
 
 	-- require('telescope').load_extension('projects')
   -- projects
