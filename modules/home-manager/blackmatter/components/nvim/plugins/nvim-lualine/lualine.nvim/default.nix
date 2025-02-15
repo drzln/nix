@@ -5,10 +5,8 @@ let
   common = import ../../../common;
   url = "${common.baseRepoUrl}/${author}/${name}";
   plugPath = "${common.basePlugPath}/${author}/start/${name}";
-  configPath = "${common.includesPath}/${author}/${plugName}.lua";
   author = "nvim-lualine";
   name = "lualine.nvim";
-  plugName = "lualine";
   ref = "master";
   rev = import ./rev.nix;
 in
@@ -19,7 +17,6 @@ in
     (mkIf cfg.enable {
       home.file."${plugPath}".source =
         builtins.fetchGit { inherit rev ref url; };
-      home.file."${configPath}".source = ./config.lua;
     })
   ];
 }
