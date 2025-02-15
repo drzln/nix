@@ -1,7 +1,9 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 with lib;
 let
   cfg = config.blackmatter.components.nvim.plugin.groups.treesitter;
+  common = import ../../common;
+  configPath = "${common.includesPath}/treesitter/config.lua";
 in
 {
   options.blackmatter.components.nvim.plugin.groups.treesitter =
@@ -26,6 +28,7 @@ in
     mkMerge [
       (mkIf cfg.enable
         {
+          home.file."${configPath}".source = ./config.lua;
           blackmatter.components.nvim.plugins =
             {
               nvim-treesitter.nvim-treesitter.enable = true;
