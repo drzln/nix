@@ -1,18 +1,16 @@
-{ requirements, ... }:
-let
+{requirements, ...}: let
   namespace = "plo";
-in
-{
+in {
   imports = [
     requirements.inputs.self.nixosModules.blackmatter
   ];
 
   blackmatter.components.microservices.application_reverse_proxy = {
     inherit namespace;
-    enable = true;
+    enable = false;
 
     traefik.settings = {
-			# old TLS configs when we thought we could reverse proxy mysql
+      # old TLS configs when we thought we could reverse proxy mysql
       # tls = {
       #   certificates = [
       #     {

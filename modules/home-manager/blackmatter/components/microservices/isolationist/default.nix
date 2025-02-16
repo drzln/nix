@@ -1,7 +1,10 @@
-{ lib, config, pkgs, ... }:
-with lib;
-
-let
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
+with lib; let
   cfg = config.blackmatter.components.microservices.isolationist;
 
   interface = {
@@ -53,9 +56,7 @@ let
       };
     };
   };
-
-in
-{
+in {
   options = {
     blackmatter.components.microservices.isolationist = interface;
   };
@@ -77,19 +78,22 @@ in
           config = mkMerge [
             # Let’s open typical HTTP ports, or whichever your service needs
             {
-              networking.firewall.allowedTCPPorts = [ 80 443 ];
+              networking.firewall.allowedTCPPorts = [80 443];
               # Default route & DNS so the container can reach the internet via NAT
               networking.defaultGateway = cfg.containerHostIP;
-              networking.nameservers = [ "1.1.1.1" ];
+              networking.nameservers = ["1.1.1.1"];
             }
 
             # If we want to enable a small example service in the container:
             (mkIf cfg.exampleService.enable {
-              services.nginx.enable = true;
+              services.nginx.enable = false;
               # For example, set up a simple Nginx site
               services.nginx.virtualHosts."example.local" = {
                 listen = [
-                  { addr = "0.0.0.0"; port = 80; }
+                  {
+                    addr = "0.0.0.0";
+                    port = 80;
+                  }
                 ];
                 root = "/var/www";
               };
@@ -113,7 +117,6 @@ in
         # A guess at what systemd-nspawn calls it
         "ve-${cfg.containerName}"
       ];
-
     })
   ];
 }
