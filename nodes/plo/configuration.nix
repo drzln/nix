@@ -88,7 +88,7 @@ in {
 
   users.users.postgres = {
     isSystemUser = true;
-    uid = 1700;
+    uid = 999;
     home = "/var/lib/postgres";
     group = "postgres";
     shell = pkgs.bash;
@@ -97,7 +97,7 @@ in {
   };
 
   users.groups.postgres = {
-    gid = 1700;
+    gid = 999;
   };
 
   users.users.graphql = {
