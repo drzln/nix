@@ -87,6 +87,7 @@ function M.setup()
 
 	local configure_only_servers = {
 		"rust_analyzer",
+		"ts_ls",
 	}
 
 	local function is_excluded(server)
