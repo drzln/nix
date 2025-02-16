@@ -3,12 +3,21 @@ function M.setup()
 	local mason = require("mason")
 	local mason_lspconfig = require("mason-lspconfig")
 
+	local function merge_configs(base, overrides)
+		local merged = vim.tbl_deep_extend("force", {}, base, overrides)
+		return merged
+	end
+
 	mason.setup()
 
-	local available_servers = mason_lspconfig.get_available_servers()
+	local mason_available_servers = mason_lspconfig.get_available_servers()
+	local local_available_servers = {
+		"ts_ls",
+	}
+	local available_servers = merge_configs(mason_available_servers, local_available_servers)
 
 	local exclude_servers = {
-		-- "tsserver",
+		"tsserver",
 		"angularls",
 		"ember",
 		"eslint",
@@ -110,11 +119,6 @@ function M.setup()
 			},
 		},
 	}
-
-	local function merge_configs(base, overrides)
-		local merged = vim.tbl_deep_extend("force", {}, base, overrides)
-		return merged
-	end
 
 	local common_config = {
 		capabilities = require("cmp_nvim_lsp").default_capabilities(),
