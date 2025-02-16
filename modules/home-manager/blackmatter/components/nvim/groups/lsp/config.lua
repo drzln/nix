@@ -8,6 +8,7 @@ function M.setup()
 	local available_servers = mason_lspconfig.get_available_servers()
 
 	local exclude_servers = {
+		-- "tsserver",
 		"angularls",
 		"ember",
 		"eslint",
@@ -65,7 +66,6 @@ function M.setup()
 		"clarity_lsp",
 		"awk_ls",
 		"nimls",
-		"tsserver",
 		"ocamllsp",
 		"csharp_ls",
 		"vala_ls",
