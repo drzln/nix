@@ -6,7 +6,7 @@ let
   interface = {
     enable = mkOption {
       type = types.bool;
-      default = true;
+      default = false;
       description = "Enable application reverse proxy as a whole";
     };
 
@@ -21,7 +21,7 @@ let
     traefik = {
       enable = mkOption {
         type = types.bool;
-        default = true;
+        default = false;
         description = "Enable Traefik within the application reverse proxy";
       };
       settings = mkOption {
@@ -39,7 +39,7 @@ let
     consul = {
       enable = mkOption {
         type = types.bool;
-        default = true;
+        default = false;
         description = "Enable Consul service within the reverse proxy setup";
       };
       package = mkOption {
@@ -52,7 +52,7 @@ let
     nomad = {
       enable = mkOption {
         type = types.bool;
-        default = true;
+        default = false;
         description = "Enable Nomad service within the reverse proxy setup";
       };
       package = mkOption {
