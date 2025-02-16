@@ -2,12 +2,15 @@
 # shell packages
 # packages that have nothing to do with a gui or desktop setup
 ###############################################################################
-{ pkgs, lib, config, ... }:
-with lib;
-let
-  cfg = config.blackmatter.components.desktop.packages;
-in
 {
+  pkgs,
+  lib,
+  config,
+  ...
+}:
+with lib; let
+  cfg = config.blackmatter.components.desktop.packages;
+in {
   options = {
     blackmatter = {
       components = {
@@ -23,16 +26,13 @@ in
 
       # overlay the discord-canary package
       # to install openasar https://openasar.dev/
-      nixpkgs.overlays =
-        let
-          openasar = self: super: {
-            discord-canary = super.discord.override { withOpenASAR = true; };
-          };
-        in
-        [ openasar ];
+      nixpkgs.overlays = let
+        openasar = self: super: {
+          discord-canary = super.discord.override {withOpenASAR = true;};
+        };
+      in [openasar];
 
-      xdg.configFile."discordcanary/settings.json".text =
-        "{\"SKIP_HOST_UPDATE\": true }";
+      xdg.configFile."discordcanary/settings.json".text = "{\"SKIP_HOST_UPDATE\": true }";
       # end discord
 
       #########################################################################
@@ -41,60 +41,59 @@ in
 
       # makes it so rbenv install succeeds
       xdg.configFile."shellz/hooks/main.sh".text =
-        "export CPATH=\"${pkgs.zlib.dev}/include:$CPATH\"" +
-        "export LDFLAGS=\"-L${pkgs.zlib.out}/lib -L${pkgs.openssl.out}/lib\"" +
-        "export CPPFLAGS=\"-I${pkgs.zlib.dev}/include -I${pkgs.openssl.dev}/include\""
-      ;
+        "export CPATH=\"${pkgs.zlib.dev}/include:$CPATH\""
+        + "export LDFLAGS=\"-L${pkgs.zlib.out}/lib -L${pkgs.openssl.out}/lib\""
+        + "export CPPFLAGS=\"-I${pkgs.zlib.dev}/include -I${pkgs.openssl.dev}/include\"";
 
       # end ruby deps shell hook
 
-      home.packages = with pkgs;
-        [
-          bat
-          openssl
-          zlib
-          readline
-          autoconf
-          bash
-          bashInteractive
-          binutils
-          coreutils
-          diffutils
-          findutils
-          gdbm
-          gnugrep
-          gnused
-          libffi
-          libiconv
-          libtool
-          libyaml
-          ncurses
-          openssl.dev
-          pkg-config
-          which
-          zlib.dev
-          gpauth
-          gpclient
-          gnome-tweaks
-          fractal
-          # blender
-          spotify
-          slack
-          google-chrome
-          zoom-us
-          kitty
-          discord-canary
-          webcamoid
-          obsidian
-          android-studio
-          xdotool
-          xtitle
-          freecad
-          libreoffice
-          vscode
-        ];
+      home.packages = with pkgs; [
+        bat
+        openssl
+        zlib
+        readline
+        autoconf
+        bash
+        bashInteractive
+        binutils
+        coreutils
+        diffutils
+        findutils
+        gdbm
+        gnugrep
+        gnused
+        libffi
+        libiconv
+        libtool
+        libyaml
+        ncurses
+        openssl.dev
+        pkg-config
+        which
+        zlib.dev
+        gpauth
+        gpclient
+        gnome-tweaks
+        fractal
+        # blender
+        spotify
+        slack
+        google-chrome
+        zoom-us
+        kitty
+        discord-canary
+        webcamoid
+        obsidian
+        android-studio
+        xdotool
+        xtitle
+        freecad
+        libreoffice
+        vscode
+        beekeeper-studio
+      ];
     })
   ];
 }
-
 # end shell packages
+
