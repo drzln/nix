@@ -143,6 +143,20 @@ in {
     gid = 2100;
   };
 
+  users.users.minio = {
+    isSystemUser = true;
+    uid = 2200;
+    home = "/var/lib/nginx";
+    group = "nginx";
+    shell = pkgs.bash;
+    description = "nginx";
+    createHome = true;
+  };
+
+  users.groups.minio = {
+    gid = 2200;
+  };
+
   security.sudo.extraConfig = ''
     luis ALL=(ALL) NOPASSWD:ALL
     gab ALL=(ALL) NOPASSWD:ALL
