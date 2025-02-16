@@ -86,9 +86,10 @@ in {
     gid = 1600;
   };
 
+  # nscd collides with postgres 999
   users.users.postgres = {
     isSystemUser = true;
-    uid = 999;
+    uid = 1700;
     home = "/var/lib/postgres";
     group = "postgres";
     shell = pkgs.bash;
@@ -97,7 +98,7 @@ in {
   };
 
   users.groups.postgres = {
-    gid = 999;
+    gid = 1700;
   };
 
   users.users.graphql = {
