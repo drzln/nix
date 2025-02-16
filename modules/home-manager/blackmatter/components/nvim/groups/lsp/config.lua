@@ -8,6 +8,14 @@ function M.setup()
 	local available_servers = mason_lspconfig.get_available_servers()
 
 	local exclude_servers = {
+		"angularls",
+		"ember",
+		"eslint",
+		"unocss",
+		"tailwindcss",
+		"cssmodules_ls",
+		"glint",
+		"vtsls",
 		"taplo",
 		"omnisharp_mono",
 		"typst_lsp",
@@ -22,7 +30,6 @@ function M.setup()
 		"pyre",
 		"pylyzer",
 		"ruff_lsp",
-		-- "pyright",
 		"jedi_language_server",
 		"mm0_ls",
 		"lelwel_ls",
@@ -42,7 +49,6 @@ function M.setup()
 		"grammarly",
 		"custom_elements_ls",
 		"pkgbuild_language_server",
-		-- "nil_ls",
 		"rnix",
 		"sorbet",
 		"sourcery",
