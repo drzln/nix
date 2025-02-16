@@ -72,6 +72,7 @@ in {
           bundix
           cargo
           awscli2
+          arion
           # end these are critical
 
           # i3status
