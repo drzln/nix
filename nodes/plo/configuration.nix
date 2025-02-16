@@ -146,10 +146,10 @@ in {
   users.users.minio = {
     isSystemUser = true;
     uid = 2200;
-    home = "/var/lib/nginx";
-    group = "nginx";
+    home = "/var/lib/minio";
+    group = "minio";
     shell = pkgs.bash;
-    description = "nginx";
+    description = "minio";
     createHome = true;
   };
 
