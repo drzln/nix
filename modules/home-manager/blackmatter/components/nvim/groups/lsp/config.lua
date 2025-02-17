@@ -18,6 +18,9 @@ function M.setup()
 
 	local exclude_servers = {
 		"tsserver",
+		"emmet_ls",
+		"emmet_language_server",
+		"graphql_language_service_cli",
 		"angularls",
 		"ember",
 		"eslint",
