@@ -73,6 +73,7 @@ in {
           cargo
           awscli2
           arion
+          llama-cpp
           # end these are critical
 
           # i3status
