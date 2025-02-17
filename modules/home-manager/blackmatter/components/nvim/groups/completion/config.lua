@@ -106,8 +106,8 @@ end
 function M.getCmpSources()
 	return {
 		{ name = "nvim_lsp" },
+		{ name = "luasnip" },
 		-- { name = "copilot" },
-		-- { name = "luasnip" },
 		-- { name = "buffer" },
 		-- { name = "cmdline" },
 		-- { name = "treesitter" },
@@ -137,7 +137,7 @@ function M.setup()
 		-- },
 		-- snippet = {
 		-- 	expand = function(args)
-		-- 		-- luasnip.lsp_expand(args.body)
+		-- 		luasnip.lsp_expand(args.body)
 		-- 	end,
 		-- },
 		mapping = {
