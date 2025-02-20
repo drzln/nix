@@ -13,11 +13,20 @@ function M.setup()
 	local mason_available_servers = mason_lspconfig.get_available_servers()
 	local local_available_servers = {
 		"ts_ls",
+		-- "ruby_lsp",
 	}
 	local available_servers = merge_configs(mason_available_servers, local_available_servers)
 
 	local exclude_servers = {
-		"tsserver",
+		"ruby_ls",
+		"gitlab_ci_ls",
+		"hdl_checker",
+		"coq_lsp",
+		"typos_lsp",
+		"ruff",
+		"steep",
+		"autotools_ls",
+		"basedpyright",
 		"emmet_ls",
 		"emmet_language_server",
 		"graphql_language_service_cli",
@@ -74,7 +83,6 @@ function M.setup()
 		"java_language_server",
 		"move_analyzer",
 		"r_language_server",
-		"ruby_ls",
 		"clarity_lsp",
 		"awk_ls",
 		"nimls",

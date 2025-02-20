@@ -36,16 +36,20 @@ in {
         with nodePackages; [
           go
           bash
+          opam
           unzip
-          nodejs
-          composer
-          solargraph
-          zulu23
           black
+          nodejs
+          zulu23
           prettier
+          composer
+          ruby_3_4
+          solargraph
+          cmake
+          python314
+          luajitPackages.luarocks-nix
           dotnetCorePackages.dotnet_9.sdk
           dotnetCorePackages.dotnet_9.runtime
-          ruby_3_4
         ];
         blackmatter.components.nvim.plugins = {
           neovim.nvim-lspconfig.enable = true;
