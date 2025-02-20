@@ -33,30 +33,34 @@ in {
         home.file."${configPath}".source = ./config.lua;
         home.packages = with pkgs;
         with php84Packages;
-        with nodePackages; [
+        with nodePackages;
+        with luajitPackages;
+        with dotnetCorePackages; [
           go
+          gcc
+          zulu
           bash
           opam
           unzip
+          cmake
           black
+          ninja
           nodejs
-          zulu23
           prettier
           composer
           ruby_3_4
-          solargraph
-          cmake
           python314
-          luajitPackages.luarocks-nix
-          dotnetCorePackages.dotnet_9.sdk
-          dotnetCorePackages.dotnet_9.runtime
+          solargraph
+          luarocks-nix
+          dotnet_9.sdk
+          dotnet_9.runtime
         ];
         blackmatter.components.nvim.plugins = {
+          hrsh7th.nvim-cmp.enable = true;
+          hrsh7th.cmp-nvim-lsp.enable = true;
           neovim.nvim-lspconfig.enable = true;
           williamboman."mason.nvim".enable = true;
           williamboman."mason-lspconfig.nvim".enable = true;
-          hrsh7th.cmp-nvim-lsp.enable = true;
-          hrsh7th.nvim-cmp.enable = true;
           # ray-x."lsp_signature.nvim".enable = true;
           # onsails."lspkind.nvim".enable = true;
         };
