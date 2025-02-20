@@ -6,14 +6,14 @@ local M = {}
 
 -- control what languages are on
 M["enabled_languages"] = {
+	-- "docker-compose-language-server",
 	"kotlin_language_server",
 	"groovy_language_server",
 	"yamlls",
 	"gradle_ls",
-	-- "docker-compose-language-server",
+	"ruby_ls",
 	"rust_analyzer",
 	"terraformls",
-	"solargraph",
 	"ansiblels",
 	"ts_ls",
 	"dockerls",
@@ -32,9 +32,9 @@ M["enabled_languages"] = {
 
 -- languages that exist but are not automatically installed
 M["autoinstalled_langauges_disabled"] = {
+	"solargraph",
 	"terraform_lsp",
 	"sorbet",
-	"ruby_ls",
 	"eslint",
 	"pylsp",
 	"clangd",
