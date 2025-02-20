@@ -49,8 +49,7 @@ in {
           nodejs
           prettier
           composer
-          ruby_3_4
-          ruby-lsp
+          (pkgs.ruby_3_4.withPackages (ps: with ps; [ruby-lsp]))
           python39
           solargraph
           luarocks-nix
