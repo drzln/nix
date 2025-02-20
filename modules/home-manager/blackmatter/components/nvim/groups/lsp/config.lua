@@ -19,6 +19,8 @@ function M.setup()
 
 	local exclude_servers = {
 		"ruby_ls",
+		"stimulus_ls",
+		"harper_ls",
 		"gitlab_ci_ls",
 		"hdl_checker",
 		"coq_lsp",
@@ -99,6 +101,7 @@ function M.setup()
 	local configure_only_servers = {
 		"rust_analyzer",
 		"ts_ls",
+		"ruby_lsp",
 	}
 
 	local function is_excluded(server)

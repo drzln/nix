@@ -35,7 +35,8 @@ in {
         with php84Packages;
         with nodePackages;
         with luajitPackages;
-        with dotnetCorePackages; [
+        with dotnetCorePackages;
+        with rubyPackages_3_4; [
           go
           gcc
           zulu
@@ -49,6 +50,7 @@ in {
           prettier
           composer
           ruby_3_4
+          ruby-lsp
           python39
           solargraph
           luarocks-nix
