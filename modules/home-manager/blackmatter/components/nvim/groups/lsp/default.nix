@@ -27,7 +27,7 @@ in {
     (
       mkIf cfg.enable
       {
-          home.activation.postBuildHook = lib.mkAfter ''
+        home.activation.postBuildHook = lib.mkAfter ''
           rm -rf ~/.local/share/nvim/mason/bin/stylua
         '';
         home.file."${configPath}".source = ./config.lua;
@@ -45,6 +45,7 @@ in {
           prettier
           dotnetCorePackages.dotnet_9.sdk
           dotnetCorePackages.dotnet_9.runtime
+          ruby_3_4
         ];
         blackmatter.components.nvim.plugins = {
           neovim.nvim-lspconfig.enable = true;
