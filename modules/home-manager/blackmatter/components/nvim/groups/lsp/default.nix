@@ -49,12 +49,12 @@ in {
           nodejs
           prettier
           composer
-          (pkgs.ruby_3_4.withPackages (ps: with ps; [ruby-lsp]))
           python39
           solargraph
           luarocks-nix
           dotnet_9.sdk
           dotnet_9.runtime
+          (pkgs.ruby_3_4.withPackages (ps: with ps; [ruby-lsp]))
         ];
         blackmatter.components.nvim.plugins = {
           hrsh7th.nvim-cmp.enable = true;
