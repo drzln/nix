@@ -49,7 +49,7 @@ in {
           prettier
           composer
           ruby_3_4
-          python314
+          python39
           solargraph
           luarocks-nix
           dotnet_9.sdk
