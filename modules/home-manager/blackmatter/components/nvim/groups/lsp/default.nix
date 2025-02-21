@@ -19,8 +19,6 @@ in {
     ../../plugins/neovim/nvim-lspconfig
     ../../plugins/hrsh7th/cmp-nvim-lsp
     ../../plugins/hrsh7th/nvim-cmp
-    # ../../plugins/ray-x/lsp_signature.nvim
-    # ../../plugins/onsails/lspkind.nvim
   ];
 
   config = mkMerge [
@@ -70,8 +68,6 @@ in {
           neovim.nvim-lspconfig.enable = true;
           williamboman."mason.nvim".enable = true;
           williamboman."mason-lspconfig.nvim".enable = true;
-          # ray-x."lsp_signature.nvim".enable = true;
-          # onsails."lspkind.nvim".enable = true;
         };
       }
     )
