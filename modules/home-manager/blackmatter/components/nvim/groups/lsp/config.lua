@@ -19,6 +19,8 @@ function M.setup()
 
 	local exclude_servers = {
 		"ruby_ls",
+		"snyk_ls",
+		"hydra_lsp",
 		"ast_grep",
 		"dprint",
 		"stimulus_ls",
