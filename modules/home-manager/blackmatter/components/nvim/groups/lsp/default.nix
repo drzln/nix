@@ -36,11 +36,11 @@ in {
         '';
         home.file."${configPath}".source = ./config.lua;
         home.packages = with pkgs;
-        with php84Packages;
-        with nodePackages;
-        with luajitPackages;
         with dotnetCorePackages;
-        with rubyPackages_3_4; [
+        with rubyPackages_3_4;
+        with luajitPackages;
+        with php84Packages;
+        with nodePackages; [
           go
           gcc
           zulu
