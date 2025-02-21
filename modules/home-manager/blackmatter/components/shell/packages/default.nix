@@ -74,6 +74,7 @@ in {
           awscli2
           arion
           llama-cpp
+          openconnect
           # end these are critical
 
           # i3status
@@ -205,7 +206,6 @@ in {
           # gpauth
           # gpclient
           # gp-saml-gui
-          # openconnect
           # lazygit
           # gh
         ];
