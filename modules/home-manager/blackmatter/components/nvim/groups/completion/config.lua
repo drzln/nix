@@ -106,7 +106,7 @@ end
 function M.getCmpSources()
 	return {
 		{ name = "nvim_lsp" },
-		{ name = "luasnip" },
+		-- { name = "luasnip" },
 		-- { name = "copilot" },
 		-- { name = "buffer" },
 		-- { name = "cmdline" },
