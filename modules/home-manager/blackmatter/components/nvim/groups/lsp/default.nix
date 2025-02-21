@@ -28,11 +28,11 @@ in {
       mkIf cfg.enable
       {
         home.activation.postBuildHook = lib.mkAfter ''
+          rm -rf ~/.local/share/nvim/mason/bin/black
           rm -rf ~/.local/share/nvim/mason/bin/stylua
           rm -rf ~/.local/share/nvim/mason/bin/dprint
-          rm -rf ~/.local/share/nvim/mason/bin/rust-analyzer
           rm -rf ~/.local/share/nvim/mason/bin/rustfmt
-          rm -rf ~/.local/share/nvim/mason/bin/black
+          rm -rf ~/.local/share/nvim/mason/bin/rust-analyzer
           rm -rf ~/.local/share/nvim/mason/bin/markdown-oxide
         '';
         home.file."${configPath}".source = ./config.lua;
