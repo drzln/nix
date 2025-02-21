@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 with lib; let
@@ -20,6 +21,7 @@ in {
     (
       mkIf cfg.enable
       {
+        home.packages = with pkgs; [rustfmt];
         home.file."${configPath}".source = ./config.lua;
         blackmatter.components.nvim.plugins = {
           # formatting framework

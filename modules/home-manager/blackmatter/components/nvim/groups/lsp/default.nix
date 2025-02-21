@@ -30,6 +30,7 @@ in {
         home.activation.postBuildHook = lib.mkAfter ''
           rm -rf ~/.local/share/nvim/mason/bin/stylua
           rm -rf ~/.local/share/nvim/mason/bin/dprint
+          rm -rf ~/.local/share/nvim/mason/bin/rust-analyzer
         '';
         home.file."${configPath}".source = ./config.lua;
         home.packages = with pkgs;
@@ -48,7 +49,6 @@ in {
           black
           ninja
           nodejs
-          dprint
           prettier
           composer
           python39
