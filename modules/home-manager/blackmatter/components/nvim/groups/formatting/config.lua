@@ -9,6 +9,7 @@ function M.setup()
 			typescript = { "prettier" },
 			python = { "black" },
 			rust = { "rustfmt" },
+			toml = { "taplo" },
 		},
 	})
 end
