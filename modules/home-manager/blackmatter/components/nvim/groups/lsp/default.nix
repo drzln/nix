@@ -33,6 +33,7 @@ in {
           rm -rf ~/.local/share/nvim/mason/bin/rust-analyzer
           rm -rf ~/.local/share/nvim/mason/bin/rustfmt
           rm -rf ~/.local/share/nvim/mason/bin/black
+          rm -rf ~/.local/share/nvim/mason/bin/markdown-oxide
         '';
         home.file."${configPath}".source = ./config.lua;
         home.packages = with pkgs;
@@ -59,6 +60,7 @@ in {
           dotnet_9.sdk
           dotnet_9.runtime
           rust-analyzer
+          markdown-oxide
           (pkgs.ruby_3_4.withPackages (ps: with ps; [ruby-lsp]))
         ];
         blackmatter.components.nvim.plugins = {
