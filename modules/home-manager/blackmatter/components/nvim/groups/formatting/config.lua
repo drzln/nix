@@ -13,7 +13,8 @@ function M.setup()
 			rust = { "rustfmt" },
 			lua = { "stylua" },
 			toml = { "taplo" },
-			bash = { "shfmt" },
+			zsh = { "shfmt" },
+			sh = { "shfmt" },
 		},
 	})
 end
