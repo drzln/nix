@@ -4,6 +4,7 @@ function M.setup()
 		formatters_by_ft = {
 			typescript = { "prettier" },
 			javascript = { "prettier" },
+			markdown = { "prettier" },
 			json = { "prettier" },
 			nix = { "alejandra" },
 			html = { "prettier" },
@@ -12,6 +13,7 @@ function M.setup()
 			rust = { "rustfmt" },
 			lua = { "stylua" },
 			toml = { "taplo" },
+			bash = { "shfmt" },
 		},
 	})
 end

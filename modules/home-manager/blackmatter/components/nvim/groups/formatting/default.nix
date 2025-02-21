@@ -21,7 +21,7 @@ in {
     (
       mkIf cfg.enable
       {
-        home.packages = with pkgs; [rustfmt taplo];
+        home.packages = with pkgs; [rustfmt taplo shfmt];
         home.file."${configPath}".source = ./config.lua;
         blackmatter.components.nvim.plugins = {
           # formatting framework
