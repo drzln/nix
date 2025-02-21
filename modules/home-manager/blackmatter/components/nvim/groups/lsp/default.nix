@@ -32,6 +32,7 @@ in {
           rm -rf ~/.local/share/nvim/mason/bin/dprint
           rm -rf ~/.local/share/nvim/mason/bin/rust-analyzer
           rm -rf ~/.local/share/nvim/mason/bin/rustfmt
+          rm -rf ~/.local/share/nvim/mason/bin/black
         '';
         home.file."${configPath}".source = ./config.lua;
         home.packages = with pkgs;
