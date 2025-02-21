@@ -19,6 +19,9 @@ function M.setup()
 
 	local exclude_servers = {
 		"ruby_ls",
+		"lwc_ls",
+		"biome",
+		"htmx",
 		"snyk_ls",
 		"hydra_lsp",
 		"ast_grep",
