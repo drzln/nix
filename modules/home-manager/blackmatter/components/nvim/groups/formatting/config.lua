@@ -7,6 +7,7 @@ function M.setup()
 			ruby = { "rubocop" },
 			json = { "prettier" },
 			typescript = { "prettier" },
+			javascript = { "prettier" },
 			python = { "black" },
 			rust = { "rustfmt" },
 			toml = { "taplo" },
