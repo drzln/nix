@@ -18,8 +18,11 @@ function M.setup()
 	local available_servers = merge_configs(mason_available_servers, local_available_servers)
 
 	local exclude_servers = {
+		"superhtml",
 		"ruby_ls",
+		"antlersls",
 		"lwc_ls",
+		"ltex",
 		"biome",
 		"htmx",
 		"snyk_ls",
