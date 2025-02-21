@@ -56,6 +56,7 @@ in {
           luarocks-nix
           dotnet_9.sdk
           dotnet_9.runtime
+          rust-analyzer
           (pkgs.ruby_3_4.withPackages (ps: with ps; [ruby-lsp]))
         ];
         blackmatter.components.nvim.plugins = {
