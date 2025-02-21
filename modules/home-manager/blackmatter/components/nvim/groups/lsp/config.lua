@@ -19,6 +19,8 @@ function M.setup()
 
 	local exclude_servers = {
 		"ruby_ls",
+		"ast_grep",
+		"dprint",
 		"stimulus_ls",
 		"harper_ls",
 		"gitlab_ci_ls",

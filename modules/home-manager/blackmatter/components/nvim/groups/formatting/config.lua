@@ -8,6 +8,7 @@ function M.setup()
 			json = { "prettier" },
 			typescript = { "prettier" },
 			python = { "black" },
+			rust = { "dprint" },
 		},
 	})
 end
