@@ -1,7 +1,7 @@
 [
-  (self: super: {
-    neovim = super.callPackage ../packages/neovim {};
-  })
+  # (self: super: {
+  #   neovim = super.callPackage ../packages/neovim {};
+  # })
   (self: super: {
     cb = super.buildGoPackage {
       pname = "cb";
