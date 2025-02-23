@@ -25,6 +25,7 @@ in {
   networking.hosts = {
     "127.0.0.1" = ["mysql"];
   };
+
   networking.domain = "local.host.pleme.io";
 
   imports = [
