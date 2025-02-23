@@ -25,6 +25,7 @@ in {
   networking.hosts = {
     "127.0.0.1" = ["mysql"];
   };
+
   networking.domain = "local.host.pleme.io";
 
   imports = [
@@ -35,6 +36,15 @@ in {
     ./containers
   ];
 
+  # makes /bin/bash work 
+  services.envfs.enable = true;
+  # environment.systemPackages = with pkgs; [
+  #   (symlinkJoin {
+  #     name = "bash";
+  #     paths = [bash.out];
+  #     symlinks = {"/bin/bash" = "bin/bash";};
+  #   })
+  # ];
   blackmatter.profiles.blizzard.enable = true;
 
   users.users.luis =
