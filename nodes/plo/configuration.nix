@@ -35,6 +35,13 @@ in {
     ./containers
   ];
 
+  environment.systemPackages = with pkgs; [
+    (symlinkJoin {
+      name = "bash-link";
+      paths = [bash];
+      symlinks = "/bin/bash";
+    })
+  ];
   blackmatter.profiles.blizzard.enable = true;
 
   users.users.luis =
