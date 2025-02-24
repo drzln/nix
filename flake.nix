@@ -85,9 +85,14 @@
     };
 
     darwinConfigurations = import ./darwinConfigurations {
-      inherit nix-darwin home-manager;
-      extraSpecialArgs = specialArgs;
-      pkgs = mkPkgs "x86_64-darwin";
+      inherit
+        nix-darwin
+        home-manager
+        inputs
+        ;
+      # extraSpecialArgs = specialArgs;
+      # pkgs = mkPkgs "x86_64-darwin";
+      darwin-pkgs = mkPkgs "x86_64-darwin";
     };
   };
 }

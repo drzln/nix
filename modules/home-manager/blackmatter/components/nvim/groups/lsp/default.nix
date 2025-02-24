@@ -56,11 +56,11 @@ in {
           python39
           solargraph
           luarocks-nix
-          dotnet_9.sdk
-          dotnet_9.runtime
+          # dotnet_9.sdk
+          # dotnet_9.runtime
           rust-analyzer
           markdown-oxide
-          (pkgs.ruby_3_4.withPackages (ps: with ps; [ruby-lsp]))
+          # (pkgs.ruby_3_4.withPackages (ps: with ps; [ruby-lsp]))
         ];
         blackmatter.components.nvim.plugins = {
           hrsh7th.nvim-cmp.enable = true;
