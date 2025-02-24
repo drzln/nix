@@ -1,12 +1,12 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   imports = [
     ./aws.nix
+    ./openai.nix
     ./attic
   ];
   # sops.validateSopsFiles = false;
   sops.gnupg.home = "/home/luis/.gnupg";
-  sops.gnupg.sshKeyPaths = [ ];
+  sops.gnupg.sshKeyPaths = [];
   programs.gpg.enable = true;
   services.gpg-agent.enable = true;
   services.gpg-agent.pinentryPackage = pkgs.pinentry-curses;

@@ -1,4 +1,4 @@
-{ config, lib, ... }: {
+{lib, ...}: {
   home.activation.aws-config-pre-reqs = lib.mkBefore ''
     [ ! -f ~/.aws/credentials ] && touch ~/.aws/credentials
   '';
