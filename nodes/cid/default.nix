@@ -212,19 +212,19 @@
     # Packages installed specifically for this user in /run/current-system/sw (global-ish).
     # Typically, you'd prefer to manage user-specific packages in Home Manager, but it's fine.
     packages = with pkgs; [
+      # ruby # NB: This duplicates the system package. Consider removing from one place.
+      # php83Packages.composer
+      darwin.apple_sdk.frameworks.CoreServices
+      nerd-fonts.fira-code
+      dotnet-sdk_8
       home-manager
       nixhashsync
       libiconv
-      go
-      bat
-      nerd-fonts.fira-code
-      dotnet-sdk_8
-      # php83Packages.composer
-      clang
-      darwin.apple_sdk.frameworks.CoreServices
-      # ruby # NB: This duplicates the system package. Consider removing from one place.
       poetry
+      clang
       delta
+      bat
+      go
     ];
   };
 
