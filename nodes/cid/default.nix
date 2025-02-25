@@ -159,45 +159,45 @@
   # System Packages
   ############################################
 
-  environment.systemPackages = with pkgs; [
-    sumneko-lua-language-server
-    docker
-    docker-client
-    tfswitch
-    yarn2nix
-    starship
-    dnsmasq
-    ansible
-    ripgrep
-    weechat
-    gnumake
-    openssh
-    nix-index
-    nodejs
-    bundix
-    zoxide
-    cargo
-    arion
-    unzip
-    gnupg
-    lorri
-    ruby
-    yarn
-    xsel
-    htop
-    nmap
-    stow
-    zlib
-    wget
-    curl
-    gcc
-    age
-    git
-    fzf
-    dig
-    vim
-    gh
-  ];
+  # environment.systemPackages = with pkgs; [
+  #   sumneko-lua-language-server
+  #   docker
+  #   docker-client
+  #   tfswitch
+  #   yarn2nix
+  #   starship
+  #   dnsmasq
+  #   ansible
+  #   ripgrep
+  #   weechat
+  #   gnumake
+  #   openssh
+  #   nix-index
+  #   nodejs
+  #   bundix
+  #   zoxide
+  #   cargo
+  #   arion
+  #   unzip
+  #   gnupg
+  #   lorri
+  #   ruby
+  #   yarn
+  #   xsel
+  #   htop
+  #   nmap
+  #   stow
+  #   zlib
+  #   wget
+  #   curl
+  #   gcc
+  #   age
+  #   git
+  #   fzf
+  #   dig
+  #   vim
+  #   gh
+  # ];
 
   ############################################
   # Users
@@ -219,10 +219,10 @@
       bat
       nerd-fonts.fira-code
       dotnet-sdk_8
-      php83Packages.composer
+      # php83Packages.composer
       clang
       darwin.apple_sdk.frameworks.CoreServices
-      ruby # NB: This duplicates the system package. Consider removing from one place.
+      # ruby # NB: This duplicates the system package. Consider removing from one place.
       poetry
       delta
     ];
@@ -232,7 +232,7 @@
   # Home Manager for the user
   ############################################
 
-  home-manager.useGlobalPkgs = true;
+  home-manager.useGlobalPkgs = false;
   home-manager.useUserPackages = true;
   home-manager.backupFileExtension = "backup";
 
