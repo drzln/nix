@@ -41,8 +41,8 @@
 
   # Keep documentation off (man/info etc.) to save space
   documentation.enable = false;
-  documentation.doc.enable = false;
   documentation.info.enable = false;
+  documentation.doc.enable = false;
   documentation.man.enable = false;
 
   ############################################
