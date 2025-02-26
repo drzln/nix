@@ -8,10 +8,10 @@
     isNormalUser = true;
     extraGroups = [
       "networkmanager"
-      "wheel"
+      "libvirtd"
       "docker"
       "podman"
-      "libvirtd"
+      "wheel"
       "audio"
       "video"
     ];
@@ -22,6 +22,7 @@
 in {
   system.stateVersion = "24.05";
   nixpkgs.config.allowUnfree = true;
+
   networking.hosts = {
     "127.0.0.1" = ["mysql"];
   };
@@ -36,7 +37,7 @@ in {
     ./containers
   ];
 
-  # makes /bin/bash work 
+  # makes /bin/bash work
   services.envfs.enable = true;
   # environment.systemPackages = with pkgs; [
   #   (symlinkJoin {

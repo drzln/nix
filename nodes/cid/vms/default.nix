@@ -4,13 +4,10 @@
     linux-builder = {
       enable = true;
       ephemeral = true;
-      # config = {pkgs, ...}: {
-      #   environment.systemPackages = with pkgs; [neovim];
-      # };
-      # config = {
-      #   virtualisation.darwin-builder.user = "ldesiqueira";
-      #   virtualisation.darwin-builder.hostPort = 22;
-      # };
+      config = {pkgs, ...}: {
+        system.stateVersion = "24.05";
+        # environment.systemPackages = with pkgs; [neovim];
+      };
     };
   };
 }
