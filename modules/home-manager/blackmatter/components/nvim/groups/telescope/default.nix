@@ -30,7 +30,7 @@ in
               nvim-telescope."telescope-dap.nvim".enable = false;
               nvim-telescope."telescope-z.nvim".enable = false;
               # TODO: off due to sandbox error
-              danielpieper."telescope-tmuxinator.nvim".enable = false;
+              # danielpieper."telescope-tmuxinator.nvim".enable = false;
             };
         }
       )

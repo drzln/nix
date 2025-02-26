@@ -3,9 +3,9 @@
   lib,
   ...
 }: {
-  imports = [
-    ./vms
-  ];
+  # imports = [
+  #   ./vms
+  # ];
 
   ############################################
   # System & Host
@@ -33,7 +33,7 @@
     ];
   };
 
-  nix.settings.sandbox = true;
+  nix.settings.sandbox = false;
   nix.package = pkgs.nixVersions.stable;
   nix.extraOptions = "experimental-features = nix-command flakes";
 
