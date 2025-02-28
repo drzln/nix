@@ -93,7 +93,7 @@
     packages =
       base-packages
       // {
-        kid.aarch64-linux = aarch64-darwin-pkgs.runCommand "run-kid" {} ''
+        kid.aarch64-darwin = aarch64-darwin-pkgs.runCommand "run-kid" {} ''
           mkdir -p $out/bin
 
           # Store paths for QEMU binaries
