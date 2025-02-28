@@ -21,6 +21,8 @@ function M.setup()
 		"superhtml",
 		"cairo_ls",
 		"ginko_ls",
+		"vhdl_ls",
+		"starpls",
 		"zk",
 		"ruby_ls",
 		"antlersls",
