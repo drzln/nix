@@ -92,7 +92,7 @@
         cat > $out/bin/run-kid << EOF
         #!/bin/sh
         nix build .#packages.${system}.kid-image
-        ln -sf ./result/nixos-vm.qcow2 $QCOW
+        sudo ln -sf ./result/nixos-vm.qcow2 $QCOW
 
         # Create the disk image if it doesn't exist
         ! [ -d $BASE_PATH ] && mkdir -p $BASE_PATH
