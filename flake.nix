@@ -75,24 +75,37 @@
         # Store paths for QEMU binaries
         QEMU_IMG="${pkgs.qemu}/bin/qemu-img"
         QEMU_SYSTEM="${pkgs.qemu}/bin/qemu-system-aarch64"
+        BASE_PATH=/etc/nixos/vm/main
+        QCOW=$BASE_PATH/nixos.qcow2
+        SIZE=100G
+        MEM=4096
 
         # Generate QEMU run script with hardcoded store paths
         cat > $out/bin/run-kid << EOF
         #!/bin/sh
 
         # Create the disk image if it doesn't exist
-        if [ ! -f nixos.qcow2 ]; then
-          $QEMU_IMG create -f qcow2 nixos.qcow2 20G
+        ! [ -d $BASE_PATH ] && mkdir -p $BASE_PATH
+
+        if [ ! -f $QCOW ]; then
+          $QEMU_IMG create -f qcow2 $QCOW $SIZE
         fi
 
         # Run QEMU with hardcoded store paths
+        echo "starting qemu VM kid"
+        echo "$SIZE"
+        echo "$MEM"
+        echo "$QCOW"
+        echo "$QEMU_IMG"
+        echo "$QEMU_SYSTEM"
+        echo "starting qemu VM kid"
         $QEMU_SYSTEM \\
           -machine virt \\
           -accel hvf \\
           -cpu host \\
-          -m 4096 \\
+          -m $MEM \\
           -smp 2 \\
-          -drive file=nixos.qcow2,if=virtio \\
+          -drive file=$QCOW,if=virtio \\
           -net nic,model=virtio \\
           -net user,hostfwd=tcp::2222-:22 \\
           -nographic
