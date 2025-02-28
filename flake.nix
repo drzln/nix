@@ -89,6 +89,7 @@
         #   -net user,hostfwd=tcp::2222-:22 \\
         #   -nographic
         qemu-system-aarch64 \
+          -machine virt \
           -accel hvf \
           -cpu host \
           -m 4096 \
