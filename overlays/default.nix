@@ -1,4 +1,17 @@
 [
+  # build qemu with hvf support
+  (self: super: {
+    qemu = super.qemu.overrideAttrs (old: {
+      configureFlags =
+        old.configureFlags
+        ++ [
+          "--enable-hvf"
+          "--enable-cocoa"
+          "--target-list=aarch64-softmmu"
+        ];
+    });
+  })
+
   # (self: super: {
   #   neovim = super.callPackage ../packages/neovim {};
   # })
