@@ -1,8 +1,12 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  nixpkgs,
+  ...
+}: {
   imports = [
     # Essential for QEMU VMs
     # <nixpkgs/nixos/modules/virtualisation/qemu-vm.nix>
-    "${pkgs}/nixos/modules/virtualisation/qemu-vm.nix"
+    "${nixpkgs}/nixos/modules/virtualisation/qemu-vm.nix"
   ];
 
   time.timeZone = "America/New_York";

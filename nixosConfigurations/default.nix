@@ -6,7 +6,7 @@
 }: {
   kid = nixpkgs.lib.nixosSystem {
     inherit specialArgs;
-    system = "x86_64-linux";
+    system = "aarch64-linux";
     modules = [
       ../vms/main.nix
       ({...}: {

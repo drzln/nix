@@ -55,7 +55,10 @@
       ];
 
     requirements = {inherit inputs self;};
-    specialArgs = {inherit requirements;};
+    specialArgs = {
+      inherit requirements;
+      nixpkgs = mkPkgs;
+    };
 
     nixosConfigurations = import ./nixosConfigurations {
       inherit nixpkgs home-manager sops-nix specialArgs;
