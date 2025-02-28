@@ -57,18 +57,27 @@
     requirements = {inherit inputs self;};
     specialArgs = {inherit requirements;};
 
+    nixosConfigurations = import ./nixosConfigurations {
+      inherit nixpkgs home-manager sops-nix specialArgs;
+    };
+
     mkPkgs = system:
       import nixpkgs {
         inherit system overlays;
         config.allowUnfree = true;
       };
     nixos-modules = import ./modules/nixos;
-  in {
     packages = flake-utils.lib.eachDefaultSystem (system: let
       pkgs = mkPkgs system;
     in {
       neovim = pkgs.callPackage ./packages/neovim {};
       nixhashsync = nixhashsync.packages.${system}.default;
+
+      kid-image = pkgs.nixos-install-tools.qemuImage {
+        name = "nixos-vm.qcow2";
+        configuration = nixosConfigurations.kid;
+      };
+
       kid = pkgs.runCommand "run-kid" {} ''
         mkdir -p $out/bin
 
@@ -76,23 +85,15 @@
         QEMU_IMG="${pkgs.qemu}/bin/qemu-img"
         QEMU_SYSTEM="${pkgs.qemu}/bin/qemu-system-aarch64"
         BASE_PATH=./etc/nixos/vm/main
-        QCOW=$BASE_PATH/nixos.qcow2
+        QCOW=${packages.kid-image}
         SIZE=100G
         MEM=4096
 
         cat > $out/bin/run-kid << EOF
         #!/bin/sh
 
-        # remove QCOW if it exists to refresh config
-        # while dev iterating
-        rm -rf $QCOW
-
         # Create the disk image if it doesn't exist
         ! [ -d $BASE_PATH ] && mkdir -p $BASE_PATH
-
-        if [ ! -f $QCOW ]; then
-          $QEMU_IMG create -f qcow2 $QCOW $SIZE
-        fi
 
         # Run QEMU with hardcoded store paths
         echo "starting qemu VM kid"
@@ -117,6 +118,8 @@
         chmod +x $out/bin/run-kid
       '';
     });
+  in {
+    inherit nixosConfigurations packages;
 
     homeManagerModules = import ./modules/home-manager;
     nixosModules = nixos-modules;
@@ -125,10 +128,6 @@
       inherit home-manager sops-nix nixpkgs;
       extraSpecialArgs = specialArgs;
       pkgs = mkPkgs "x86_64-linux";
-    };
-
-    nixosConfigurations = import ./nixosConfigurations {
-      inherit nixpkgs home-manager sops-nix specialArgs;
     };
 
     darwinConfigurations = import ./darwinConfigurations {
