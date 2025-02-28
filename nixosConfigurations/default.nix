@@ -10,6 +10,7 @@
     modules = [
       ../vms/main.nix
       ({...}: {
+        # put more system config here
       })
       # /etc/nixos/configuration.nix
       # ../nodes/plo
