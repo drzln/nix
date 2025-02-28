@@ -72,12 +72,12 @@
     in {
       neovim = pkgs.callPackage ./packages/neovim {};
       nixhashsync = nixhashsync.packages.${system}.default;
-
-      kid-image = pkgs.nixos-install-tools.qemuImage {
-        inherit system;
-        name = "nixos-vm.qcow2";
-        configuration = nixosConfigurations.kid;
-      };
+      kid-image = nixosConfigurations.kid.config.system.build.qemu;
+      # kid-image = pkgs.nixos-install-tools.qemuImage {
+      #   inherit system;
+      #   name = "nixos-vm.qcow2";
+      #   configuration = nixosConfigurations.kid;
+      # };
 
       kid = pkgs.runCommand "run-kid" {} ''
         mkdir -p $out/bin
