@@ -91,7 +91,7 @@
 
         cat > $out/bin/run-kid << EOF
         #!/bin/sh
-        set -x
+        set -e
         nix build .#packages.${system}.kid-image
         sudo ln -sf ./result/nixos-vm.qcow2 $QCOW
 
