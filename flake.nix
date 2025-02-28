@@ -80,7 +80,19 @@
     in {
       neovim = pkgs.callPackage ./packages/neovim {};
       nixhashsync = nixhashsync.packages.${system}.default;
-      kid-image = nixosConfigurations.kid.config.system.build.qcow2;
+      # kid-image = nixosConfigurations.kid.config.system.build.qcow2;
+      kid-image = nixos-generators.nixosGenerate {
+        inherit system;
+        format = "qcow";
+        specialArgs =
+          {
+            inherit pkgs;
+          }
+          // specialArgs;
+        modules = [
+          ./vms/main.nix
+        ];
+      };
 
       # kid-image = pkgs.nixos-install-tools.qemuImage {
       #   inherit system;
