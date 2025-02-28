@@ -19,6 +19,8 @@ function M.setup()
 
 	local exclude_servers = {
 		"superhtml",
+		"cairo_ls",
+		"ginko_ls",
 		"zk",
 		"ruby_ls",
 		"antlersls",
