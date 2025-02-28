@@ -10,15 +10,6 @@
     modules = [
       ../vms/main.nix
       ({...}: {
-        services.openssh.enable = true;
-        services.openssh.permitRootLogin = "yes";
-        services.openssh.passwordAuthentication = true;
-        users.users.ldesiqueira = {
-          uid = 1002;
-          isNormalUser = true;
-          extraGroups = ["wheel"]; # Allow sudo
-          password = "letmein";
-        };
       })
       # /etc/nixos/configuration.nix
       # ../nodes/plo

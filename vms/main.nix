@@ -4,16 +4,17 @@
     <nixpkgs/nixos/modules/virtualisation/qemu-vm.nix>
   ];
 
+  time.timeZone = "America/New_York";
+
   # Basic system settings
   boot.loader.grub.device = "nodev"; # Direct kernel boot with QEMU
   networking.useDHCP = true;
-  time.timeZone = "America/New_York";
 
-  # User configuration
-  users.users.vmuser = {
+  users.users.ldesiqueira = {
+    uid = 1002;
     isNormalUser = true;
     extraGroups = ["wheel"]; # Allow sudo
-    password = "password123";
+    password = "letmein";
   };
 
   # OpenSSH for remote access
