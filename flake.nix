@@ -69,6 +69,24 @@
     in {
       neovim = pkgs.callPackage ./packages/neovim {};
       nixhashsync = nixhashsync.packages.${system}.default;
+      kid = pkgs.runCommand "run-kid" {} ''
+        mkdir -p $out/bin
+
+        # Generate QEMU run script
+        cat > $out/bin/run-kid << EOF
+        #!/bin/sh
+        qemu-system-x86_64 \\
+          -accel hvf \\
+          -m 4096 \\
+          -smp 2 \\
+          -drive file=nixos.qcow2,if=virtio \\
+          -net nic,model=virtio \\
+          -net user,hostfwd=tcp::2222-:22 \\
+          -nographic
+        EOF
+
+        chmod +x $out/bin/run-kid
+      '';
     });
 
     homeManagerModules = import ./modules/home-manager;
