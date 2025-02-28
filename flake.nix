@@ -85,12 +85,14 @@
         QEMU_IMG="${pkgs.qemu}/bin/qemu-img"
         QEMU_SYSTEM="${pkgs.qemu}/bin/qemu-system-aarch64"
         BASE_PATH=./etc/nixos/vm/main
-        QCOW=${packages.kid-image}/nixos-vm.qcow2
+        QCOW=$out/nixos-vm.qcow2
         SIZE=100G
         MEM=4096
 
         cat > $out/bin/run-kid << EOF
         #!/bin/sh
+        nix build .#packages.${system}.kid-image
+        ln -sf ./result/nixos-vm.qcow2 $QCOW
 
         # Create the disk image if it doesn't exist
         ! [ -d $BASE_PATH ] && mkdir -p $BASE_PATH
