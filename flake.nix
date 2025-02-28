@@ -75,13 +75,27 @@
         # Generate QEMU run script
         cat > $out/bin/run-kid << EOF
         #!/bin/sh
-        qemu-system-x86_64 \\
-          -accel hvf \\
-          -m 4096 \\
-          -smp 2 \\
-          -drive file=nixos.qcow2,if=virtio \\
-          -net nic,model=virtio \\
-          -net user,hostfwd=tcp::2222-:22 \\
+
+        # if [ ! -f nixos.qcow2 ]; then
+        #   qemu-img create -f qcow2 nixos.qcow2 20G
+        # fi
+
+        # qemu-system-x86_64 \\
+        #   -accel hvf \\
+        #   -m 4096 \\
+        #   -smp 2 \\
+        #   -drive file=nixos.qcow2,if=virtio \\
+        #   -net nic,model=virtio \\
+        #   -net user,hostfwd=tcp::2222-:22 \\
+        #   -nographic
+        qemu-system-x86_64 \
+          -accel hvf \
+          -cpu host \
+          -m 4096 \
+          -smp 2 \
+          -drive file=nixos.qcow2,if=virtio \
+          -net nic,model=virtio \
+          -net user,hostfwd=tcp::2222-:22 \
           -nographic
         EOF
 
