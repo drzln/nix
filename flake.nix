@@ -85,7 +85,7 @@
         QEMU_IMG="${pkgs.qemu}/bin/qemu-img"
         QEMU_SYSTEM="${pkgs.qemu}/bin/qemu-system-aarch64"
         BASE_PATH=./etc/nixos/vm/main
-        QCOW=${packages.kid-image}
+        QCOW=${packages.kid-image}/nixos-vm.qcow2
         SIZE=100G
         MEM=4096
 
