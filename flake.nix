@@ -111,6 +111,7 @@
           -nographic \
           -D qemu.log -d guest_errors,unimp,net
         EOF
+        chmod +x $out/bin/run-kid
       '';
     });
 
