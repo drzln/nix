@@ -57,7 +57,7 @@
     requirements = {inherit inputs self;};
     specialArgs = {
       inherit requirements;
-      nixpkgs = mkPkgs;
+      aarch64-linux-nixpkgs = mkPkgs "aarch64-linux";
     };
 
     nixosConfigurations = import ./nixosConfigurations {

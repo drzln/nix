@@ -1,12 +1,12 @@
 {
   pkgs,
-  nixpkgs,
+  aarch64-linux-nixpkgs,
   ...
 }: {
   imports = [
     # Essential for QEMU VMs
     # <nixpkgs/nixos/modules/virtualisation/qemu-vm.nix>
-    "${nixpkgs}/nixos/modules/virtualisation/qemu-vm.nix"
+    "${aarch64-linux-nixpkgs}/nixos/modules/virtualisation/qemu-vm.nix"
   ];
 
   time.timeZone = "America/New_York";
