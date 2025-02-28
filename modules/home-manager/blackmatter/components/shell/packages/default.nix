@@ -75,6 +75,7 @@ in {
           arion
           llama-cpp
           openconnect
+          qemu
           # end these are critical
 
           # i3status
