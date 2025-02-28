@@ -1,13 +1,9 @@
 {
   pkgs,
-  aarch64-linux-nixpkgs,
+  nixpkgs,
   ...
 }: {
-  imports = [
-    # Essential for QEMU VMs
-    # <nixpkgs/nixos/modules/virtualisation/qemu-vm.nix>
-    "${aarch64-linux-nixpkgs}/nixos/modules/virtualisation/qemu-vm.nix"
-  ];
+  imports = ["${nixpkgs}/nixos/modules/virtualisation/qemu-vm.nix"];
 
   time.timeZone = "America/New_York";
   networking.firewall.allowedTCPPorts = [22 2222];
@@ -49,7 +45,8 @@
   ];
 
   # Enable QEMU guest services
-  virtualisation.qemuGuest.enable = true;
+  virtualisation.qemu.guestAgent.enable = true;
+  services.qemuGuest.enable = true;
 
   # Default target
   systemd.services.default.target = "multi-user.target";

@@ -6,6 +6,10 @@
     pwnixos.url = "github:exploitoverload/PwNixOS";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
+    nixos-generators = {
+      url = "github:nix-community/nixos-generators";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     sops-nix.url = "github:Mic92/sops-nix";
     nix-security-modules = {
       url = "github:michaelBelsanti/nix-security-modules";
@@ -44,6 +48,7 @@
     pwnixos,
     rednix,
     nixified-ai,
+    nixos-generators,
     ...
   } @ inputs: let
     inherit inputs self;
@@ -55,9 +60,9 @@
       ];
 
     requirements = {inherit inputs self;};
+
     specialArgs = {
-      inherit requirements;
-      aarch64-linux-nixpkgs = mkPkgs "aarch64-linux";
+      inherit requirements packages;
     };
 
     nixosConfigurations = import ./nixosConfigurations {
@@ -75,7 +80,8 @@
     in {
       neovim = pkgs.callPackage ./packages/neovim {};
       nixhashsync = nixhashsync.packages.${system}.default;
-      kid-image = nixosConfigurations.kid.config.system.build.qemu;
+      kid-image = nixosConfigurations.kid.config.system.build.qcow2;
+
       # kid-image = pkgs.nixos-install-tools.qemuImage {
       #   inherit system;
       #   name = "nixos-vm.qcow2";

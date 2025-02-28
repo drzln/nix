@@ -3,9 +3,11 @@
   specialArgs,
   home-manager,
   sops-nix,
-}: {
+}: let
+  finalSpecialArgs = specialArgs // {inherit nixpkgs;};
+in {
   kid = nixpkgs.lib.nixosSystem {
-    inherit specialArgs;
+    specialArgs = finalSpecialArgs;
     system = "aarch64-linux";
     modules = [
       ../vms/main.nix
