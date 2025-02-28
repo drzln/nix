@@ -75,7 +75,7 @@
         # Store paths for QEMU binaries
         QEMU_IMG="${pkgs.qemu}/bin/qemu-img"
         QEMU_SYSTEM="${pkgs.qemu}/bin/qemu-system-aarch64"
-        BASE_PATH=/etc/nixos/vm/main
+        BASE_PATH=./etc/nixos/vm/main
         QCOW=$BASE_PATH/nixos.qcow2
         SIZE=100G
         MEM=4096
