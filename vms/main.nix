@@ -5,6 +5,8 @@
   ];
 
   time.timeZone = "America/New_York";
+  networking.firewall.allowedTCPPorts = [22 2222];
+  networking.firewall.enable = false;
 
   # Basic system settings
   boot.loader.grub.device = "nodev"; # Direct kernel boot with QEMU
