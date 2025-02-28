@@ -76,9 +76,9 @@
         cat > $out/bin/run-kid << EOF
         #!/bin/sh
 
-        # if [ ! -f nixos.qcow2 ]; then
-        #   qemu-img create -f qcow2 nixos.qcow2 20G
-        # fi
+        if [ ! -f nixos.qcow2 ]; then
+          qemu-img create -f qcow2 nixos.qcow2 20G
+        fi
 
         # qemu-system-x86_64 \\
         #   -accel hvf \\
