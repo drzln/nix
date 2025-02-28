@@ -9,6 +9,11 @@
     system = "x86_64-linux";
     modules = [
       ../vms/main.nix
+      ({...}: {
+        services.openssh.enable = true;
+        services.openssh.permitRootLogin = "yes";
+        services.openssh.passwordAuthentication = true;
+      })
       # /etc/nixos/configuration.nix
       # ../nodes/plo
       # home-manager.nixosModules.home-manager
