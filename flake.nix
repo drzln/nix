@@ -80,7 +80,6 @@
         SIZE=100G
         MEM=4096
 
-        # Generate QEMU run script with hardcoded store paths
         cat > $out/bin/run-kid << EOF
         #!/bin/sh
 
