@@ -56,26 +56,26 @@ in {
         ++ lib.optionals isDarwin []
         ++ lib.optionals isLinux [
           # these are critical
+          sumneko-lua-language-server
+          attic-client
+          openconnect
+          traceroute
+          llama-cpp
+          gnumake
+          awscli2
+          lazygit
+          bundix
+          zoxide
+          delta
+          cargo
+          arion
           sops
+          qemu
           xsel
           nmap
-          zoxide
-          dig
-          attic-client
-          delta
-          gnumake
-          traceroute
-          lazygit
-          gh
           tree
-          sumneko-lua-language-server
-          bundix
-          cargo
-          awscli2
-          arion
-          llama-cpp
-          openconnect
-          qemu
+          dig
+          gh
           # end these are critical
 
           # i3status
