@@ -99,16 +99,17 @@
         echo "$QEMU_IMG"
         echo "$QEMU_SYSTEM"
         echo "starting qemu VM kid"
-        $QEMU_SYSTEM \\
-          -machine virt \\
-          -accel hvf \\
-          -cpu host \\
-          -m $MEM \\
-          -smp 2 \\
-          -drive file=$QCOW,if=virtio \\
-          -net nic,model=virtio \\
-          -net user,hostfwd=tcp::2222-:22 \\
-          -nographic
+        $QEMU_SYSTEM \
+          -machine virt \
+          -accel hvf \
+          -cpu host \
+          -m $MEM \
+          -smp 2 \
+          -drive file=$QCOW,if=virtio \
+          -netdev user,id=net0,hostfwd=tcp::2222-:22,net=192.168.50.0/24 \
+          -device virtio-net-pci,netdev=net0 \
+          -nographic \
+          -D qemu.log -d guest_errors,unimp
         EOF
 
         chmod +x $out/bin/run-kid
