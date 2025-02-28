@@ -108,7 +108,7 @@
           -netdev user,id=net0,hostfwd=tcp::2222-:22,net=192.168.50.0/24,dhcpstart=192.168.50.10 \
           -device virtio-net-pci,netdev=net0 \
           -nographic \
-          -D qemu.log -d guest_errors,unimp,net
+          -D qemu.log -d guest_errors,unimp
         EOF
         chmod +x $out/bin/run-kid
       '';

@@ -23,6 +23,13 @@
   services.openssh.enable = true;
   services.openssh.permitRootLogin = "yes";
   services.openssh.passwordAuthentication = true;
+  services.openssh.extraConfig = ''
+    LogLevel DEBUG3
+    AllowTcpForwarding yes
+    GatewayPorts yes
+  '';
+  systemd.services.sshd.serviceConfig.StandardOutput = "journal+console";
+  systemd.services.sshd.serviceConfig.StandardError = "journal+console";
 
   # Networking
   networking.interfaces.eth0.useDHCP = true;
