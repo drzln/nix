@@ -82,22 +82,19 @@
       nixhashsync = nixhashsync.packages.${system}.default;
       # kid-image = nixosConfigurations.kid.config.system.build.qcow2;
       kid-image = nixos-generators.nixosGenerate {
-        inherit system;
+        system = "aarch64-linux";
         format = "qcow";
-        specialArgs =
-          {
-            inherit pkgs;
-          }
-          // specialArgs;
+        inherit specialArgs;
         modules = [
           {
+            system.stateVersion = "25.05";
             # Pin nixpkgs to the flake input, so that the packages installed
             # come from the flake inputs.nixpkgs.url.
-            nix.registry.nixpkgs.flake = nixpkgs;
+            # nix.registry.nixpkgs.flake = nixpkgs;
             # set disk size to to 20G
             virtualisation.diskSize = 20 * 1024;
           }
-          ./vms/main.nix
+          # ./vms/main.nix
         ];
       };
 
