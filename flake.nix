@@ -83,6 +83,10 @@
         cat > $out/bin/run-kid << EOF
         #!/bin/sh
 
+        # remove QCOW if it exists to refresh config
+        # while dev iterating
+        rm -rf $QCOW
+
         # Create the disk image if it doesn't exist
         ! [ -d $BASE_PATH ] && mkdir -p $BASE_PATH
 
