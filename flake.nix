@@ -72,31 +72,29 @@
       kid = pkgs.runCommand "run-kid" {} ''
         mkdir -p $out/bin
 
-        # Generate QEMU run script
+        # Store paths for QEMU binaries
+        QEMU_IMG="${pkgs.qemu}/bin/qemu-img"
+        QEMU_SYSTEM="${pkgs.qemu}/bin/qemu-system-aarch64"
+
+        # Generate QEMU run script with hardcoded store paths
         cat > $out/bin/run-kid << EOF
         #!/bin/sh
 
+        # Create the disk image if it doesn't exist
         if [ ! -f nixos.qcow2 ]; then
-          qemu-img create -f qcow2 nixos.qcow2 20G
+          $QEMU_IMG create -f qcow2 nixos.qcow2 20G
         fi
 
-        # qemu-system-aarch64 \\
-        #   -accel hvf \\
-        #   -m 4096 \\
-        #   -smp 2 \\
-        #   -drive file=nixos.qcow2,if=virtio \\
-        #   -net nic,model=virtio \\
-        #   -net user,hostfwd=tcp::2222-:22 \\
-        #   -nographic
-        qemu-system-aarch64 \
-          -machine virt \
-          -accel hvf \
-          -cpu host \
-          -m 4096 \
-          -smp 2 \
-          -drive file=nixos.qcow2,if=virtio \
-          -net nic,model=virtio \
-          -net user,hostfwd=tcp::2222-:22 \
+        # Run QEMU with hardcoded store paths
+        $QEMU_SYSTEM \\
+          -machine virt \\
+          -accel hvf \\
+          -cpu host \\
+          -m 4096 \\
+          -smp 2 \\
+          -drive file=nixos.qcow2,if=virtio \\
+          -net nic,model=virtio \\
+          -net user,hostfwd=tcp::2222-:22 \\
           -nographic
         EOF
 
