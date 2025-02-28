@@ -90,6 +90,13 @@
           }
           // specialArgs;
         modules = [
+          {
+            # Pin nixpkgs to the flake input, so that the packages installed
+            # come from the flake inputs.nixpkgs.url.
+            nix.registry.nixpkgs.flake = nixpkgs;
+            # set disk size to to 20G
+            virtualisation.diskSize = 20 * 1024;
+          }
           ./vms/main.nix
         ];
       };
