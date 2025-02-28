@@ -6,3 +6,6 @@ result
 
 # vagrant
 .vagrant
+
+# vm
+nixos-qcow2
