@@ -75,78 +75,83 @@
         config.allowUnfree = true;
       };
     nixos-modules = import ./modules/nixos;
-    packages = flake-utils.lib.eachDefaultSystem (system: let
+    base-packages = flake-utils.lib.eachDefaultSystem (system: let
       pkgs = mkPkgs system;
     in {
       neovim = pkgs.callPackage ./packages/neovim {};
       nixhashsync = nixhashsync.packages.${system}.default;
       # kid-image = nixosConfigurations.kid.config.system.build.qcow2;
-      kid-image = nixos-generators.nixosGenerate {
-        system = "aarch64-linux";
-        format = "qcow";
-        inherit specialArgs;
-        modules = [
-          {
-            system.stateVersion = "25.05";
-            # Pin nixpkgs to the flake input, so that the packages installed
-            # come from the flake inputs.nixpkgs.url.
-            # nix.registry.nixpkgs.flake = nixpkgs;
-            # set disk size to to 20G
-            virtualisation.diskSize = 20 * 1024;
-          }
-          # ./vms/main.nix
-        ];
-      };
 
       # kid-image = pkgs.nixos-install-tools.qemuImage {
       #   inherit system;
       #   name = "nixos-vm.qcow2";
       #   configuration = nixosConfigurations.kid;
       # };
-
-      kid = pkgs.runCommand "run-kid" {} ''
-        mkdir -p $out/bin
-
-        # Store paths for QEMU binaries
-        QEMU_IMG="${pkgs.qemu}/bin/qemu-img"
-        QEMU_SYSTEM="${pkgs.qemu}/bin/qemu-system-aarch64"
-        BASE_PATH=./etc/nixos/vm/main
-        QCOW=$out/nixos-vm.qcow2
-        SIZE=100G
-        MEM=4096
-
-        cat > $out/bin/run-kid << EOF
-        #!/bin/sh
-        set -e
-        nix build ".#packages.kid-image.${system}" --extra-platforms aarch64-darwin
-        sudo ln -sf ./result/nixos-vm.qcow2 $QCOW
-
-        # Create the disk image if it doesn't exist
-        ! [ -d $BASE_PATH ] && mkdir -p $BASE_PATH
-
-        # Run QEMU with hardcoded store paths
-        echo "starting qemu VM kid"
-        echo "$SIZE"
-        echo "$MEM"
-        echo "$QCOW"
-        echo "$QEMU_IMG"
-        echo "$QEMU_SYSTEM"
-        echo "starting qemu VM kid"
-        $QEMU_SYSTEM \
-          -machine virt \
-          -accel hvf \
-          -cpu host \
-          -m $MEM \
-          -smp 2 \
-          -drive file=$QCOW,if=virtio \
-          -netdev user,id=net0,hostfwd=tcp::2222-:22,net=192.168.50.0/24,dhcpstart=192.168.50.10 \
-          -device virtio-net-pci,netdev=net0 \
-          -nographic \
-          -D qemu.log -d guest_errors,unimp
-        EOF
-        chmod +x $out/bin/run-kid
-      '';
     });
+    # aarch64-linux-pkgs = mkPkgs "aarch64-linux";
+    aarch64-darwin-pkgs = mkPkgs "aarch64-darwin";
+    packages =
+      base-packages
+      // {
+        kid.aarch64-linux = aarch64-darwin-pkgs.runCommand "run-kid" {} ''
+          mkdir -p $out/bin
+
+          # Store paths for QEMU binaries
+          QEMU_IMG="${aarch64-darwin-pkgs.qemu}/bin/qemu-img"
+          QEMU_SYSTEM="${aarch64-darwin-pkgs.qemu}/bin/qemu-system-aarch64"
+          BASE_PATH=./etc/nixos/vm/main
+          QCOW=$out/nixos-vm.qcow2
+          SIZE=100G
+          MEM=4096
+
+          cat > $out/bin/run-kid << EOF
+          #!/bin/sh
+          set -e
+          nix build ".#packages.kid-image.aarch64-linux" --extra-platforms aarch64-darwin
+          sudo ln -sf ./result/nixos-vm.qcow2 $QCOW
+
+          # Create the disk image if it doesn't exist
+          ! [ -d $BASE_PATH ] && mkdir -p $BASE_PATH
+
+          # Run QEMU with hardcoded store paths
+          echo "starting qemu VM kid"
+          echo "$SIZE"
+          echo "$MEM"
+          echo "$QCOW"
+          echo "$QEMU_IMG"
+          echo "$QEMU_SYSTEM"
+          echo "starting qemu VM kid"
+          $QEMU_SYSTEM \
+            -machine virt \
+            -accel hvf \
+            -cpu host \
+            -m $MEM \
+            -smp 2 \
+            -drive file=$QCOW,if=virtio \
+            -netdev user,id=net0,hostfwd=tcp::2222-:22,net=192.168.50.0/24,dhcpstart=192.168.50.10 \
+            -device virtio-net-pci,netdev=net0 \
+            -nographic \
+            -D qemu.log -d guest_errors,unimp
+          EOF
+          chmod +x $out/bin/run-kid
+        '';
+        kid-image.aarch64-linux = nixos-generators.nixosGenerate {
+          system = "aarch64-linux";
+          format = "qcow";
+          inherit specialArgs;
+          modules = [
+            {
+              system.stateVersion = "25.05";
+              # Pin nixpkgs to the flake input, so that the packages installed
+              # come from the flake inputs.nixpkgs.url.
+              # nix.registry.nixpkgs.flake = nixpkgs;
+              # set disk size to to 20G
+              virtualisation.diskSize = 20 * 1024;
+            }
+            # ./vms/main.nix
+          ];
+        };
+      };
   in {
     inherit nixosConfigurations packages;
 
