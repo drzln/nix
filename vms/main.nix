@@ -17,6 +17,7 @@
     isNormalUser = true;
     extraGroups = ["wheel"]; # Allow sudo
     password = "letmein";
+    shell = pkgs.zsh;
   };
 
   # OpenSSH for remote access
