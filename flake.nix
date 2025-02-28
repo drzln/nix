@@ -74,6 +74,7 @@
       nixhashsync = nixhashsync.packages.${system}.default;
 
       kid-image = pkgs.nixos-install-tools.qemuImage {
+        inherit system;
         name = "nixos-vm.qcow2";
         configuration = nixosConfigurations.kid;
       };
@@ -92,7 +93,7 @@
         cat > $out/bin/run-kid << EOF
         #!/bin/sh
         set -e
-        nix build .#packages.${system}.kid-image
+        nix build ".#packages.kid-image.${system}" --extra-platforms aarch64-darwin
         sudo ln -sf ./result/nixos-vm.qcow2 $QCOW
 
         # Create the disk image if it doesn't exist
