@@ -8,4 +8,4 @@ result
 .vagrant
 
 # vm
-nixos-qcow2
+nixos.qcow2
