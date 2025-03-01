@@ -1,9 +1,9 @@
 {
   pkgs,
-  nixpkgs,
+  # nixpkgs,
   ...
 }: {
-  imports = ["${nixpkgs}/nixos/modules/virtualisation/qemu-vm.nix"];
+  # imports = ["${nixpkgs}/nixos/modules/virtualisation/qemu-vm.nix"];
 
   time.timeZone = "America/New_York";
   networking.firewall.allowedTCPPorts = [22 2222];
