@@ -136,12 +136,12 @@
           chmod +x $out/bin/run-kid
         '';
         kid-image.aarch64-linux = nixos-generators.nixosGenerate {
-          # system = "aarch64-linux";
           system = "aarch64-linux";
           format = "qcow";
           inherit specialArgs;
           modules = [
             {
+              nixpkgs.crossSystem.system = "aarch64-linux";
               system.stateVersion = "25.05";
               # Pin nixpkgs to the flake input, so that the packages installed
               # come from the flake inputs.nixpkgs.url.
