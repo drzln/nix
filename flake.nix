@@ -136,7 +136,8 @@
           chmod +x $out/bin/run-kid
         '';
         kid-image.aarch64-linux = nixos-generators.nixosGenerate {
-          system = "aarch64-linux";
+          # system = "aarch64-linux";
+          system = "x86_64-linux";
           format = "qcow";
           inherit specialArgs;
           modules = [
