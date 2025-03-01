@@ -72,6 +72,9 @@
     mkPkgs = system:
       import nixpkgs {
         inherit system overlays;
+        crossSystem = {
+          config = "aarch64-linux";
+        };
         config.allowUnfree = true;
       };
     nixos-modules = import ./modules/nixos;
@@ -140,15 +143,22 @@
           format = "qcow";
           inherit specialArgs;
           modules = [
-            {
-              nixpkgs.crossSystem.system = "aarch64-linux";
+            ({
+              lib,
+              pkgs,
+              ...
+            }: {
+              # nixpkgs.crossSystem.system = "aarch64-linux";
+              # boot.binfmt.emulatedSystems = lib.mkIf (pkgs.stdenv.hostPlatform.isLinux) ["aarch64-linux"];
+
+              # boot.binfmt.emulatedSystems = ["aarch64-linux"];
               system.stateVersion = "25.05";
               # Pin nixpkgs to the flake input, so that the packages installed
               # come from the flake inputs.nixpkgs.url.
               # nix.registry.nixpkgs.flake = nixpkgs;
               # set disk size to to 20G
               virtualisation.diskSize = 20 * 1024;
-            }
+            })
             # ./vms/main.nix
           ];
         };
