@@ -6,10 +6,6 @@
     pwnixos.url = "github:exploitoverload/PwNixOS";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
-    nixos-generators = {
-      url = "github:nix-community/nixos-generators";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     sops-nix.url = "github:Mic92/sops-nix";
     nix-security-modules = {
       url = "github:michaelBelsanti/nix-security-modules";
@@ -48,7 +44,6 @@
     pwnixos,
     rednix,
     nixified-ai,
-    nixos-generators,
     ...
   } @ inputs: let
     inherit inputs self;
@@ -65,9 +60,27 @@
       inherit requirements packages;
     };
 
-    nixosConfigurations = import ./nixosConfigurations {
-      inherit nixpkgs home-manager sops-nix specialArgs;
-    };
+    nixosConfigurations =
+      import ./nixosConfigurations {
+        inherit nixpkgs home-manager sops-nix specialArgs;
+      }
+      // {
+        # Add your VM configuration here
+        kid-qcow2 = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux"; # Explicit system architecture
+          modules = [
+            ./vms/test.nix
+            ({modulesPath, ...}: {
+              imports = [(modulesPath + "/virtualisation/qemu-vm.nix")];
+              virtualisation = {
+                diskImageFormat = "qcow2";
+                diskSize = 8192; # 8GB
+                memorySize = 2048; # 2GB RAM
+              };
+            })
+          ];
+        };
+      };
 
     mkPkgs = system:
       import nixpkgs {
@@ -83,12 +96,21 @@
     in {
       neovim = pkgs.callPackage ./packages/neovim {};
       nixhashsync = nixhashsync.packages.${system}.default;
-      # kid-image = nixosConfigurations.kid.config.system.build.qcow2;
-
-      # kid-image = pkgs.nixos-install-tools.qemuImage {
+      kid-qcow2 = self.nixosConfigurations.kid-qcow2.config.system.build.qcow2Image;
+      # kid-qcow2 = packages.kid-qcow2-configuration.config.system.build.qcow2Image;
+      # kid-qcow2-configuration = nixpkgs.lib.nixosSystem {
       #   inherit system;
-      #   name = "nixos-vm.qcow2";
-      #   configuration = nixosConfigurations.kid;
+      #   modules = [
+      #     ./vms/test.nix
+      #     ({modulesPath, ...}: {
+      #       imports = [(modulesPath + "/virtualisation/qemu-vm.nix")];
+      #       virtualisation = {
+      #         diskImageFormat = "qcow2";
+      #         diskSize = 8192; # 8GB
+      #         memorySize = 2048; # 2GB RAM
+      #       };
+      #     })
+      #   ];
       # };
     });
     # aarch64-linux-pkgs = mkPkgs "aarch64-linux";
@@ -138,30 +160,6 @@
           EOF
           chmod +x $out/bin/run-kid
         '';
-        kid-image.aarch64-linux = nixos-generators.nixosGenerate {
-          system = "aarch64-linux";
-          format = "qcow";
-          inherit specialArgs;
-          modules = [
-            ({
-              lib,
-              pkgs,
-              ...
-            }: {
-              # nixpkgs.crossSystem.system = "aarch64-linux";
-              # boot.binfmt.emulatedSystems = lib.mkIf (pkgs.stdenv.hostPlatform.isLinux) ["aarch64-linux"];
-
-              # boot.binfmt.emulatedSystems = ["aarch64-linux"];
-              system.stateVersion = "25.05";
-              # Pin nixpkgs to the flake input, so that the packages installed
-              # come from the flake inputs.nixpkgs.url.
-              # nix.registry.nixpkgs.flake = nixpkgs;
-              # set disk size to to 20G
-              virtualisation.diskSize = 20 * 1024;
-            })
-            # ./vms/main.nix
-          ];
-        };
       };
   in {
     inherit nixosConfigurations packages;
