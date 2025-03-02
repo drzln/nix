@@ -65,19 +65,40 @@
         inherit nixpkgs home-manager sops-nix specialArgs;
       }
       // {
-        # Add your VM configuration here
         kid-qcow2 = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux"; # Explicit system architecture
+          system = "aarch64-linux";
           modules = [
-            ./vms/test.nix
-            ({modulesPath, ...}: {
-              imports = [(modulesPath + "/virtualisation/qemu-vm.nix")];
-              virtualisation = {
-                diskImageFormat = "qcow2";
-                diskSize = 8192; # 8GB
-                memorySize = 2048; # 2GB RAM
+            ({
+              modulesPath,
+              config,
+              lib,
+              pkgs,
+              ...
+            }: {
+              imports = [
+                "${toString modulesPath}/profiles/qemu-guest.nix"
+              ];
+
+              fileSystems."/" = {
+                device = "/dev/disk/by-label/nixos";
+                autoResize = true;
+                fsType = "ext4";
+              };
+
+              boot.kernelParams = ["console=ttyS0"];
+              boot.loader.grub.device = lib.mkDefault "/dev/vda";
+
+              system.build.qcow2 = import "${modulesPath}/../lib/make-disk-image.nix" {
+                inherit lib config pkgs;
+                diskSize = 10240;
+                format = "qcow2";
+                partitionTableType = "hybrid";
               };
             })
+            # ./vms/test.nix
+            # ({modulesPath, ...}: {
+            #   imports = [(modulesPath + "/virtualisation/qemu-vm.nix")];
+            # })
           ];
         };
       };
@@ -96,7 +117,7 @@
     in {
       neovim = pkgs.callPackage ./packages/neovim {};
       nixhashsync = nixhashsync.packages.${system}.default;
-      kid-qcow2 = self.nixosConfigurations.kid-qcow2.config.system.build.qcow2Image;
+      # kid-qcow2 = self.nixosConfigurations.kid-qcow2.config.system.build.qcow2;
       # kid-qcow2 = packages.kid-qcow2-configuration.config.system.build.qcow2Image;
       # kid-qcow2-configuration = nixpkgs.lib.nixosSystem {
       #   inherit system;
