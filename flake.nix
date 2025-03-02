@@ -78,6 +78,7 @@
               imports = [
                 "${toString modulesPath}/profiles/qemu-guest.nix"
               ];
+              system.stateVersion = "25.05";
 
               fileSystems."/" = {
                 device = "/dev/disk/by-label/nixos";
@@ -95,6 +96,7 @@
                 partitionTableType = "hybrid";
               };
             })
+
             # ./vms/test.nix
             # ({modulesPath, ...}: {
             #   imports = [(modulesPath + "/virtualisation/qemu-vm.nix")];
