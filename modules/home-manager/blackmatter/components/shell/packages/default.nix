@@ -70,7 +70,7 @@ in {
           cargo
           arion
           sops
-          qemu
+          # qemu
           xsel
           nmap
           tree
