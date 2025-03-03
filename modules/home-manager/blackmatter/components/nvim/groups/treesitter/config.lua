@@ -99,13 +99,13 @@ function M.setup()
 	-- TODO: folding is a bit buggy troubleshoot later
 	-- vim.cmd [[ set foldmethod=expr ]]
 	-- vim.cmd [[ set foldexpr=nvim_treesitter#foldexpr() ]]
-  --
-  --
-  -- get commentstring from treesitter
+	--
+	--
+	-- get commentstring from treesitter
 	require("ts_context_commentstring").setup({
 		enable_autocmd = false,
 	})
-
+	vim.g.skip_ts_context_commentstring_module = true
 	local get_option = vim.filetype.get_option
 	vim.filetype.get_option = function(filetype, option)
 		if option == "commentstring" then
