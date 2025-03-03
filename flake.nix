@@ -73,6 +73,7 @@
 
     nixos-modules = import ./modules/nixos;
 
+    darwin-pkgs = mkPkgs "x86_64-darwin";
     base-packages = flake-utils.lib.eachDefaultSystem (system: let
       pkgs = mkPkgs system;
     in {
@@ -95,6 +96,7 @@
 
     darwinConfigurations = import ./darwinConfigurations {
       inherit
+        darwin-pkgs
         nix-darwin
         home-manager
         inputs
