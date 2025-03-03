@@ -8,6 +8,7 @@ function M.setup()
 			javascript = { "prettier" },
 			markdown = { "prettier" },
 			tf = { "terraform_fmt" },
+			yaml = { "prettier" },
 			json = { "prettier" },
 			nix = { "alejandra" },
 			html = { "prettier" },
