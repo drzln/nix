@@ -17,7 +17,7 @@ function M.setup()
 	-- https://github.com/nvim-orgmode/orgmode
 	-- require("orgmode").setup_ts_grammar()
 
-	require("nvim-treesitter.configs").setup {
+	require("nvim-treesitter.configs").setup({
 		context_commentstring = { enable = true },
 		parser_install_dir = parsers_path,
 		ensure_installed = "all",
@@ -45,7 +45,7 @@ function M.setup()
 			enable = true,
 		},
 		-- enable vim-matchup integration
-		matchup = { enable = true, },
+		matchup = { enable = true },
 		-- nvim-treesitter-textobjects
 		textobjects = {
 			lsp_interop = {
@@ -92,13 +92,29 @@ function M.setup()
 					["if"] = "@function.inner",
 					["ac"] = "@class.outer",
 					["ic"] = "@class.inner",
-				}
-			}
+				},
+			},
 		},
-	}
+	})
 	-- TODO: folding is a bit buggy troubleshoot later
 	-- vim.cmd [[ set foldmethod=expr ]]
 	-- vim.cmd [[ set foldexpr=nvim_treesitter#foldexpr() ]]
+  --
+  --
+  -- get commentstring from treesitter
+	require("ts_context_commentstring").setup({
+		enable_autocmd = false,
+	})
+
+	local get_option = vim.filetype.get_option
+	vim.filetype.get_option = function(filetype, option)
+		if option == "commentstring" then
+			return require("ts_context_commentstring.internal").calculate_commentstring()
+				or get_option(filetype, option)
+		else
+			return get_option(filetype, option)
+		end
+	end
 end
 
 return M
