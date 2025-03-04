@@ -15,7 +15,7 @@ in {
   };
 
   imports = [
-    ../../plugins/avante/avante.nvim
+    ../../plugins/yetone/avante.nvim
   ];
 
   config = mkMerge [
@@ -24,7 +24,7 @@ in {
       {
         home.file."${configPath}".source = ./config.lua;
         blackmatter.components.nvim.plugins = {
-          avante."avante.nvim".enable = true;
+          yetone."avante.nvim".enable = true;
         };
       }
     )
