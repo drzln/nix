@@ -4,7 +4,7 @@
   ...
 }:
 with lib; let
-  cfg = config.blackmatter.programs.nvim.plugins.${author}.${name};
+  cfg = config.blackmatter.programs.nvim.plugins.muni.${name};
   common = import ../../../common;
   url = "${common.baseRepoUrl}/${author}/${name}";
   plugPath = "${common.basePlugPath}/${author}/start/${name}";
@@ -13,7 +13,7 @@ with lib; let
   ref = "main";
   rev = import ./rev.nix;
 in {
-  options.blackmatter.programs.nvim.plugins.${author}.${name}.enable =
+  options.blackmatter.programs.nvim.plugins.muni.${name}.enable =
     mkEnableOption "${author}/${name}";
 
   config = mkMerge [
