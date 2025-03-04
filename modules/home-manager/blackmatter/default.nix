@@ -1,12 +1,8 @@
-{ lib, config, ... }:
-with lib;
-let
-  cfg = config.blackmatter;
-in
-{
+{lib, ...}:
+with lib; {
   imports = [
     ./profiles
-		./components
+    ./components
   ];
 
   options = {
