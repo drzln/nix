@@ -20,7 +20,7 @@ in {
     ../../plugins/sar/cmp-lsp.nvim
     ../../plugins/L3MON4D3/LuaSnip
     ../../plugins/hrsh7th/cmp-buffer
-    ../../plugins/yetone/avante.nvim
+    # ../../plugins/yetone/avante.nvim
     ../../plugins/hrsh7th/cmp-cmdline
     ../../plugins/ray-x/cmp-treesitter
     ../../plugins/hrsh7th/cmp-nvim-lsp
@@ -42,7 +42,7 @@ in {
           hrsh7th.cmp-buffer.enable = true;
           sar."cmp-lsp.nvim".enable = true;
           hrsh7th.cmp-cmdline.enable = true;
-          yetone."avante.nvim".enable = true;
+          # yetone."avante.nvim".enable = true;
           hrsh7th.cmp-nvim-lsp.enable = true;
           ray-x.cmp-treesitter.enable = true;
           onsails."lspkind.nvim".enable = true;

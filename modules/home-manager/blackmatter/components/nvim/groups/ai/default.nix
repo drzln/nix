@@ -26,7 +26,7 @@ in {
         home.file."${configPath}".source = ./config.lua;
         blackmatter.components.nvim.plugins = {
           yetone."avante.nvim".enable = true;
-          MunifTanjim."nui.nvim".enable = true;
+          # MunifTanjim."nui.nvim".enable = true;
         };
       }
     )
