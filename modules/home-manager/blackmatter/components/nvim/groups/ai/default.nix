@@ -10,7 +10,7 @@ with lib; let
   common = import ../../common;
   configPath = "${common.includesPath}/groups/${plugName}.lua";
 in {
-  options.blackmatter.components.nvim.plugin.groups.completion = {
+  options.blackmatter.components.nvim.plugin.groups.ai = {
     enable = mkEnableOption name;
   };
 

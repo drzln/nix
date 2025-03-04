@@ -43,6 +43,7 @@ in
         blackmatter.components.nvim.plugin.groups.keybindings.enable = true;
         blackmatter.components.nvim.plugin.groups.lsp.enable = true;
         blackmatter.components.nvim.plugin.groups.completion.enable = true;
+        blackmatter.components.nvim.plugin.groups.ai.enable = true;
         # blackmatter.components.nvim.plugin.groups.telescope.enable = true;
         # blackmatter.components.nvim.plugin.groups.languages.enable = true;
         # blackmatter.components.nvim.plugin.groups.debugging.enable = true;
