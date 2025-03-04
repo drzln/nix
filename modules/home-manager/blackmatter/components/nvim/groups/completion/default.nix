@@ -28,7 +28,7 @@ in {
     ../../plugins/zbirenbaum/copilot-cmp
     ../../plugins/zbirenbaum/copilot.lua
     ../../plugins/rafamadriz/friendly-snippets
-    ../../plugins/MunifTanjim/nui.nvim
+    ../../plugins/muni/nui.nvim
   ];
 
   config = mkMerge [
@@ -50,7 +50,7 @@ in {
           zbirenbaum."copilot.lua".enable = true;
           zbirenbaum."copilot-cmp".enable = true;
           rafamadriz.friendly-snippets.enable = true;
-          MunifTanjim."nui.nvim".enable = true;
+          muni."nui.nvim".enable = true;
         };
       }
     )
