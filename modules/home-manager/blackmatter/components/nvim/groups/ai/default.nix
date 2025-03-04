@@ -16,6 +16,7 @@ in {
 
   imports = [
     ../../plugins/yetone/avante.nvim
+    ../../plugins/MunifTanjim/nui.nvim
   ];
 
   config = mkMerge [
@@ -25,6 +26,7 @@ in {
         home.file."${configPath}".source = ./config.lua;
         blackmatter.components.nvim.plugins = {
           yetone."avante.nvim".enable = true;
+          MunifTanjim."nui.nvim".enable = true;
         };
       }
     )
