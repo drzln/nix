@@ -14,7 +14,7 @@ in
       ./keybindings
       ./lsp
       ./completion
-      ./ai
+      #./ai
       # ./languages
       # ./debugging
       # ./tmux
