@@ -244,7 +244,7 @@
     imports = [../../modules/home-manager/blackmatter];
     home.stateVersion = "23.11";
     home.sessionVariables = {
-      KUBE_EDITOR = "vim";
+      KUBE_EDITOR = "nvim";
     };
 
     # Let Home Manager manage itself
