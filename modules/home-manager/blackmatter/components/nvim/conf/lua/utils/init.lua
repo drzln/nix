@@ -7,15 +7,15 @@ Parameters:
 dir (string): The directory to load files from.
 --]]
 function M.load_files(dir)
-  local directories = M.list_directories(dir)
-  for _, directory in ipairs(directories) do
-    local substrings = M.split(directory, '/')
-    for _, file in ipairs(M.list_files(directory)) do
-      local thisfile = string.gsub(file, "%.lua$", "")
-      local path = string.format("includes.%s.%s", substrings[#substrings], thisfile)
-      require(path).setup()
-    end
-   end
+	local directories = M.list_directories(dir)
+	for _, directory in ipairs(directories) do
+		local substrings = M.split(directory, "/")
+		for _, file in ipairs(M.list_files(directory)) do
+			local thisfile = string.gsub(file, "%.lua$", "")
+			local path = string.format("includes.%s.%s", substrings[#substrings], thisfile)
+			require(path).setup()
+		end
+	end
 end
 
 --[[
@@ -28,18 +28,18 @@ Returns:
 table: A table of directory paths.
 --]]
 function M.list_directories(path)
-  local cmd = string.format("ls -d %s/*/ 2>/dev/null", path)
-  local handle = io.popen(cmd)
-  local result = nil
-  if handle then
-    result = handle:read("*a")
-    handle:close()
-  end
-  local directories = {}
-  for dir in result:gmatch("(.-)\n") do
-    table.insert(directories, dir)
-  end
-  return directories
+	local cmd = string.format("ls -d %s/*/ 2>/dev/null", path)
+	local handle = io.popen(cmd)
+	local result = nil
+	if handle then
+		result = handle:read("*a")
+		handle:close()
+	end
+	local directories = {}
+	for dir in result:gmatch("(.-)\n") do
+		table.insert(directories, dir)
+	end
+	return directories
 end
 
 --[[

@@ -28,6 +28,7 @@ in {
     ../../plugins/zbirenbaum/copilot-cmp
     ../../plugins/zbirenbaum/copilot.lua
     ../../plugins/rafamadriz/friendly-snippets
+    ../../plugins/muni/nui.nvim
   ];
 
   config = mkMerge [
@@ -42,13 +43,14 @@ in {
           hrsh7th.cmp-buffer.enable = true;
           sar."cmp-lsp.nvim".enable = true;
           hrsh7th.cmp-cmdline.enable = true;
-          yetone."avante.nvim".enable = true;
+          yetone."avante.nvim".enable = false;
           hrsh7th.cmp-nvim-lsp.enable = true;
           ray-x.cmp-treesitter.enable = true;
           onsails."lspkind.nvim".enable = true;
           zbirenbaum."copilot.lua".enable = true;
           zbirenbaum."copilot-cmp".enable = true;
           rafamadriz.friendly-snippets.enable = true;
+          muni."nui.nvim".enable = true;
         };
       }
     )
