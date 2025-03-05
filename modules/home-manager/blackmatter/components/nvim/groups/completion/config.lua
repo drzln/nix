@@ -177,7 +177,6 @@ function M.getCmpSources()
 	}
 end
 
-
 --[[
 -- put it all together
 --]]
@@ -242,40 +241,34 @@ function M.setup()
 		},
 		sources = cmp.config.sources(M.getCmpSources()),
 
-    -- Read the AWS credentials from the profile in the AWS config file
-    -- local aws_profile = "pingersandbox01usw2" -- Replace with your actual profile name
-    -- local aws_credentials, err = read_aws_credentials_from_profile(aws_profile)
-    -- Read the Anthropic API key from file
-    -- local anthropic_api_key, api_key_err = read_anthropic_api_key()
-    -- if aws_credentials and anthropic_api_key then
-    -- 	-- Configure Avante.nvim with Claude Sonnet via Amazon Bedrock and Anthropic API key
-    -- 	require("avante").setup({
-    -- 		provider = "claude", -- Use Claude as the AI provider
-    -- 		model = "claude-3", -- Use Claude 3 model (or change to your preferred version)
-    -- 		provider_options = {
-    -- 			aws_access_key_id = aws_credentials.aws_access_key_id, -- Read from the profile
-    -- 			aws_secret_access_key = aws_credentials.aws_secret_access_key, -- Read from the profile
-    -- 			aws_region = aws_credentials.aws_region, -- Read from the profile
-    -- 			anthropic_api_key = anthropic_api_key, -- Directly use the Anthropic API key from file
-    -- 			max_tokens = 4000, -- Maximum tokens for response (adjust as needed)
-    -- 			temperature = 0.7, -- Adjust response creativity (higher = more creative)
-    -- 		},
-    -- 		-- Additional configurations for the Avante sidebar or general settings
-    -- 		keymaps = {
-    -- 			toggle_sidebar = "<leader>aa", -- Keybinding to toggle the Avante sidebar
-    -- 			ask_question = "<leader>aq", -- Keybinding to ask the AI a question
-    -- 		},
-    -- 	})
-    -- else
-    -- 	print("Error: " .. (err or api_key_err))
-    -- end
+		-- Read the AWS credentials from the profile in the AWS config file
+		-- local aws_profile = "pingersandbox01usw2" -- Replace with your actual profile name
+		-- local aws_credentials, err = read_aws_credentials_from_profile(aws_profile)
+		-- Read the Anthropic API key from file
+		-- local anthropic_api_key, api_key_err = read_anthropic_api_key()
+		-- if aws_credentials and anthropic_api_key then
+		-- 	-- Configure Avante.nvim with Claude Sonnet via Amazon Bedrock and Anthropic API key
+		-- 	require("avante").setup({
+		-- 		provider = "claude", -- Use Claude as the AI provider
+		-- 		model = "claude-3", -- Use Claude 3 model (or change to your preferred version)
+		-- 		provider_options = {
+		-- 			aws_access_key_id = aws_credentials.aws_access_key_id, -- Read from the profile
+		-- 			aws_secret_access_key = aws_credentials.aws_secret_access_key, -- Read from the profile
+		-- 			aws_region = aws_credentials.aws_region, -- Read from the profile
+		-- 			anthropic_api_key = anthropic_api_key, -- Directly use the Anthropic API key from file
+		-- 			max_tokens = 4000, -- Maximum tokens for response (adjust as needed)
+		-- 			temperature = 0.7, -- Adjust response creativity (higher = more creative)
+		-- 		},
+		-- 		-- Additional configurations for the Avante sidebar or general settings
+		-- 		keymaps = {
+		-- 			toggle_sidebar = "<leader>aa", -- Keybinding to toggle the Avante sidebar
+		-- 			ask_question = "<leader>aq", -- Keybinding to ask the AI a question
+		-- 		},
+		-- 	})
+		-- else
+		-- 	print("Error: " .. (err or api_key_err))
+		-- end
 	})
 end
-
-
-
-
-
-
 
 return M
