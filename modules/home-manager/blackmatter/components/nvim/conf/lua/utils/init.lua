@@ -13,6 +13,8 @@ function M.load_files(dir)
     for _, file in ipairs(M.list_files(directory)) do
       local thisfile = string.gsub(file, "%.lua$", "")
       local path = string.format("includes.%s.%s", substrings[#substrings], thisfile)
+      print(path)
+
       require(path).setup()
     end
    end
