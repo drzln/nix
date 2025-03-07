@@ -39,13 +39,9 @@ in {
 
   # makes /bin/bash work
   services.envfs.enable = true;
-  # environment.systemPackages = with pkgs; [
-  #   (symlinkJoin {
-  #     name = "bash";
-  #     paths = [bash.out];
-  #     symlinks = {"/bin/bash" = "bin/bash";};
-  #   })
-  # ];
+  environment.systemPackages = with pkgs; [
+    minikube
+  ];
   blackmatter.profiles.blizzard.enable = true;
 
   users.users.luis =
