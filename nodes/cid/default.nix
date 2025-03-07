@@ -243,6 +243,9 @@
     # Example of importing a custom module or theme
     imports = [../../modules/home-manager/blackmatter];
     home.stateVersion = "23.11";
+    home.sessionVariables = {
+      KUBE_EDITOR = "nvim";
+    };
 
     # Let Home Manager manage itself
     programs.home-manager.enable = true;
