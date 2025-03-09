@@ -41,6 +41,7 @@ in {
   services.envfs.enable = true;
   environment.systemPackages = with pkgs; [
     minikube
+    kubectl
   ];
   blackmatter.profiles.blizzard.enable = true;
 
