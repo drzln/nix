@@ -61,6 +61,7 @@ in {
           openconnect
           traceroute
           llama-cpp
+          slack-cli
           gnumake
           awscli2
           lazygit
