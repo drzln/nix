@@ -163,7 +163,7 @@
 
   environment.systemPackages = with pkgs; [
     gh
-    slack-api
+    slack-cli
     # sumneko-lua-language-server
     # docker
     # docker-client
