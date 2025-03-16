@@ -1,6 +1,6 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   services.xserver.enable = true;
-  services.xserver.videoDrivers = [ "modesetting" ]; # Using the modesetting driver
+  services.xserver.videoDrivers = ["modesetting"]; # Using the modesetting driver
   services.xserver.desktopManager.gnome.enable = true;
   services.xserver.displayManager.gdm.enable = true;
   services.displayManager.autoLogin.enable = false;
@@ -11,7 +11,7 @@
     # "i915.enable_dpcd_backlight=1" # Optional: uncomment if needed
   ];
 
-  boot.kernelModules = [ "i915" ]; # Ensure Intel graphics module is loaded
+  boot.kernelModules = ["i915"]; # Ensure Intel graphics module is loaded
 
   boot.kernelPackages = pkgs.linuxPackages_latest; # Use the latest kernel packages
 
@@ -19,10 +19,10 @@
 
   nixpkgs.config.allowUnfree = true; # Enable unfree software
 
-  nix.settings.experimental-features = [ 
-		"nix-command"
-		"flakes"
-	];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
   environment.systemPackages = with pkgs; [
     mesa
     mesa-demos
