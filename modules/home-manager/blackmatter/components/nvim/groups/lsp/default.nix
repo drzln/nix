@@ -56,6 +56,7 @@ in {
           python39
           solargraph
           luarocks-nix
+          google-java-format
           # dotnet_9.sdk
           # dotnet_9.runtime
           rust-analyzer
