@@ -1,5 +1,5 @@
 {
-  # pkgs,
+  pkgs,
   requirements,
   ...
 }: let
@@ -134,22 +134,22 @@
       requirements.inputs.self.homeManagerModules.blackmatter
     ];
     home.stateVersion = state.version;
-    # home.packages = with pkgs; [vim git];
-    # home.homeDirectory = "/home/luis";
-    # home.sessionVariables = {EDITOR = "vim";};
-    # programs.ssh.enable = true;
-    # programs.ssh.userKnownHostsFile = "/dev/null";
-    # programs.ssh.extraConfig = ''
-    #   StrictHostKeyChecking no
-    # '';
-    # blackmatter.enable = true;
-    # blackmatter.components.nvim.enable = true;
-    # blackmatter.components.nvim.package = pkgs.neovim;
-    # blackmatter.components.shell.enable = true;
-    # blackmatter.components.desktop.enable = false;
-    # blackmatter.components.gitconfig.enable = true;
-    # blackmatter.components.gitconfig.email = "luis@pleme.io";
-    # blackmatter.components.gitconfig.user = "luis";
+    home.packages = with pkgs; [vim git];
+    home.homeDirectory = "/home/luis";
+    home.sessionVariables = {EDITOR = "vim";};
+    programs.ssh.enable = true;
+    programs.ssh.userKnownHostsFile = "/dev/null";
+    programs.ssh.extraConfig = ''
+      StrictHostKeyChecking no
+    '';
+    blackmatter.enable = true;
+    blackmatter.components.nvim.enable = true;
+    blackmatter.components.nvim.package = pkgs.neovim;
+    blackmatter.components.shell.enable = true;
+    blackmatter.components.desktop.enable = false;
+    blackmatter.components.gitconfig.enable = true;
+    blackmatter.components.gitconfig.email = "luis@pleme.io";
+    blackmatter.components.gitconfig.user = "luis";
   };
   containers = {
     # haproxy =
