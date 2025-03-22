@@ -20,7 +20,7 @@
   # user.uid = 999;
   # user.ssh.pubkey = ''ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQChyPrBmWSILSlqfgd7a4bPyDyzKTERfHEF+V0IQSiDZxcLSkE8+90lqYNh81c9xme09DUKAfd95obUKdcws5PI8NSoHbw70M3Ik2ZVkqGOQpGfcq7BeIDvtqkZyKjCmrCZlEb6RmFVCfso0Xts3/FdxeD3y6BMvGY/oRDLOrwPzGlX+hHAjE4jxG+tGAMWaI3KoAkwU3kfnnDxrp0swJ5Ns3vlR0yihci8SdMECA4fdPUpwzy0uaIpKXruiB44OdW/rxEyM1MujeBVaLeygtKjtYBvC1CZ7ofia1bHDJ2qzmlsDckmIAgVTH6BrcSw3ZOmmG6tx2H5yl/Tchmq72YeBP647fGVsVwLqf3wIPeoR8qcrYTE51/R/URXYlOMsuyYg+2WJrUKXO8pX/n60YDD0BR26VW/d3yjkDH+csWspmAcqN7vPIu8hIMjK0p8EryP/G7yy985kjETkNuyQPX19pGnEMJEBzFlm8XE+HzdxFm06gi/i8y1XC/TBk/IIWk= luis@plo'';
   ip.space = {
-    main = {
+    bastion = {
       prefix = host.prefix;
       local = "10.3.0.2";
     };
@@ -40,7 +40,7 @@
     # };
   };
   dns.addresses = [
-    "/bastion.${domain}/${ip.space.main.local}"
+    "/bastion.${domain}/${ip.space.bastion.local}"
     # "/minio.${domain}/${ip.space.minio.local}"
     # "/haproxy.${domain}/${ip.space.haproxy.local}"
     # "/dnsmasq.${domain}/${ip-space.dnsmasq.local}"
@@ -115,7 +115,7 @@
     #   };
     # };
   };
-  mk-nixos-container-module = {main}: let
+  mk-nixos-container-module = {bastion}: let
     container-module = {
       lib,
       config,
@@ -124,7 +124,7 @@
     }: {
       imports = [
         nixos-common-module
-        main
+        bastion
       ];
     };
   in
@@ -241,17 +241,15 @@
     #   }
     #   // container.defaults;
 
+    # management node for the environment
     bastion =
-      ############################################################################
-      # default container
-      ############################################################################
       {
         config = mk-nixos-container-module {
-          main = {
+          bastion = {
             networking.interfaces.eth0.ipv4.addresses = [
               {
-                address = ip.space.main.local;
-                prefixLength = ip.space.main.prefix;
+                address = ip.space.bastion.local;
+                prefixLength = ip.space.bastion.prefix;
               }
             ];
             networking.hostName = "bastion";
