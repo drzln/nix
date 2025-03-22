@@ -9,7 +9,7 @@
     ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQChyPrBmWSILSlqfgd7a4bPyDyzKTERfHEF+V0IQSiDZxcLSkE8+90lqYNh81c9xme09DUKAfd95obUKdcws5PI8NSoHbw70M3Ik2ZVkqGOQpGfcq7BeIDvtqkZyKjCmrCZlEb6RmFVCfso0Xts3/FdxeD3y6BMvGY/oRDLOrwPzGlX+hHAjE4jxG+tGAMWaI3KoAkwU3kfnnDxrp0swJ5Ns3vlR0yihci8SdMECA4fdPUpwzy0uaIpKXruiB44OdW/rxEyM1MujeBVaLeygtKjtYBvC1CZ7ofia1bHDJ2qzmlsDckmIAgVTH6BrcSw3ZOmmG6tx2H5yl/Tchmq72YeBP647fGVsVwLqf3wIPeoR8qcrYTE51/R/URXYlOMsuyYg+2WJrUKXO8pX/n60YDD0BR26VW/d3yjkDH+csWspmAcqN7vPIu8hIMjK0p8EryP/G7yy985kjETkNuyQPX19pGnEMJEBzFlm8XE+HzdxFm06gi/i8y1XC/TBk/IIWk= luis@plo
   '';
 
-  # This configuration configures the host then configures any downstream containers.
+  # This configuration sets up the host, then configures any containers.
   host = {
     bridge = "internal-br-1";
     gateway = "10.3.0.1";
@@ -27,7 +27,6 @@
       local = "10.3.0.2";
     };
 
-    # Add the master and worker addresses
     k8s-master = {
       prefix = host.prefix;
       local = "10.3.0.3";
@@ -45,7 +44,7 @@
     "/k8s-worker.${domain}/${ip.space.k8s-worker.local}"
   ];
 
-  # Common module imported by each container
+  # Common module for each container
   nixos-common-module = {
     lib,
     config,
@@ -57,12 +56,12 @@
     ];
     system.stateVersion = state.version;
 
-    # Basic SSH config (no root login, no password login)
+    # Basic SSH config
     services.openssh.enable = true;
     services.openssh.settings.PermitRootLogin = "no";
     services.openssh.settings.PasswordAuthentication = false;
 
-    # DNS and networking basics
+    # DNS + networking
     services.dnsmasq.enable = false;
     services.dnsmasq.resolveLocalQueries = true;
     services.dnsmasq.settings.server = [
@@ -75,7 +74,7 @@
     networking.useDHCP = false;
     networking.defaultGateway = host.gateway;
 
-    # Basic packages, user config
+    # Basic packages + user config
     programs.zsh.enable = true;
     users.users.luis = {
       isSystemUser = false;
@@ -87,12 +86,14 @@
       openssh.authorizedKeys.keys = [pubkey];
     };
     users.groups.luis.gid = 1001;
-    security.sudo.extraConfig = ''luis ALL=(ALL) NOPASSWD:ALL'';
+    security.sudo.extraConfig = ''
+      luis ALL=(ALL) NOPASSWD:ALL
+    '';
     environment.systemPackages = with pkgs; [dig nmap];
     users.users.root.openssh.authorizedKeys.keys = [];
   };
 
-  # Default options for all containers
+  # Default options for containers
   container.defaults = {
     hostBridge = host.bridge;
     privateNetwork = true;
@@ -100,7 +101,7 @@
     ephemeral = true; # ephemeral so container state is dropped if container is destroyed
   };
 
-  # Helper function to build container modules from partial configs
+  # Helper for building container modules
   mk-nixos-container-module = {baseConfig}: {
     lib,
     config,
@@ -113,7 +114,7 @@
     ];
   };
 
-  # A common Home Manager config for user 'luis' in containers that want it
+  # Home Manager config for user 'luis' in containers
   home-manager-common-module = {
     imports = [
       requirements.inputs.self.homeManagerModules.blackmatter
@@ -137,9 +138,8 @@
     blackmatter.components.gitconfig.user = "luis";
   };
 
-  # Our containers definition
+  # Our containers
   containers = {
-    # The existing bastion container for SSH / management
     bastion =
       {
         config = mk-nixos-container-module {
@@ -151,7 +151,7 @@
               }
             ];
             networking.hostName = "bastion";
-            # Enable home-manager for user 'luis'
+
             home-manager.users.luis = {
               imports = [home-manager-common-module];
             };
@@ -160,7 +160,7 @@
       }
       // container.defaults;
 
-    # New: Kubernetes master node
+    # Kubernetes master node
     k8s-master =
       {
         config = mk-nixos-container-module {
@@ -173,28 +173,22 @@
             ];
             networking.hostName = "k8s-master";
 
-            services.etcd.package = pkgs.etcd-special;
+            # Force the etcd service to use pkgs.etcd,
+            # which we've overridden to use go_1_23 in the overlay.
+            services.etcd.package = pkgs.etcd;
+
             # Upstream Kubernetes Master role
             services.kubernetes = {
               roles = ["master"];
               masterAddress = ip.space.k8s-master.local;
-
-              # By default, this sets up etcd, kube-apiserver, controller-manager, scheduler,
-              # flannel, and kube-proxy on this container.
             };
-
-            # If you want to run pods on the master as well,
-            # you can add "node" to roles or remove the master taint manually.
-            # e.g. roles = [ "master" "node" ];
-
-            # Provide a container runtime if you plan to schedule pods here:
             virtualisation.docker.enable = true;
           };
         };
       }
       // container.defaults;
 
-    # New: Kubernetes worker node
+    # Kubernetes worker node
     k8s-worker =
       {
         config = mk-nixos-container-module {
@@ -207,14 +201,10 @@
             ];
             networking.hostName = "k8s-worker";
 
-            # Upstream Kubernetes Node role
             services.kubernetes = {
               roles = ["node"];
               masterAddress = ip.space.k8s-master.local;
-              # This runs kubelet, kube-proxy, and flannel, connecting to the master.
             };
-
-            # Provide container runtime for pods:
             virtualisation.docker.enable = true;
           };
         };
@@ -223,20 +213,33 @@
   };
 in {
   inherit containers;
+
+  ############################################################################
+  # Overlays to downgrade go for etcd
+  ############################################################################
   nixpkgs.overlays = [
     (self: super: {
-      etcd-special = super.etcd.override {
-        # version = "3.12.0";
-        # doCheck = false; # or your patch/override
-      };
+      # If your channel includes pkgs.go_1_23, we can inject it into etcd's build
+      etcd = super.etcd.overrideAttrs (old: {
+        nativeBuildInputs = let
+          oldInputs = old.nativeBuildInputs or [];
+          # Filter out the default go if needed:
+          filtered = builtins.filter (inp: inp != super.go) oldInputs;
+        in
+          # Then add go_1_23:
+          filtered ++ [super.go_1_23];
+
+        # Optionally also skip tests:
+        # doCheck = false;
+      });
     })
   ];
 
-  # Host-level node settings
+  # Host-level networking config
   networking.nat.enable = true;
   networking.nat.internalInterfaces = [host.bridge];
 
-  networking.bridges."${host.bridge}".interfaces = []; # Explicitly empty
+  networking.bridges."${host.bridge}".interfaces = [];
   networking.interfaces."${host.bridge}" = {
     ipv4 = {
       addresses = [
@@ -245,10 +248,8 @@ in {
           prefixLength = host.prefix;
         }
       ];
-      # Don't create a default route for the bridge
       routes = [];
     };
-    # Keep IPv6 disabled for internal network
     ipv6.addresses = [];
   };
 
