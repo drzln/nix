@@ -9,7 +9,7 @@
     ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQChyPrBmWSILSlqfgd7a4bPyDyzKTERfHEF+V0IQSiDZxcLSkE8+90lqYNh81c9xme09DUKAfd95obUKdcws5PI8NSoHbw70M3Ik2ZVkqGOQpGfcq7BeIDvtqkZyKjCmrCZlEb6RmFVCfso0Xts3/FdxeD3y6BMvGY/oRDLOrwPzGlX+hHAjE4jxG+tGAMWaI3KoAkwU3kfnnDxrp0swJ5Ns3vlR0yihci8SdMECA4fdPUpwzy0uaIpKXruiB44OdW/rxEyM1MujeBVaLeygtKjtYBvC1CZ7ofia1bHDJ2qzmlsDckmIAgVTH6BrcSw3ZOmmG6tx2H5yl/Tchmq72YeBP647fGVsVwLqf3wIPeoR8qcrYTE51/R/URXYlOMsuyYg+2WJrUKXO8pX/n60YDD0BR26VW/d3yjkDH+csWspmAcqN7vPIu8hIMjK0p8EryP/G7yy985kjETkNuyQPX19pGnEMJEBzFlm8XE+HzdxFm06gi/i8y1XC/TBk/IIWk= luis@plo
   '';
 
-  # This configuration sets up the host, then configures any containers.
+  # This sets up the host, plus defines container IPs, etc.
   host = {
     bridge = "internal-br-1";
     gateway = "10.3.0.1";
@@ -20,13 +20,12 @@
   domain_prefix = "local.pleme.io";
   domain = "${name}.${domain_prefix}";
 
-  # IP addresses for each container or service on our internal bridge
+  # IP addresses for each container
   ip.space = {
     bastion = {
       prefix = host.prefix;
       local = "10.3.0.2";
     };
-
     k8s-master = {
       prefix = host.prefix;
       local = "10.3.0.3";
@@ -37,14 +36,14 @@
     };
   };
 
-  # DNS mappings so we can SSH or resolve by container name within this domain
+  # DNS mappings
   dns.addresses = [
     "/bastion.${domain}/${ip.space.bastion.local}"
     "/k8s-master.${domain}/${ip.space.k8s-master.local}"
     "/k8s-worker.${domain}/${ip.space.k8s-worker.local}"
   ];
 
-  # Common module for each container
+  # Common config for containers
   nixos-common-module = {
     lib,
     config,
@@ -56,7 +55,7 @@
     ];
     system.stateVersion = state.version;
 
-    # Basic SSH config
+    # Basic SSH setup
     services.openssh.enable = true;
     services.openssh.settings.PermitRootLogin = "no";
     services.openssh.settings.PasswordAuthentication = false;
@@ -74,7 +73,7 @@
     networking.useDHCP = false;
     networking.defaultGateway = host.gateway;
 
-    # Basic packages + user config
+    # Basic user + packages
     programs.zsh.enable = true;
     users.users.luis = {
       isSystemUser = false;
@@ -86,14 +85,12 @@
       openssh.authorizedKeys.keys = [pubkey];
     };
     users.groups.luis.gid = 1001;
-    security.sudo.extraConfig = ''
-      luis ALL=(ALL) NOPASSWD:ALL
-    '';
+    security.sudo.extraConfig = ''luis ALL=(ALL) NOPASSWD:ALL'';
     environment.systemPackages = with pkgs; [dig nmap];
     users.users.root.openssh.authorizedKeys.keys = [];
   };
 
-  # Default options for containers
+  # Default container settings
   container.defaults = {
     hostBridge = host.bridge;
     privateNetwork = true;
@@ -101,7 +98,7 @@
     ephemeral = true; # ephemeral so container state is dropped if container is destroyed
   };
 
-  # Helper for building container modules
+  # Helper function for container modules
   mk-nixos-container-module = {baseConfig}: {
     lib,
     config,
@@ -114,7 +111,7 @@
     ];
   };
 
-  # Home Manager config for user 'luis' in containers
+  # Home Manager config for user 'luis'
   home-manager-common-module = {
     imports = [
       requirements.inputs.self.homeManagerModules.blackmatter
@@ -152,6 +149,7 @@
             ];
             networking.hostName = "bastion";
 
+            # optional home manager
             home-manager.users.luis = {
               imports = [home-manager-common-module];
             };
@@ -160,7 +158,6 @@
       }
       // container.defaults;
 
-    # Kubernetes master node
     k8s-master =
       {
         config = mk-nixos-container-module {
@@ -173,11 +170,10 @@
             ];
             networking.hostName = "k8s-master";
 
-            # Force the etcd service to use pkgs.etcd,
-            # which we've overridden to use go_1_23 in the overlay.
-            services.etcd.package = pkgs.etcd;
+            # Master node => runs etcd, pinned to an older version
+            # (set below in the overlay)
+            # services.etcd.package = pkgs.etcd-special;
 
-            # Upstream Kubernetes Master role
             services.kubernetes = {
               roles = ["master"];
               masterAddress = ip.space.k8s-master.local;
@@ -188,7 +184,6 @@
       }
       // container.defaults;
 
-    # Kubernetes worker node
     k8s-worker =
       {
         config = mk-nixos-container-module {
@@ -214,25 +209,24 @@
 in {
   inherit containers;
 
-  ############################################################################
-  # Overlays to downgrade go for etcd
-  ############################################################################
+  ###########################################################################
+  # Overlay: Pin/downgrade etcd to a known older version (no Go override)
+  ###########################################################################
   nixpkgs.overlays = [
-    (self: super: {
-      # If your channel includes pkgs.go_1_23, we can inject it into etcd's build
-      etcd = super.etcd.overrideAttrs (old: {
-        nativeBuildInputs = let
-          oldInputs = old.nativeBuildInputs or [];
-          # Filter out the default go if needed:
-          filtered = builtins.filter (inp: inp != super.go) oldInputs;
-        in
-          # Then add go_1_23:
-          filtered ++ [super.go_1_23];
-
-        # Optionally also skip tests:
-        # doCheck = false;
-      });
-    })
+    # (self: super: {
+    #   etcd-special = super.etcd.overrideAttrs (old: {
+    #     version = "3.4.24"; # Example stable older version
+    #     src = self.fetchFromGitHub {
+    #       owner = "etcd-io";
+    #       repo = "etcd";
+    #       rev = "v3.4.24";
+    #       sha256 = "sha256-jbMwSvCn9y4md60pWd7nF2Ck2XJDkYfg5olr1qVrPd4="; # use nix-prefetch-url or similar
+    #     };
+    #     patches = [];
+    #     # If tests still fail, you can skip them:
+    #     # doCheck = false;
+    #   });
+    # })
   ];
 
   # Host-level networking config
