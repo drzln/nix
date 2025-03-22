@@ -173,10 +173,12 @@
             ];
             networking.hostName = "k8s-master";
 
+            services.etcd.package = pkgs.etcd-special;
             # Upstream Kubernetes Master role
             services.kubernetes = {
               roles = ["master"];
               masterAddress = ip.space.k8s-master.local;
+
               # By default, this sets up etcd, kube-apiserver, controller-manager, scheduler,
               # flannel, and kube-proxy on this container.
             };
@@ -223,8 +225,9 @@ in {
   inherit containers;
   nixpkgs.overlays = [
     (self: super: {
-      etcd = super.etcd.override {
-        doCheck = false; # or your patch/override
+      etcd-special = super.etcd.override {
+        # version = "3.12.0";
+        # doCheck = false; # or your patch/override
       };
     })
   ];

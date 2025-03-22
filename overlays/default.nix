@@ -1,11 +1,4 @@
 [
-  (self: super: {
-    etcd = super.etcd.override {
-      version = "3.5.15";
-      # Possibly also override src = fetchFromGitHub { ... } if 3.5.15 is still in Nixpkgs
-    };
-  })
-
   # build qemu with hvf support
   (self: super: {
     qemu = super.qemu.overrideAttrs (old: {
