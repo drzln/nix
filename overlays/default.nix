@@ -1,4 +1,11 @@
 [
+  # skip tests for etcd builds
+  (self: super: {
+    etcd = super.etcd.override {
+      doCheck = false; # Skip all tests
+    };
+  })
+
   # build qemu with hvf support
   (self: super: {
     qemu = super.qemu.overrideAttrs (old: {
