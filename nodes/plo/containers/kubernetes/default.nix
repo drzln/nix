@@ -274,10 +274,10 @@ in {
     # Keep IPv6 disabled for internal network
     ipv6.addresses = [];
   };
-  # services.dnsmasq.enable = true;
-  # services.dnsmasq.settings = {
-  #   listen-address = "127.0.0.1,${gateway}";
-  # };
-  # services.dnsmasq.resolveLocalQueries = true;
+  services.dnsmasq.enable = true;
+  services.dnsmasq.settings = {
+    listen-address = "127.0.0.1,${host.gateway}";
+  };
+  services.dnsmasq.resolveLocalQueries = true;
   # services.dnsmasq.settings.address = dns.addresses;
 }
