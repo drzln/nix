@@ -264,7 +264,7 @@
       // container.defaults;
   };
 in {
-  # inherit containers;
+  inherit containers;
 
   # host level node settings to run containers the goomba way
   networking.nat.enable = true;
