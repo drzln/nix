@@ -57,6 +57,7 @@ in {
         ++ lib.optionals isLinux [
           # these are critical
           sumneko-lua-language-server
+          nix-prefetch-git
           attic-client
           openconnect
           traceroute
