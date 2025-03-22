@@ -1,8 +1,8 @@
 [
-  # skip tests for etcd builds
   (self: super: {
     etcd = super.etcd.override {
-      doCheck = false; # Skip all tests
+      version = "3.5.15";
+      # Possibly also override src = fetchFromGitHub { ... } if 3.5.15 is still in Nixpkgs
     };
   })
 

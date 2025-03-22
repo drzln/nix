@@ -221,6 +221,13 @@
   };
 in {
   inherit containers;
+  nixpkgs.overlays = [
+    (self: super: {
+      etcd = super.etcd.override {
+        doCheck = false; # or your patch/override
+      };
+    })
+  ];
 
   # Host-level node settings
   networking.nat.enable = true;

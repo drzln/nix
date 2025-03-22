@@ -4,7 +4,12 @@
   home-manager,
   sops-nix,
 }: let
-  finalSpecialArgs = specialArgs // {inherit nixpkgs;};
+  finalSpecialArgs =
+    specialArgs
+    // {
+      inherit nixpkgs;
+      overlays = import ../overlays;
+    };
 in {
   kid = nixpkgs.lib.nixosSystem {
     specialArgs = finalSpecialArgs;
