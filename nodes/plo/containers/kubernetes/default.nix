@@ -39,12 +39,12 @@
     #   local = "10.1.0.3";
     # };
   };
-  # dns.addresses = [
-  #   "/main.${domain}/${ip.space.main.local}"
-  #   "/minio.${domain}/${ip.space.minio.local}"
-  #   "/haproxy.${domain}/${ip.space.haproxy.local}"
-  #   # "/dnsmasq.${domain}/${ip-space.dnsmasq.local}"
-  # ];
+  dns.addresses = [
+    "/bastion.${domain}/${ip.space.main.local}"
+    # "/minio.${domain}/${ip.space.minio.local}"
+    # "/haproxy.${domain}/${ip.space.haproxy.local}"
+    # "/dnsmasq.${domain}/${ip-space.dnsmasq.local}"
+  ];
   nixos-common-module = {
     lib,
     config,
@@ -289,5 +289,5 @@ in {
     listen-address = "127.0.0.1,${host.gateway}";
   };
   services.dnsmasq.resolveLocalQueries = true;
-  # services.dnsmasq.settings.address = dns.addresses;
+  services.dnsmasq.settings.address = dns.addresses;
 }
