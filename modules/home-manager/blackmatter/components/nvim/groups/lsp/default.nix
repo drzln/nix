@@ -59,6 +59,7 @@ in {
           google-java-format
           # dotnet_9.sdk
           # dotnet_9.runtime
+          swiftformat
           rust-analyzer
           markdown-oxide
           # (pkgs.ruby_3_4.withPackages (ps: with ps; [ruby-lsp]))
