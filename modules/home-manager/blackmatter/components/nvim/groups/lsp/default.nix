@@ -62,6 +62,7 @@ in {
           swift-format
           rust-analyzer
           markdown-oxide
+          sourcekit-lsp
           # (pkgs.ruby_3_4.withPackages (ps: with ps; [ruby-lsp]))
         ];
         blackmatter.components.nvim.plugins = {
