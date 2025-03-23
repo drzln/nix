@@ -10,7 +10,6 @@ function load_shellz_mod() {
 
 declare -a shellz_mods=(
   direnv
-  fzf
 )
 
 for m in "${shellz_mods[@]}"; do
