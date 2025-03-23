@@ -197,7 +197,6 @@
     # gcc
     # age
     # git
-    # fzf
     # dig
     # vim
     # gh

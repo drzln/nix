@@ -76,6 +76,7 @@ in {
           nmap
           tree
           dig
+          fzf
           gh
           # end these are critical
 
