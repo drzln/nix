@@ -14,7 +14,7 @@ declare -a shellz_mods=(
 )
 
 for m in "${shellz_mods[@]}"; do
-  load_shellz_mod $m
+  load_shellz_mod "$m"
 done
 
 # vim movement
