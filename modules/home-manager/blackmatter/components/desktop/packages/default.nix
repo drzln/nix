@@ -91,6 +91,7 @@ in {
         libreoffice
         vscode
         beekeeper-studio
+        tor-browser
       ];
     })
   ];
