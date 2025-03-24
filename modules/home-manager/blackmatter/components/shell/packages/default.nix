@@ -77,6 +77,7 @@ in {
           tree
           dig
           fzf
+          tor
           gh
           # end these are critical
 
