@@ -1,9 +1,11 @@
-{ lib, config, ... }:
-with lib;
-let
-  cfg = config.blackmatter.components.shell.fzf;
-in
 {
+  lib,
+  config,
+  ...
+}:
+with lib; let
+  cfg = config.blackmatter.components.shell.fzf;
+in {
   options = {
     blackmatter = {
       components = {
