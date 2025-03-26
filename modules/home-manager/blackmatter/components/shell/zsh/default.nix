@@ -26,26 +26,23 @@ in {
         zoxide
         xsel
         bat
+        fzf
       ];
       home.file.".config/sheldon/plugins.toml".text = ''
         # ~/.config/sheldon/plugins.toml - Sheldon plugin definitions
 
         [plugins.zsh-autosuggestions]
         github = "zsh-users/zsh-autosuggestions"
-        tag = "v0.7.0"  # pin to a known stable release for consistency
         use = ["zsh-autosuggestions.zsh"]
         hooks.post = 'ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#4c566a"'
 
         [plugins.zsh-syntax-highlighting]
         github = "zsh-users/zsh-syntax-highlighting"
-        # (Always load this last for proper behavior) [oai_citation_attribution:21‡github.com](https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/INSTALL.md#:~:text=Note%20the%20,zshrc)
         use = ["zsh-syntax-highlighting.zsh"]
 
         [plugins.fzf]
         github = "junegunn/fzf"
-        tag = "v0.60.3"  # lock to a specific release of fzf for stable scripts
         use = [ "shell/key-bindings.zsh", "shell/completion.zsh" ]
-        # (fzf binary is expected to be installed separately in $PATH)
       '';
       home.file.".zshrc".text = ''
         # ~/.zshrc - Zsh configuration (Sheldon-managed plugins, Nord theme)
