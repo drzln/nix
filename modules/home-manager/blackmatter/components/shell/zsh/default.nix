@@ -59,50 +59,6 @@ in {
         export DIRENV_LOG_FORMAT=""
         eval "$(direnv hook zsh)"
 
-        # fzf
-        # === Inline fzf config ===
-
-        # Set default command to use fd (if available), fall back to find
-        if command -v fd &>/dev/null; then
-          export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix'
-          export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-          export FZF_ALT_C_COMMAND='fd --type d --strip-cwd-prefix'
-        else
-          export FZF_DEFAULT_COMMAND='find . -type f'
-          export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-          export FZF_ALT_C_COMMAND='find . -type d'
-        fi
-        
-        # FZF options
-        export FZF_DEFAULT_OPTS='
-          --height 40%
-          --layout=reverse
-          --border
-          --color=fg:#bbbbbb,bg:-,hl:#88c0d0
-          --color=fg+:#eeeeee,bg+:-,hl+:#8fbcbb
-          --color=info:#b48ead,prompt:#a3be8c,pointer:#d08770
-          --color=marker:#ebcb8b,spinner:#bf616a,header:#81a1c1
-        '
-        
-        # Ctrl-T for file insert
-        fzf-file-widget() {
-          local selected
-          selected=$(eval "$FZF_CTRL_T_COMMAND" | fzf --multi) || return
-          LBUFFER+="$selected"
-          zle redisplay
-        }
-        zle -N fzf-file-widget
-        bindkey '^T' fzf-file-widget
-        
-        # Alt-C to change dir
-        fzf-cd-widget() {
-          local dir
-          dir=$(eval "$FZF_ALT_C_COMMAND" | fzf +m) && cd "$dir"
-          zle reset-prompt
-        }
-        zle -N fzf-cd-widget
-        bindkey '^[c' fzf-cd-widget
-
         # starship
         # export STARSHIP_CONFIG=~/.config/starship.toml
         # eval "$(starship init zsh)"
