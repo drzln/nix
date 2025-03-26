@@ -103,9 +103,16 @@ in {
 
         #fzf
         [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+        #starship
+        export STARSHIP_CONFIG=~/.config/starship.toml
+        eval "$(starship init zsh)"
+
+        #xdg
+        export XDG_DATA_HOME=$HOME/.local/share
+        export XDG_CONFIG_HOME=$HOME/.config
+        export XDG_STATE_HOME=$HOME/.local/state
       '';
-      # home.file.".direnvrc".source = ./direnv/direnvrc.sh;
-      # xdg.configFile."shellz/direnv/main.sh".source = ./direnv/main.sh;
     })
   ];
 }
