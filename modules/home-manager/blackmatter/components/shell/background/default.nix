@@ -1,9 +1,11 @@
-{ lib, config, ... }:
-with lib;
-let
-  cfg = config.blackmatter.components.shell.background;
-in
 {
+  lib,
+  config,
+  ...
+}:
+with lib; let
+  cfg = config.blackmatter.components.shell.background;
+in {
   options = {
     blackmatter = {
       components = {
