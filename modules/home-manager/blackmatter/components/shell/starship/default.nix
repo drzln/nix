@@ -1,9 +1,11 @@
-{ lib, config, ... }:
-with lib;
-let
-  cfg = config.blackmatter.components.shell.starship;
-in
 {
+  lib,
+  config,
+  ...
+}:
+with lib; let
+  cfg = config.blackmatter.components.shell.starship;
+in {
   options = {
     blackmatter = {
       components = {
@@ -27,52 +29,52 @@ in
           vicmd_symbol = "[#](bold green)";
           disabled = false;
         };
-        cmake = { disabled = true; };
-        package = { disabled = true; };
-        aws = { disabled = true; };
-        battery = { disabled = true; };
-        cmd_duration = { disabled = true; };
-        conda = { disabled = true; };
-        dart = { disabled = true; };
-        deno = { disabled = true; };
-        docker_context = { disabled = true; };
-        dotnet = { disabled = true; };
-        elixir = { disabled = true; };
-        elm = { disabled = true; };
-        erlang = { disabled = true; };
-        gcloud = { disabled = true; };
-        golang = { disabled = true; };
-        helm = { disabled = true; };
-        java = { disabled = true; };
-        jobs = { disabled = true; };
-        julia = { disabled = true; };
-        kotlin = { disabled = true; };
-        kubernetes = { disabled = true; };
-        line_break = { disabled = true; };
-        memory_usage = { disabled = true; };
-        nim = { disabled = true; };
-        nix_shell = { disabled = true; };
-        nodejs = { disabled = true; };
-        ocaml = { disabled = true; };
-        openstack = { disabled = true; };
-        perl = { disabled = true; };
-        php = { disabled = true; };
-        purescript = { disabled = true; };
-        python = { disabled = false; };
-        red = { disabled = true; };
-        ruby = { disabled = true; };
-        rust = { disabled = true; };
-        scala = { disabled = true; };
-        shell = { disabled = true; };
-        shlvl = { disabled = true; };
-        singularity = { disabled = true; };
-        status = { disabled = true; };
-        swift = { disabled = true; };
-        terraform = { disabled = true; };
-        time = { disabled = true; };
-        username = { disabled = true; };
-        vcsh = { disabled = true; };
-        zig = { disabled = true; };
+        cmake = {disabled = true;};
+        package = {disabled = true;};
+        aws = {disabled = true;};
+        battery = {disabled = true;};
+        cmd_duration = {disabled = true;};
+        conda = {disabled = true;};
+        dart = {disabled = true;};
+        deno = {disabled = true;};
+        docker_context = {disabled = true;};
+        dotnet = {disabled = true;};
+        elixir = {disabled = true;};
+        elm = {disabled = true;};
+        erlang = {disabled = true;};
+        gcloud = {disabled = true;};
+        golang = {disabled = true;};
+        helm = {disabled = true;};
+        java = {disabled = true;};
+        jobs = {disabled = true;};
+        julia = {disabled = true;};
+        kotlin = {disabled = true;};
+        kubernetes = {disabled = true;};
+        line_break = {disabled = true;};
+        memory_usage = {disabled = true;};
+        nim = {disabled = true;};
+        nix_shell = {disabled = true;};
+        nodejs = {disabled = true;};
+        ocaml = {disabled = true;};
+        openstack = {disabled = true;};
+        perl = {disabled = true;};
+        php = {disabled = true;};
+        purescript = {disabled = true;};
+        python = {disabled = false;};
+        red = {disabled = true;};
+        ruby = {disabled = true;};
+        rust = {disabled = true;};
+        scala = {disabled = true;};
+        shell = {disabled = true;};
+        shlvl = {disabled = true;};
+        singularity = {disabled = true;};
+        status = {disabled = true;};
+        swift = {disabled = true;};
+        terraform = {disabled = true;};
+        time = {disabled = true;};
+        username = {disabled = true;};
+        vcsh = {disabled = true;};
+        zig = {disabled = true;};
         git_branch = {
           disabled = false;
           style = "bold dimmed cyan";
@@ -80,7 +82,7 @@ in
         git_state = {
           disabled = false;
           format = ''
-            [\($state( $progress_current of $progress_total)\)]($style) 
+            [\($state( $progress_current of $progress_total)\)]($style)
           '';
         };
         git_status = {
