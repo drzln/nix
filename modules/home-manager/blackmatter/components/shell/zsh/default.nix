@@ -58,9 +58,9 @@ in {
         export SAVEHIST=10000000
 
         # XDG vars
-        export XDG_CONFIG_HOME=~/.local/config
-        export XDG_STATE_HOME=~/.local/state
-        export XDG_DATA_HOME=~/.local/share
+        # export XDG_CONFIG_HOME=~/.local/config
+        # export XDG_STATE_HOME=~/.local/state
+        # export XDG_DATA_HOME=~/.local/share
 
         # Aliases
         alias vimdiff=nvim -d -u ~/.config/nvim/init.lua
