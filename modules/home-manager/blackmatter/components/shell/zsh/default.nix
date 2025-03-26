@@ -32,7 +32,7 @@ in {
         # ~/.config/sheldon/plugins.toml - Sheldon plugin definitions
 
         [plugins.zsh-autosuggestions]
-        apply = "source"
+        apply = ["source"]
         github = "zsh-users/zsh-autosuggestions"
         use = ["zsh-autosuggestions.zsh"]
         hooks.post = 'ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#4c566a"'
@@ -43,7 +43,7 @@ in {
         use = ["zsh-syntax-highlighting.zsh"]
 
         [plugins.fzf]
-        apply = "source"
+        apply = ["source"]
         github = "junegunn/fzf"
         use = [ "shell/key-bindings.zsh", "shell/completion.zsh" ]
       '';
