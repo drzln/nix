@@ -22,10 +22,6 @@ in {
     (mkIf cfg.enable {
       home.packages = with pkgs; [
         cfg.package
-        sheldon
-        zoxide
-        xsel
-        bat
         fzf
         fd
       ];
@@ -59,30 +55,30 @@ in {
         # Aliases
         alias vimdiff=nvim -d -u ~/.config/nvim/init.lua
         alias vim=nvim -u ~/.config/nvim/init.lua
-        alias cat=bat
-        alias cd=z
+        alias cat=${pkgs.bat}/bin/bat
+        alias cd=${pkgs.zoxide}/bin/z
 
         if [[ "$(uname)" == "Linux" ]]; then
-          alias pbpaste=xsel --clipboard --output
-          alias pbcopy=xsel --clipboard --input
+          alias pbpaste=${pkgs.xsel}/bin/xsel --clipboard --output
+          alias pbcopy=${pkgs.xsel}/bin/xsel --clipboard --input
         fi
 
         # Completion (must come before plugin init that registers completions)
         autoload -Uz compinit && compinit -i
 
         # FZF configuration
-        export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git --strip-cwd-prefix'
-        export FZF_ALT_C_COMMAND='fd --type d --hidden --follow --exclude .git --strip-cwd-prefix'
-        export FZF_CTRL_T_COMMAND='fd --type f --type d --hidden --follow --exclude .git --strip-cwd-prefix'
+        export FZF_DEFAULT_COMMAND='${pkgs.fd}/bin/fd --type f --hidden --follow --exclude .git --strip-cwd-prefix'
+        export FZF_ALT_C_COMMAND='${pkgs.fd}/bin/fd --type d --hidden --follow --exclude .git --strip-cwd-prefix'
+        export FZF_CTRL_T_COMMAND='${pkgs.fd}/bin/fd --type f --type d --hidden --follow --exclude .git --strip-cwd-prefix'
         export FZF_DEFAULT_OPTS="--height 20% --layout=reverse --border --ansi"
 
         # direnv and zoxide integrations
         export DIRENV_LOG_FORMAT=""
-        eval "$(direnv hook zsh)"
+        eval "$(${pkgs.direnv} hook zsh)"
         eval "$(${pkgs.zoxide}/bin/zoxide init zsh)"
 
         # starship prompt (should be last to fully control the prompt)
-        eval "$(starship init zsh)"
+        eval "$(${pkgs.starship}/bin/starship init zsh)"
 
         # Vim keybindings
         bindkey -v
