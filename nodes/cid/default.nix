@@ -231,36 +231,22 @@
     ];
   };
 
-  ############################################
-  # Home Manager for the user
-  ############################################
-
   home-manager.useGlobalPkgs = false;
   home-manager.useUserPackages = true;
   home-manager.backupFileExtension = "backup";
+  home-manager.extraSpecialArgs = {inherit pkgs;};
+  nixpkgs.overlays = import ../../overlays;
 
-  # Home Manager config for user ldesiqueira
   home-manager.users.ldesiqueira = {...}: {
-    # Example of importing a custom module or theme
     imports = [../../modules/home-manager/blackmatter];
     home.stateVersion = "23.11";
     home.sessionVariables = {
       KUBE_EDITOR = "nvim";
     };
 
-    # Let Home Manager manage itself
     programs.home-manager.enable = true;
-
-    # If you want Home Manager to also allow unfree software:
-    nixpkgs.config.allowUnfree = true;
-
-    # Example blackmatter config
     blackmatter.profiles.frost.enable = true;
-
-    # Stop a known doc bug
     manual.manpages.enable = false;
-
-    # Example: a user-level .gitconfig
     home.file.".gitconfig".text = ''
       [user]
         email = ldesiqueira@pinger.com
