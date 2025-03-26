@@ -53,8 +53,8 @@ in {
         export SAVEHIST=10000000
 
         # Aliases
-        alias vimdiff=nvim -d -u ~/.config/nvim/init.lua
-        alias vim=nvim -u ~/.config/nvim/init.lua
+        alias vimdiff=${pkgs.neovim}/bin/nvim -d -u ~/.config/nvim/init.lua
+        alias vim=${pkgs.neovim}/bin/nvim -u ~/.config/nvim/init.lua
         alias cat=${pkgs.bat}/bin/bat
         alias cd=${pkgs.zoxide}/bin/z
 
