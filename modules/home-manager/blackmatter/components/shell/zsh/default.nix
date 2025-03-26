@@ -55,7 +55,7 @@ in {
         export HISTSIZE=10000000
         export SAVEHIST=10000000
 
-        # aliases
+        # Aliases
         alias vimdiff=nvim -d -u ~/.config/nvim/init.lua
         alias vim=nvim -u ~/.config/nvim/init.lua
         alias cat=bat
@@ -66,29 +66,34 @@ in {
           alias pbcopy=xsel --clipboard --input
         fi
 
-        # fzf
+        # Completion (must come before plugin init that registers completions)
+        autoload -Uz compinit && compinit -i
+
+        # FZF configuration
         if command -v fd >/dev/null; then
           export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git --strip-cwd-prefix'
           export FZF_ALT_C_COMMAND='fd --type d --hidden --follow --exclude .git --strip-cwd-prefix'
           export FZF_CTRL_T_COMMAND='fd --type f --type d --hidden --follow --exclude .git --strip-cwd-prefix'
         fi
 
+        export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --border --ansi \
+          --color=fg:#e5e9f0,bg:#3b4252,hl:#81a1c1 \
+          --color=fg+:#e5e9f0,bg+:#434c5e,hl+:#88c0d0 \
+          --color=info:#8fbcbb,prompt:#81a1c1,pointer:#bf616a \
+          --color=marker:#ebcb8b,spinner:#b48ead,header:#81a1c1"
+
+        # Load plugins via Sheldon (zsh-autosuggestions, syntax-highlighting, fzf)
+        eval "$(sheldon source)"
+
         # direnv and zoxide integrations
         export DIRENV_LOG_FORMAT=""
         eval "$(direnv hook zsh)"
         eval "$(${pkgs.zoxide}/bin/zoxide init zsh)"
 
-        # completion
-        autoload -Uz compinit && compinit -i
-
-        # starship
-        # export STARSHIP_CONFIG=~/.config/starship.toml
+        # starship prompt (should be last to fully control the prompt)
         eval "$(starship init zsh)"
 
-        # sheldon
-        eval "$(sheldon source)"
-
-        # move with vim
+        # Vim keybindings
         bindkey -v
       '';
     })
