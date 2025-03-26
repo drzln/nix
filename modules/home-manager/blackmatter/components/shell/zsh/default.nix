@@ -38,7 +38,7 @@ in {
         hooks.post = 'ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#4c566a"'
 
         [plugins.zsh-syntax-highlighting]
-        apply = "source"
+        apply = ["source"]
         github = "zsh-users/zsh-syntax-highlighting"
         use = ["zsh-syntax-highlighting.zsh"]
 
