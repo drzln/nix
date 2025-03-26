@@ -6,40 +6,6 @@
 }:
 with lib; let
   cfg = config.blackmatter.components.shell.zsh;
-in let
-  zsh-autosuggestions = pkgs.stdenv.mkDerivation {
-    pname = "zsh-autosuggestions";
-    version = "v0.7.0";
-
-    src = pkgs.fetchFromGitHub {
-      owner = "zsh-users";
-      repo = "zsh-autosuggestions";
-      rev = "v0.7.0";
-      sha256 = "sha256-KLUYpUu4DHRumQZ3w59m9aTW6TBKMCXl2UcKi4uMd7w=";
-    };
-
-    installPhase = ''
-      mkdir -p $out
-      cp -r * $out/
-    '';
-  };
-  zsh-syntax-highlighting = pkgs.stdenv.mkDerivation {
-    pname = "zsh-syntax-highlighting";
-    version = "0.8.0";
-
-    src = pkgs.fetchFromGitHub {
-      owner = "zsh-users";
-      repo = "zsh-syntax-highlighting";
-      rev = "0.8.0";
-      sha256 = "sha256-iJdWopZwHpSyYl5/FQXEW7gl/SrKaYDEtTH9cGP7iPo=";
-    };
-
-    installPhase = ''
-      mkdir -p $out/share/zsh-syntax-highlighting
-      make PREFIX=$out/share/zsh-syntax-highlighting install
-      ln -s $out/share/zsh-syntax-highlighting/share/zsh-syntax-highlighting.zsh $out/zsh-syntax-highlighting.zsh
-    '';
-  };
 in {
   options = {
     blackmatter = {
@@ -60,33 +26,21 @@ in {
         xsel
         bat
       ];
-
-      programs.zoxide = {
-        enable = true;
-        enableZshIntegration = false;
-      };
-
       home.file.".zshrc".text = ''
         # History
         HISTSIZE=10000000
         SAVEHIST=10000000
-        HISTFILE=~/.zsh_history
+        HISTFILE="''${HOME}/.zsh_history"
 
         # Completion
         autoload -Uz compinit && compinit -i
 
-        # Autosuggestions
-        source ${zsh-autosuggestions}/zsh-autosuggestions.zsh
-
-        # Syntax highlighting
-        source ${zsh-syntax-highlighting}/zsh-syntax-highlighting.zsh
-
-        # zoxide
-        eval "$(zoxide init zsh)"
+        # zoxide manual integration
+        eval "$(${pkgs.zoxide}/bin/zoxide init zsh)"
 
         # Aliases
-        alias vim='nvim -u ~/.config/nvim/init.lua'
-        alias vimdiff='nvim -d -u ~/.config/nvim/init.lua'
+        alias vim='nvim -u "''${HOME}/.config/nvim/init.lua"'
+        alias vimdiff='nvim -d -u "''${HOME}/.config/nvim/init.lua"'
         alias cat='bat'
         alias cd='z'
 
@@ -95,23 +49,92 @@ in {
           alias pbpaste='xsel --clipboard --output'
         fi
 
-        #direnv
-        # turn off direnv messages
+        # direnv
         export DIRENV_LOG_FORMAT=""
         eval "$(direnv hook zsh)"
 
-        #fzf
-        [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+        # fzf
+        [ -f "''${HOME}/.fzf.zsh" ] && source "''${HOME}/.fzf.zsh"
 
-        #starship
-        export STARSHIP_CONFIG=~/.config/starship.toml
+        # starship
+        export STARSHIP_CONFIG="''${HOME}/.config/starship.toml"
         eval "$(starship init zsh)"
 
-        #xdg
-        export XDG_DATA_HOME=$HOME/.local/share
-        export XDG_CONFIG_HOME=$HOME/.config
-        export XDG_STATE_HOME=$HOME/.local/state
+        # XDG vars
+        export XDG_DATA_HOME="''${HOME}/.local/share"
+        export XDG_CONFIG_HOME="''${HOME}/.config"
+        export XDG_STATE_HOME="''${HOME}/.local/state"
+
+        # === Minimal Inline Autosuggestions ===
+        ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
+        autoload -Uz add-zsh-hook
+
+        _zsh_autosuggest_widget() {
+          BUFFER="''${BUFFER}$(builtin fc -rl 1 | grep -F -- "''${BUFFER}" | head -n1 | sed "s/^''${BUFFER}//")"
+          zle redisplay
+        }
+
+        _zsh_autosuggest_bind() {
+          zle -N autosuggest-accept _zsh_autosuggest_widget
+          bindkey '^F' autosuggest-accept
+        }
+
+        add-zsh-hook precmd _zsh_autosuggest_bind
+
+        # === Minimal Inline Syntax Highlighting ===
+        autoload -Uz colors && colors
+        setopt PROMPT_SUBST
+        PS1='%F{green}%n@%m%f %F{blue}%~%f %# '
+
+        zle_highlight=('default:bold' 'unknown:red' 'reserved:standout')
+
+        preexec() {
+          echo -ne "\\e[0m"
+        }
+
+        typeset -A HIGHLIGHT_COLORS
+        HIGHLIGHT_COLORS[valid]=''$fg[green]
+        HIGHLIGHT_COLORS[invalid]=''$fg[red]
+        HIGHLIGHT_COLORS[flag]=''$fg[blue]
+        HIGHLIGHT_COLORS[string]=''$fg[yellow]
+        HIGHLIGHT_COLORS[reset]=''$reset_color
+
+        _zsh_inline_highlight() {
+          local buffer="''${BUFFER}"
+          local words=("''${(z)buffer}")
+          local new_buffer=""
+          local i=1
+
+          for word in "''${words[@]}"; do
+            if [[ "''${i}" -eq 1 ]]; then
+              if whence -w -- "''${word}" &>/dev/null; then
+                new_buffer+="''${HIGHLIGHT_COLORS[valid]}''${word}''${HIGHLIGHT_COLORS[reset]}"
+              else
+                new_buffer+="''${HIGHLIGHT_COLORS[invalid]}''${word}''${HIGHLIGHT_COLORS[reset]}"
+              fi
+            elif [[ "''${word}" =~ '^-' ]]; then
+              new_buffer+=" ''${HIGHLIGHT_COLORS[flag]}''${word}''${HIGHLIGHT_COLORS[reset]}"
+            elif [[ "''${word}" =~ '^\".*\"$' || "''${word}" =~ "^'.*'$" ]]; then
+              new_buffer+=" ''${HIGHLIGHT_COLORS[string]}''${word}''${HIGHLIGHT_COLORS[reset]}"
+            else
+              new_buffer+=" ''${word}"
+            fi
+            ((i++))
+          done
+
+          echo -ne "\\r\\033[K''${new_buffer}"
+        }
+
+        _zsh_inline_highlight_bind() {
+          zle -N zle-line-pre-redraw _zsh_inline_highlight
+        }
+
+        add-zsh-hook precmd _zsh_inline_highlight_bind
       '';
+      programs.zoxide = {
+        enable = true;
+        enableZshIntegration = false;
+      };
     })
   ];
 }
