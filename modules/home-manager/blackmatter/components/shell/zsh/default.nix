@@ -24,6 +24,7 @@ in {
         cfg.package
         zoxide
         fzf
+        git
         fd
       ];
       home.file.".config/sheldon/plugins.toml".text = ''
