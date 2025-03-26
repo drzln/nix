@@ -22,6 +22,7 @@ in {
     (mkIf cfg.enable {
       home.packages = with pkgs; [
         cfg.package
+        sheldon
         zoxide
         xsel
         bat
@@ -37,23 +38,26 @@ in {
         export SAVEHIST=10000000
         export HISTFILE=~/.zsh_history
 
-        # Completion
-        autoload -Uz compinit && compinit -i
-
 
         # Aliases
         alias vimdiff=nvim -d -u ~/.config/nvim/init.lua
         alias vim=nvim -u ~/.config/nvim/init.lua
         alias cat=bat
         alias cd=z
-
         if [[ "$(uname)" == "Linux" ]]; then
           alias pbpaste=xsel --clipboard --output
           alias pbcopy=xsel --clipboard --input
         fi
 
+        eval "$(sheldon source)"
+
+
+        # Completion
+        # autoload -Uz compinit && compinit -i
+
+
         # zoxide manual integration
-        eval "$(${pkgs.zoxide}/bin/zoxide init zsh)"
+        # eval "$(${pkgs.zoxide}/bin/zoxide init zsh)"
 
         # direnv
         export DIRENV_LOG_FORMAT=""
@@ -62,7 +66,6 @@ in {
         # starship
         # export STARSHIP_CONFIG=~/.config/starship.toml
         # eval "$(starship init zsh)"
-
 
         # === Minimal Inline Autosuggestions ===
         # ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
