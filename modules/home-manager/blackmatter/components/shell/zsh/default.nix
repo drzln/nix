@@ -74,7 +74,7 @@ in {
 
         # direnv and zoxide integrations
         export DIRENV_LOG_FORMAT=""
-        eval "$(${pkgs.direnv} hook zsh)"
+        eval "$(${pkgs.direnv}/bin/direnv hook zsh)"
         eval "$(${pkgs.zoxide}/bin/zoxide init zsh)"
 
         # starship prompt (should be last to fully control the prompt)
