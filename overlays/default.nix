@@ -1,18 +1,25 @@
 [
   (self: super: {
-    sheldon-special = super.buildRustPackage rec {
+    sheldon-special = super.rustPlatform.buildRustPackage rec {
       pname = "sheldon";
       version = "0.9.0";
+
       src = super.fetchFromGitHub {
         owner = "rossmacarthur";
         repo = "sheldon";
-        rev = version;
-        sha256 = "1ugalni0kbhf75vlv1pkk2u2ge8h8vmmllqs11voldurfjgu96s8";
+        rev = "v${version}";
+        sha256 = "sha256-gy6AEBHk3rB1UdF+iqRWDA4DoEXQJ6Y+Ec4SaAZPrm4=";
       };
-      cargoSha256 = super.lib.fakeSha256;
+
+      cargoSha256 = "sha256-p+d5kOgfnlj4Z3+MgPbOjgEpKxmmXrOBOT+g9yObRw8=";
+
       nativeBuildInputs = [super.installShellFiles];
-      buildInputs = [super.openssl super.curl] ++ super.lib.optionals super.stdenv.isDarwin [super.Security];
-      doCheck = false;
+      buildInputs = with super;
+        [
+          openssl
+          curl
+        ]
+        ++ lib.optionals stdenv.isDarwin [Security];
     };
   })
 ]
