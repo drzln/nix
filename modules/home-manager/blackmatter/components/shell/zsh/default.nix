@@ -15,7 +15,7 @@ in let
       owner = "zsh-users";
       repo = "zsh-autosuggestions";
       rev = "v0.7.0";
-      sha256 = "sha256-LuRJms9Krj9r7WhxFR7McuMgKHxuXCP7r6bcsmM0vPI=";
+      sha256 = "sha256-KLUYpUu4DHRumQZ3w59m9aTW6TBKMCXl2UcKi4uMd7w=";
     };
 
     installPhase = ''
