@@ -36,10 +36,7 @@ in {
         github = "zsh-users/zsh-autosuggestions"
         tag = "v0.7.0"  # pin to a known stable release for consistency
         use = ["zsh-autosuggestions.zsh"]
-        hooks.post = '''
-        # After sourcing the plugin, set suggestion highlight to Nord subtle color
-        ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#4c566a"
-        '''
+        hooks.post = "ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#4c566a"
 
         [plugins.zsh-syntax-highlighting]
         github = "zsh-users/zsh-syntax-highlighting"
