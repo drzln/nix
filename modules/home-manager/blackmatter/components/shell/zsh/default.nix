@@ -57,7 +57,7 @@ in {
         [ -f "''${HOME}/.fzf.zsh" ] && source "''${HOME}/.fzf.zsh"
 
         # starship
-        export STARSHIP_CONFIG="''${HOME}/.config/starship.toml"
+        export STARSHIP_CONFIG=~/.config/starship.toml
         eval "$(starship init zsh)"
 
         # XDG vars
