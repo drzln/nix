@@ -6,7 +6,6 @@
 }:
 with lib; let
   cfg = config.blackmatter.components.shell.zsh;
-  # inherit (pkgs.stdenv.hostPlatform) isLinux isDarwin;
 in let
   zsh-autosuggestions = pkgs.stdenv.mkDerivation {
     pname = "zsh-autosuggestions";
@@ -15,7 +14,7 @@ in let
     src = pkgs.fetchFromGitHub {
       owner = "zsh-users";
       repo = "zsh-autosuggestions";
-      rev = "v0.7.0"; # or whatever version you want
+      rev = "v0.7.0";
       sha256 = "sha256-KLUYpUu4DHRumQZ3w59m9aTW6TBKMCXl2UcKi4uMd7w=";
     };
 
