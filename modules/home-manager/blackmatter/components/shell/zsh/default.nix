@@ -82,9 +82,6 @@ in {
           --color=info:#8fbcbb,prompt:#81a1c1,pointer:#bf616a \
           --color=marker:#ebcb8b,spinner:#b48ead,header:#81a1c1"
 
-        # Load plugins via Sheldon (zsh-autosuggestions, syntax-highlighting, fzf)
-        eval "$(sheldon source)"
-
         # direnv and zoxide integrations
         export DIRENV_LOG_FORMAT=""
         eval "$(direnv hook zsh)"
@@ -95,6 +92,9 @@ in {
 
         # Vim keybindings
         bindkey -v
+
+        # Load plugins via Sheldon (zsh-autosuggestions, syntax-highlighting, fzf)
+        eval "$(${pkgs.sheldon}/bin/sheldon source)"
       '';
     })
   ];
