@@ -81,8 +81,8 @@ in {
         # Syntax highlighting
         source ${zsh-syntax-highlighting}/zsh-syntax-highlighting.zsh
 
-        # xoxide
-        eval "$(xoxide init zsh)"
+        # zoxide
+        eval "$(zoxide init zsh)"
 
         # Aliases
         alias vim='nvim -u ~/.config/nvim/init.lua'
