@@ -30,19 +30,22 @@ in {
       ];
       home.file.".config/sheldon/plugins.toml".text = ''
         # ~/.config/sheldon/plugins.toml - Sheldon plugin definitions
+        shell = "zsh"
 
-        apply = ["shell"]
+        [plugins.base16]
+        github = "chriskempson/base16-shell"
+
         [plugins.zsh-autosuggestions]
         github = "zsh-users/zsh-autosuggestions"
         use = ["zsh-autosuggestions.zsh"]
 
-        # [plugins.zsh-syntax-highlighting]
-        # github = "zsh-users/zsh-syntax-highlighting"
-        # use = ["zsh-syntax-highlighting.zsh"]
+        [plugins.zsh-syntax-highlighting]
+        github = "zsh-users/zsh-syntax-highlighting"
+        use = ["zsh-syntax-highlighting.zsh"]
 
-        # [plugins.fzf]
-        # github = "junegunn/fzf"
-        # use = [ "shell/key-bindings.zsh", "shell/completion.zsh" ]
+        [plugins.fzf]
+        github = "junegunn/fzf"
+        use = [ "shell/key-bindings.zsh", "shell/completion.zsh" ]
       '';
       home.file.".zshrc".text = ''
         # ~/.zshrc - Zsh configuration (Sheldon-managed plugins, Nord theme)
