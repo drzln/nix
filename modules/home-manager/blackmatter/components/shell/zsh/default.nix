@@ -9,13 +9,13 @@ with lib; let
 in let
   zsh-autosuggestions = pkgs.stdenv.mkDerivation {
     pname = "zsh-autosuggestions";
-    version = "latest";
+    version = "v0.7.0";
 
     src = pkgs.fetchFromGitHub {
       owner = "zsh-users";
       repo = "zsh-autosuggestions";
       rev = "v0.7.0";
-      sha256 = "sha256-KLUYpUu4DHRumQZ3w59m9aTW6TBKMCXl2UcKi4uMd7w=";
+      sha256 = "sha256-LuRJms9Krj9r7WhxFR7McuMgKHxuXCP7r6bcsmM0vPI=";
     };
 
     installPhase = ''
@@ -23,21 +23,21 @@ in let
       cp -r * $out/
     '';
   };
-
   zsh-syntax-highlighting = pkgs.stdenv.mkDerivation {
     pname = "zsh-syntax-highlighting";
-    version = "latest";
+    version = "0.8.0";
 
     src = pkgs.fetchFromGitHub {
       owner = "zsh-users";
       repo = "zsh-syntax-highlighting";
       rev = "0.8.0";
-      sha256 = "sha256-iJdWopZwHpSyYl5/FQXEW7gl/SrKaYDEtTH9cGP7iPo=";
+      sha256 = "sha256-ZhUEg0zIKv8GVHnLDBBsnxB93uEoXyPCO+uR4DWnEx4=";
     };
 
     installPhase = ''
-      mkdir -p $out
-      cp -r * $out/
+      mkdir -p $out/share/zsh-syntax-highlighting
+      make PREFIX=$out/share/zsh-syntax-highlighting install
+      ln -s $out/share/zsh-syntax-highlighting/share/zsh-syntax-highlighting.zsh $out/zsh-syntax-highlighting.zsh
     '';
   };
 in {
