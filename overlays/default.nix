@@ -19,7 +19,13 @@
           openssl
           curl
         ]
-        ++ lib.optionals stdenv.isDarwin [Security];
+        ++ lib.optionals stdenv.isDarwin [super.darwin.apple_sdk.frameworks.Security];
+
+      meta = with super.lib; {
+        description = "Fast, configurable Zsh plugin manager";
+        homepage = "https://github.com/rossmacarthur/sheldon";
+        license = licenses.mit;
+      };
     };
   })
 ]

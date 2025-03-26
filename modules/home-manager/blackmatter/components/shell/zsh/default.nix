@@ -22,9 +22,9 @@ in {
     (mkIf cfg.enable {
       home.packages = with pkgs; [
         cfg.package
-        sheldon-special
+        sheldon
         zoxide
-        x# sel
+        xsel
         bat
         fzf
       ];
