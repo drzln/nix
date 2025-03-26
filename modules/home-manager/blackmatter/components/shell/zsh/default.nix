@@ -55,12 +55,7 @@ in {
         export HISTSIZE=10000000
         export SAVEHIST=10000000
 
-        # XDG vars
-        # export XDG_CONFIG_HOME=~/.local/config
-        # export XDG_STATE_HOME=~/.local/state
-        # export XDG_DATA_HOME=~/.local/share
-
-        # Aliases
+        # aliases
         alias vimdiff=nvim -d -u ~/.config/nvim/init.lua
         alias vim=nvim -u ~/.config/nvim/init.lua
         alias cat=bat
@@ -71,44 +66,26 @@ in {
           alias pbcopy=xsel --clipboard --input
         fi
 
-        # 2. FZF configuration: use `fd` for fast searching, and apply Nord color scheme
+        # fzf
         if command -v fd >/dev/null; then
           export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git --strip-cwd-prefix'
           export FZF_ALT_C_COMMAND='fd --type d --hidden --follow --exclude .git --strip-cwd-prefix'
           export FZF_CTRL_T_COMMAND='fd --type f --type d --hidden --follow --exclude .git --strip-cwd-prefix'
         fi
 
-        # Nord theme colors for fzf UI (matching Nord palette)
-        # [oai_citation_attribution:16‡github.com]
-        # (https://github.com/ianchesal/nord-fzf#:~:text=export%20FZF_DEFAULT_OPTS%3D%24FZF_DEFAULT_OPTS%27%20,a3be8b)
-
-        # export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --ansi $FZF_DEFAULT_OPTS \
-        #   --color=fg:#e5e9f0,bg:#3b4252,hl:#81a1c1 \
-        #   --color=fg+:#e5e9f0,bg+:#3b4252,hl+:#81a1c1 \
-        #   --color=info:#eacb8a,prompt:#bf616a,pointer:#b48dac \
-        #   --color=marker:#a3be8b,spinner:#b48dac,header:#a3be8b"
-        export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --border --ansi \
-          --color=fg:#e5e9f0,bg:#3b4252,hl:#81a1c1 \
-          --color=fg+:#e5e9f0,bg+:#434c5e,hl+:#88c0d0 \
-          --color=info:#8fbcbb,prompt:#81a1c1,pointer:#bf616a \
-          --color=marker:#ebcb8b,spinner:#b48ead,header:#81a1c1"
-
-        # (Sheldon will have loaded zsh-autosuggestions and applied our configured post-hook
-        # for Nord suggestions, and loaded zsh-syntax-highlighting last.)
-
-        # 4. Enable direnv and zoxide integrations
+        # direnv and zoxide integrations
         export DIRENV_LOG_FORMAT=""
         eval "$(direnv hook zsh)"
         eval "$(${pkgs.zoxide}/bin/zoxide init zsh)"
 
-        # Completion
+        # completion
         autoload -Uz compinit && compinit -i
 
         # starship
         # export STARSHIP_CONFIG=~/.config/starship.toml
         eval "$(starship init zsh)"
 
-        # Sheldon
+        # sheldon
         eval "$(sheldon source)"
 
         # move with vim
