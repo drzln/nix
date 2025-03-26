@@ -23,6 +23,7 @@ in {
       home.packages = with pkgs; [
         cfg.package
         zoxide
+        bash
         fzf
         fd
       ];
