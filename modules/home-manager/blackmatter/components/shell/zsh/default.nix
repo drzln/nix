@@ -55,11 +55,11 @@ in {
         fi
 
         # direnv
-        # export DIRENV_LOG_FORMAT=""
-        # eval "$(direnv hook zsh)"
+        export DIRENV_LOG_FORMAT=""
+        eval "$(direnv hook zsh)"
 
         # fzf
-        # [ -f "''${HOME}/.fzf.zsh" ] && source "''${HOME}/.fzf.zsh"
+        [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
         # starship
         # export STARSHIP_CONFIG=~/.config/starship.toml
