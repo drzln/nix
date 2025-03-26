@@ -1,31 +1,64 @@
 [
-  (self: super: {
-    etcd = super.buildGoModule {
-      pname = "etcd";
-      version = "3.5.9";
+  (self: super: let
+    lib = super.lib;
+    version = "3.5.9";
+    src = super.fetchFromGitHub {
+      owner = "etcd-io";
+      repo = "etcd";
+      rev = "v${version}";
+      # Replace this hash with the correct SRI hash for the source tarball, e.g. "sha256-..."
+      hash = lib.fakeSha256;
+    };
 
-      src = super.fetchFromGitHub {
-        owner = "etcd-io";
-        repo = "etcd";
-        rev = "v3.5.9";
-        sha256 = "0c7k38gns8019k3prihil21n14khz3lq2bzvd2i9qx23s4qsm4pi"; # Example - update as needed
+    # Common build settings for all subpackages
+    CGO_ENABLED = 0;
+    ldflags = ["-X go.etcd.io/etcd/api/v3/version.GitSHA=GitNotFound"];
+    meta = {
+      description = "Distributed reliable key-value store (Etcd) ${version}";
+      homepage = "https://etcd.io/";
+      license = super.licenses.asl20;
+      maintainers = []; # fill in if needed
+    };
+  in {
+    # Etcd server (main etcd binary)
+    etcdserver = super.buildGoModule rec {
+      pname = "etcdserver";
+      inherit version src CGO_ENABLED ldflags meta;
+      # Use the new 'vendorHash' instead of 'vendorSha256'
+      vendorHash = lib.fakeSha256; # build once to see the correct hash, then replace
+
+      modRoot = "./server";
+      postBuild = ''
+        # The server submodule may produce a binary named "server"
+        # Rename it to "etcd" for consistency.
+        mv "$GOPATH"/bin/{server,etcd}
+      '';
+    };
+
+    # Etcdctl (command-line client)
+    etcdctl = super.buildGoModule rec {
+      pname = "etcdctl";
+      inherit version src CGO_ENABLED meta;
+      vendorHash = lib.fakeSha256; # replace with real hash
+      modRoot = "./etcdctl";
+    };
+
+    # Etcdutl (utility tool)
+    etcdutl = super.buildGoModule rec {
+      pname = "etcdutl";
+      inherit version src CGO_ENABLED meta;
+      vendorHash = lib.fakeSha256; # replace with real hash
+      modRoot = "./etcdutl";
+    };
+
+    # A combined package that symlinks all binaries into a single output
+    etcd = super.symlinkJoin {
+      name = "etcd-${version}";
+      inherit meta;
+      paths = [self.etcdserver self.etcdctl self.etcdutl];
+      passthru = {
+        inherit (self) etcdserver etcdctl etcdutl;
       };
-
-      modRoot = ".";
-      subPackages = ["./server" "./etcdctl"];
-
-      # If needed, set goModSha256 and vendorSha256:
-      goModSha256 = null;
-      vendorSha256 = null;
-
-      # If you want to run the tests:
-      # doCheck = true;
-
-      # Extra build or install phases if needed, e.g.:
-      # buildPhase = ...
-      # installPhase = ...
-
-      inherit (super.go) go;
     };
   })
 ]
