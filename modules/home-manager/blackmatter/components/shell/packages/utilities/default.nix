@@ -1,4 +1,5 @@
-pkgs: with pkgs; [
+pkgs:
+with pkgs; [
   tealdeer
   himalaya
   tree-sitter
@@ -25,7 +26,6 @@ pkgs: with pkgs; [
   whois
   delta
   tokei
-  zoxide
   httpie
   procs
 ]
