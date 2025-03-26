@@ -90,9 +90,6 @@ in {
           --color=info:#eacb8a,prompt:#bf616a,pointer:#b48dac \
           --color=marker:#a3be8b,spinner:#b48dac,header:#a3be8b"
 
-        # 3. Load plugins via Sheldon (manages zsh-autosuggestions, zsh-syntax-highlighting, fzf, etc.)
-        eval "$(sheldon source)"
-
         # (Sheldon will have loaded zsh-autosuggestions and applied our configured post-hook
         # for Nord suggestions, and loaded zsh-syntax-highlighting last.)
 
@@ -111,10 +108,10 @@ in {
         # Sheldon
         eval "$(sheldon source)"
       '';
-      programs.zoxide = {
-        enable = true;
-        enableZshIntegration = false;
-      };
+      # programs.zoxide = {
+      #   enable = true;
+      #   enableZshIntegration = false;
+      # };
     })
   ];
 }
