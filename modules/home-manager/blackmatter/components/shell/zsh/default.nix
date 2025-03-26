@@ -43,7 +43,7 @@ in {
 
         [plugins.fzf]
         github = "junegunn/fzf"
-        tag = "0.60.3"  # lock to a specific release of fzf for stable scripts
+        tag = "0.50.3"  # lock to a specific release of fzf for stable scripts
         use = [ "shell/key-bindings.zsh", "shell/completion.zsh" ]
         # (fzf binary is expected to be installed separately in $PATH)
       '';
