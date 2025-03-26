@@ -26,7 +26,6 @@ in {
         fd
       ];
       home.file.".config/sheldon/plugins.toml".text = ''
-        # ~/.config/sheldon/plugins.toml - Sheldon plugin definitions
         shell = "zsh"
 
         [plugins.base16]
