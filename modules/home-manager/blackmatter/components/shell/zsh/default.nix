@@ -49,10 +49,10 @@ in {
         alias cat=bat
         alias cd=z
 
-        # if [[ "$(uname)" == "Linux" ]]; then
-        #   alias pbcopy='xsel --clipboard --input'
-        #   alias pbpaste='xsel --clipboard --output'
-        # fi
+        if [[ "$(uname)" == "Linux" ]]; then
+          alias pbcopy=xsel --clipboard --input
+          alias pbpaste=xsel --clipboard --output
+        fi
 
         # direnv
         # export DIRENV_LOG_FORMAT=""
