@@ -41,13 +41,13 @@ in {
         autoload -Uz compinit && compinit -i
 
         # zoxide manual integration
-        # eval "$(${pkgs.zoxide}/bin/zoxide init zsh)"
+        eval "$(${pkgs.zoxide}/bin/zoxide init zsh)"
 
         # Aliases
-        # alias vim='nvim -u "''${HOME}/.config/nvim/init.lua"'
-        # alias vimdiff='nvim -d -u "''${HOME}/.config/nvim/init.lua"'
-        # alias cat='bat'
-        # alias cd='z'
+        alias vim=nvim -u ~/.config/nvim/init.lua
+        alias vimdiff=nvim -d -u ~/.config/nvim/init.lua
+        alias cat=bat
+        alias cd=z
 
         # if [[ "$(uname)" == "Linux" ]]; then
         #   alias pbcopy='xsel --clipboard --input'
