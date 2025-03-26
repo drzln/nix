@@ -77,6 +77,7 @@
     base-packages = flake-utils.lib.eachDefaultSystem (system: let
       pkgs = mkPkgs system;
     in {
+      kubernetes = pkgs.kubernetes;
       etcd = pkgs.etcd;
       neovim = pkgs.callPackage ./packages/neovim {};
       nixhashsync = nixhashsync.packages.${system}.default;
