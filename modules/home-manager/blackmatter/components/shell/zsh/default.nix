@@ -30,18 +30,20 @@ in {
       ];
       home.file.".config/sheldon/plugins.toml".text = ''
         # ~/.config/sheldon/plugins.toml - Sheldon plugin definitions
-        apply = ["source"]
 
         [plugins.zsh-autosuggestions]
+        apply = ["shell"]
         github = "zsh-users/zsh-autosuggestions"
         use = ["zsh-autosuggestions.zsh"]
         hooks.post = 'ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#4c566a"'
 
         [plugins.zsh-syntax-highlighting]
+        apply = ["shell"]
         github = "zsh-users/zsh-syntax-highlighting"
         use = ["zsh-syntax-highlighting.zsh"]
 
         [plugins.fzf]
+        apply = ["shell"]
         github = "junegunn/fzf"
         use = [ "shell/key-bindings.zsh", "shell/completion.zsh" ]
       '';
@@ -80,11 +82,16 @@ in {
         # [oai_citation_attribution:16‡github.com]
         # (https://github.com/ianchesal/nord-fzf#:~:text=export%20FZF_DEFAULT_OPTS%3D%24FZF_DEFAULT_OPTS%27%20,a3be8b)
 
-        export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --ansi $FZF_DEFAULT_OPTS \
+        # export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --ansi $FZF_DEFAULT_OPTS \
+        #   --color=fg:#e5e9f0,bg:#3b4252,hl:#81a1c1 \
+        #   --color=fg+:#e5e9f0,bg+:#3b4252,hl+:#81a1c1 \
+        #   --color=info:#eacb8a,prompt:#bf616a,pointer:#b48dac \
+        #   --color=marker:#a3be8b,spinner:#b48dac,header:#a3be8b"
+        export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --border --ansi \
           --color=fg:#e5e9f0,bg:#3b4252,hl:#81a1c1 \
-          --color=fg+:#e5e9f0,bg+:#3b4252,hl+:#81a1c1 \
-          --color=info:#eacb8a,prompt:#bf616a,pointer:#b48dac \
-          --color=marker:#a3be8b,spinner:#b48dac,header:#a3be8b"
+          --color=fg+:#e5e9f0,bg+:#434c5e,hl+:#88c0d0 \
+          --color=info:#8fbcbb,prompt:#81a1c1,pointer:#bf616a \
+          --color=marker:#ebcb8b,spinner:#b48ead,header:#81a1c1"
 
         # (Sheldon will have loaded zsh-autosuggestions and applied our configured post-hook
         # for Nord suggestions, and loaded zsh-syntax-highlighting last.)
