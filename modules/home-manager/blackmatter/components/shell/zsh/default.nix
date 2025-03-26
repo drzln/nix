@@ -91,10 +91,6 @@ in {
         # move with vim
         bindkey -v
       '';
-      # programs.zoxide = {
-      #   enable = true;
-      #   enableZshIntegration = false;
-      # };
     })
   ];
 }
