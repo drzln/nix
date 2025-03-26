@@ -1,20 +1,12 @@
 pkgs:
 with pkgs; [
-  tealdeer
-  himalaya
-  tree-sitter
   transmission
   xorg.xrandr
-  tig
-  grex
-  stig
-  gdb
-  bat
-  feh
-  fd
-  sd
+  tree-sitter
   hyperfine
   bandwhich
+  tealdeer
+  himalaya
   json2hcl
   node2nix
   cpulimit
@@ -22,10 +14,18 @@ with pkgs; [
   ansible
   openssl
   gradle
+  httpie
   trunk
   whois
   delta
   tokei
-  httpie
   procs
+  grex
+  stig
+  tig
+  gdb
+  bat
+  feh
+  fd
+  sd
 ]
