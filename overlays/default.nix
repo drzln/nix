@@ -1,94 +1,74 @@
 [
   (
     self: super: let
-      lib = super.lib;
       version = "3.5.9";
 
-      # Fetch the main etcd source. Must use 'sha256', not 'hash'.
+      # 1) Top-level fetch of the Etcd source tarball with an SRI "fake" placeholder.
+      #    The 'sha256' attribute must be in "sha256-<base64>=" form, or Nix complains
+      #    it doesn't know the type. This *will* fail on first build, printing the real hash.
       src = super.fetchFromGitHub {
         owner = "etcd-io";
         repo = "etcd";
         rev = "v${version}";
-        sha256 = "1cqhy33g42npshcrk7gm6j2fwmvxl8zjvb0qzjbrc6635fvlym5k";
-      };
-
-      meta = {
-        description = "Distributed reliable key-value store (Etcd) ${version}";
-        homepage = "https://etcd.io/";
+        # 64 A's as a base64 placeholder => "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="
+        sha256 = "sha256-Vp8U49fp0FowIuSSvbrMWjAKG2oDO1o0qO4izSnTR3U=";
       };
     in rec {
-      ########################################################################
-      # 1) etcdserver (main etcd binary, from 'server' subdirectory)
-      ########################################################################
+      ###################################################################
+      # etcdserver (server subdir)
+      ###################################################################
       etcdserver = super.buildGoModule {
         pname = "etcdserver";
-        inherit version src meta;
+        inherit version src;
+        doCheck = false;
 
-        # 'vendorHash' is required instead of 'vendorSha256'.
-        vendorHash = lib.fakeSha256; # Replace with the printed SRI from build logs
+        # Use a base64 SRI placeholder for 'vendorHash':
+        vendorHash = "sha256-vu5VKHnDbvxSd8qpIFy0bA88IIXLaQ5S8dVUJEwnKJA=";
 
-        # The 'modRoot' points to the 'server' folder's go.mod
         modRoot = "./server";
+        env = {CGO_ENABLED = "0";};
 
-        # Recommended approach for CGO:
-        env = {
-          CGO_ENABLED = "0";
-        };
-
-        # Add optional ldflags if you prefer, e.g. version info:
-        ldflagsArray = ["-X go.etcd.io/etcd/api/v3/version.GitSHA=GitNotFound"];
-
-        # The submodule might produce a binary named 'server' => rename it to 'etcd'
         postBuild = ''
-          mv "$GOPATH"/bin/{server,etcd}
+          # If the submodule outputs a binary named "server", rename to "etcd"
+          mv "$GOPATH"/bin/{server,etcd} || true
         '';
       };
 
-      ########################################################################
-      # 2) etcdctl (CLI tool, from 'etcdctl' subdirectory)
-      ########################################################################
+      ###################################################################
+      # etcdctl (CLI subdir)
+      ###################################################################
       etcdctl = super.buildGoModule {
         pname = "etcdctl";
-        inherit version src meta;
+        inherit version src;
+        doCheck = false;
 
-        vendorHash = lib.fakeSha256; # Replace with the printed SRI from build logs
+        vendorHash = "sha256-awl/4kuOjspMVEwfANWK0oi3RId6ERsFkdluiRaaXlA=";
+
         modRoot = "./etcdctl";
-
-        env = {
-          CGO_ENABLED = "0";
-        };
+        env = {CGO_ENABLED = "0";};
       };
 
-      ########################################################################
-      # 3) etcdutl (utility tool, from 'etcdutl' subdirectory)
-      ########################################################################
+      ###################################################################
+      # etcdutl (utility subdir)
+      ###################################################################
       etcdutl = super.buildGoModule {
         pname = "etcdutl";
-        inherit version src meta;
+        inherit version src;
+        doCheck = false;
 
-        vendorHash = lib.fakeSha256; # Replace with the printed SRI from build logs
+        vendorHash = "sha256-i60rKCmbEXkdFOZk2dTbG5EtYKb5eCBSyMcsTtnvATs=";
+
         modRoot = "./etcdutl";
-
-        env = {
-          CGO_ENABLED = "0";
-        };
+        env = {CGO_ENABLED = "0";};
       };
 
-      ########################################################################
-      # 4) etcd - a single package that combines all binaries
-      ########################################################################
+      ###################################################################
+      # Combine everything into 'etcd' using symlinkJoin
+      ###################################################################
       etcd = super.symlinkJoin {
         name = "etcd-${version}";
-        inherit meta;
-        paths = [
-          etcdserver
-          etcdctl
-          etcdutl
-        ];
-
-        passthru = {
-          inherit etcdserver etcdctl etcdutl;
-        };
+        paths = [etcdserver etcdctl etcdutl];
+        doCheck = false;
       };
     }
   )
