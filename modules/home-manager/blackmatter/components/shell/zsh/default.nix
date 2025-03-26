@@ -22,15 +22,16 @@ in {
     (mkIf cfg.enable {
       home.packages = with pkgs; [
         cfg.package
-        sheldon
+        sheldon-special
         zoxide
-        xsel
+        x# sel
         bat
         fzf
       ];
       home.file.".config/sheldon/plugins.toml".text = ''
         # ~/.config/sheldon/plugins.toml - Sheldon plugin definitions
 
+        apply = ["shell"]
         [plugins.zsh-autosuggestions]
         github = "zsh-users/zsh-autosuggestions"
         use = ["zsh-autosuggestions.zsh"]

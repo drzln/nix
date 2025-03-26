@@ -64,6 +64,7 @@
     requirements = {inherit inputs self;};
 
     specialArgs = {
+      pkgs = base-packages;
       inherit requirements packages;
     };
 

@@ -1,6 +1,6 @@
 [
   (self: super: {
-    sheldon = super.buildRustPackage rec {
+    sheldon-special = super.buildRustPackage rec {
       pname = "sheldon";
       version = "0.9.0";
       src = super.fetchFromGitHub {
