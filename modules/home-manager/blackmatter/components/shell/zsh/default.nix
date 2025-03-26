@@ -34,15 +34,14 @@ in {
         [plugins.zsh-autosuggestions]
         github = "zsh-users/zsh-autosuggestions"
         use = ["zsh-autosuggestions.zsh"]
-        hooks.post = 'ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#4c566a"'
 
-        [plugins.zsh-syntax-highlighting]
-        github = "zsh-users/zsh-syntax-highlighting"
-        use = ["zsh-syntax-highlighting.zsh"]
+        # [plugins.zsh-syntax-highlighting]
+        # github = "zsh-users/zsh-syntax-highlighting"
+        # use = ["zsh-syntax-highlighting.zsh"]
 
-        [plugins.fzf]
-        github = "junegunn/fzf"
-        use = [ "shell/key-bindings.zsh", "shell/completion.zsh" ]
+        # [plugins.fzf]
+        # github = "junegunn/fzf"
+        # use = [ "shell/key-bindings.zsh", "shell/completion.zsh" ]
       '';
       home.file.".zshrc".text = ''
         # ~/.zshrc - Zsh configuration (Sheldon-managed plugins, Nord theme)
