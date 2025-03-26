@@ -1,14 +1,15 @@
-{ lib, config, ... }:
-with lib;
-let
-  cfg = config.blackmatter.components.shell;
-in
 {
+  lib,
+  config,
+  ...
+}:
+with lib; let
+  cfg = config.blackmatter.components.shell;
+in {
   imports = [
     ./background
     ./starship
     ./packages
-    ./sheldon
     ./tools
     ./zsh
     ./fzf

@@ -49,11 +49,11 @@
     inherit inputs self;
 
     overlays =
-      import ./overlays
-      ++ builtins.attrValues sops-nix.overlays
+      builtins.attrValues sops-nix.overlays
       ++ [
         (final: prev: {nixhashsync = nixhashsync.packages.${prev.system}.default;})
-      ];
+      ]
+      ++ import ./overlays;
 
     mkPkgs = system:
       import nixpkgs {
