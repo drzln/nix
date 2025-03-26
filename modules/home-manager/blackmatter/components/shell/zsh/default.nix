@@ -31,7 +31,7 @@ in let
       owner = "zsh-users";
       repo = "zsh-syntax-highlighting";
       rev = "0.8.0";
-      sha256 = "sha256-ZhUEg0zIKv8GVHnLDBBsnxB93uEoXyPCO+uR4DWnEx4=";
+      sha256 = "sha256-iJdWopZwHpSyYl5/FQXEW7gl/SrKaYDEtTH9cGP7iPo=";
     };
 
     installPhase = ''
