@@ -30,8 +30,6 @@ in {
       home.file.".config/sheldon/plugins.toml".text = ''
         # ~/.config/sheldon/plugins.toml - Sheldon plugin definitions
 
-        # Plugins are organized by name under the [plugins] table.
-
         [plugins.zsh-autosuggestions]
         github = "zsh-users/zsh-autosuggestions"
         tag = "v0.7.0"  # pin to a known stable release for consistency
@@ -107,6 +105,9 @@ in {
 
         # Sheldon
         eval "$(sheldon source)"
+
+        # move with vim
+        bind -v
       '';
       # programs.zoxide = {
       #   enable = true;
