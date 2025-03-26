@@ -28,14 +28,14 @@ in {
       ];
       home.file.".zshrc".text = ''
         # XDG vars
-        export XDG_DATA_HOME="''${HOME}/.local/share"
-        export XDG_CONFIG_HOME="''${HOME}/.config"
-        export XDG_STATE_HOME="''${HOME}/.local/state"
+        export XDG_STATE_HOME=~/.local/state
+        export XDG_DATA_HOME=~/.local/share
+        export XDG_CONFIG_HOME=~/.local/config
 
         # History
         export HISTSIZE=10000000
         export SAVEHIST=10000000
-        export HISTFILE="''${HOME}/.zsh_history"
+        export HISTFILE=~/.zsh_history
 
         # Completion
         autoload -Uz compinit && compinit -i
@@ -44,14 +44,14 @@ in {
         eval "$(${pkgs.zoxide}/bin/zoxide init zsh)"
 
         # Aliases
-        alias vim=nvim -u ~/.config/nvim/init.lua
         alias vimdiff=nvim -d -u ~/.config/nvim/init.lua
+        alias vim=nvim -u ~/.config/nvim/init.lua
         alias cat=bat
         alias cd=z
 
         if [[ "$(uname)" == "Linux" ]]; then
-          alias pbcopy=xsel --clipboard --input
           alias pbpaste=xsel --clipboard --output
+          alias pbcopy=xsel --clipboard --input
         fi
 
         # direnv
