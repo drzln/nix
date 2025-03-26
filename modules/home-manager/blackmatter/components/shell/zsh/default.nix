@@ -76,6 +76,7 @@ in {
           export FZF_CTRL_T_COMMAND='fd --type f --type d --hidden --follow --exclude .git --strip-cwd-prefix'
         fi
 
+        export FZF_DEFAULT_OPTS = "--height 20% --layout=reverse --border --ansi"
         # export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --border --ansi \
         #   --color=fg:#e5e9f0,bg:#3b4252,hl:#81a1c1 \
         #   --color=fg+:#e5e9f0,bg+:#434c5e,hl+:#88c0d0 \
