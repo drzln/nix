@@ -23,7 +23,6 @@ in {
       home.packages = with pkgs; [
         cfg.package
         zoxide
-        direnv
         xsel
         bat
       ];
@@ -58,7 +57,7 @@ in {
 
         # direnv
         export DIRENV_LOG_FORMAT=""
-        eval "$(${pkgs.direnv} hook zsh)"
+        eval "$(direnv hook zsh)"
 
         # fzf
         # === Inline fzf config ===
