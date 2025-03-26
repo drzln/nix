@@ -27,6 +27,7 @@ in {
         xsel
         bat
         fzf
+        fd
       ];
       home.file.".config/sheldon/plugins.toml".text = ''
         # ~/.config/sheldon/plugins.toml - Sheldon plugin definitions
