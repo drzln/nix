@@ -59,7 +59,7 @@ in {
         eval "$(direnv hook zsh)"
 
         # fzf
-        [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+        source ~/.fzf.zsh
 
         # starship
         # export STARSHIP_CONFIG=~/.config/starship.toml
