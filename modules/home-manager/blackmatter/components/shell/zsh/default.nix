@@ -30,6 +30,7 @@ in {
       ];
       home.file.".config/sheldon/plugins.toml".text = ''
         # ~/.config/sheldon/plugins.toml - Sheldon plugin definitions
+        apply = ["shell"]
 
         [plugins.zsh-autosuggestions]
         github = "zsh-users/zsh-autosuggestions"
@@ -104,7 +105,7 @@ in {
         eval "$(sheldon source)"
 
         # move with vim
-        bind -v
+        bindkey -v
       '';
       # programs.zoxide = {
       #   enable = true;
