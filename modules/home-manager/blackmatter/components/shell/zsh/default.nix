@@ -30,7 +30,7 @@ in {
       ];
       home.file.".config/sheldon/plugins.toml".text = ''
         # ~/.config/sheldon/plugins.toml - Sheldon plugin definitions
-        apply = ["shell"]
+        apply = ["source"]
 
         [plugins.zsh-autosuggestions]
         github = "zsh-users/zsh-autosuggestions"
