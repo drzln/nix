@@ -16,12 +16,11 @@
     meta = {
       description = "Distributed reliable key-value store (Etcd) ${version}";
       homepage = "https://etcd.io/";
-      license = super.licenses.asl20;
       maintainers = []; # fill in if needed
     };
   in {
     # Etcd server (main etcd binary)
-    etcdserver = super.buildGoModule rec {
+    etcdserver = super.buildGoModule {
       pname = "etcdserver";
       inherit version src CGO_ENABLED ldflags meta;
       # Use the new 'vendorHash' instead of 'vendorSha256'
@@ -36,7 +35,7 @@
     };
 
     # Etcdctl (command-line client)
-    etcdctl = super.buildGoModule rec {
+    etcdctl = super.buildGoModule {
       pname = "etcdctl";
       inherit version src CGO_ENABLED meta;
       vendorHash = lib.fakeSha256; # replace with real hash
@@ -44,7 +43,7 @@
     };
 
     # Etcdutl (utility tool)
-    etcdutl = super.buildGoModule rec {
+    etcdutl = super.buildGoModule {
       pname = "etcdutl";
       inherit version src CGO_ENABLED meta;
       vendorHash = lib.fakeSha256; # replace with real hash
