@@ -1,31 +1,75 @@
 [
-  (self: super: {
-    etcd = super.buildGoModule {
-      pname = "etcd";
+  (
+    self: super: let
       version = "3.5.9";
 
+      # 1) Top-level fetch of the Etcd source tarball with an SRI "fake" placeholder.
+      #    The 'sha256' attribute must be in "sha256-<base64>=" form, or Nix complains
+      #    it doesn't know the type. This *will* fail on first build, printing the real hash.
       src = super.fetchFromGitHub {
         owner = "etcd-io";
         repo = "etcd";
-        rev = "v3.5.9";
-        sha256 = "0c7k38gns8019k3prihil21n14khz3lq2bzvd2i9qx23s4qsm4pi"; # Example - update as needed
+        rev = "v${version}";
+        # 64 A's as a base64 placeholder => "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="
+        sha256 = "sha256-Vp8U49fp0FowIuSSvbrMWjAKG2oDO1o0qO4izSnTR3U=";
+      };
+    in rec {
+      ###################################################################
+      # etcdserver (server subdir)
+      ###################################################################
+      etcdserver = super.buildGoModule {
+        pname = "etcdserver";
+        inherit version src;
+        doCheck = false;
+
+        # Use a base64 SRI placeholder for 'vendorHash':
+        vendorHash = "sha256-vu5VKHnDbvxSd8qpIFy0bA88IIXLaQ5S8dVUJEwnKJA=";
+
+        modRoot = "./server";
+        env = {CGO_ENABLED = "0";};
+
+        postBuild = ''
+          # If the submodule outputs a binary named "server", rename to "etcd"
+          mv "$GOPATH"/bin/{server,etcd} || true
+        '';
       };
 
-      modRoot = ".";
-      subPackages = ["./server" "./etcdctl"];
+      ###################################################################
+      # etcdctl (CLI subdir)
+      ###################################################################
+      etcdctl = super.buildGoModule {
+        pname = "etcdctl";
+        inherit version src;
+        doCheck = false;
 
-      # If needed, set goModSha256 and vendorSha256:
-      goModSha256 = null;
-      vendorSha256 = null;
+        vendorHash = "sha256-awl/4kuOjspMVEwfANWK0oi3RId6ERsFkdluiRaaXlA=";
 
-      # If you want to run the tests:
-      # doCheck = true;
+        modRoot = "./etcdctl";
+        env = {CGO_ENABLED = "0";};
+      };
 
-      # Extra build or install phases if needed, e.g.:
-      # buildPhase = ...
-      # installPhase = ...
+      ###################################################################
+      # etcdutl (utility subdir)
+      ###################################################################
+      etcdutl = super.buildGoModule {
+        pname = "etcdutl";
+        inherit version src;
+        doCheck = false;
 
-      inherit (super.go) go;
-    };
-  })
+        vendorHash = "sha256-i60rKCmbEXkdFOZk2dTbG5EtYKb5eCBSyMcsTtnvATs=";
+
+        modRoot = "./etcdutl";
+        env = {CGO_ENABLED = "0";};
+      };
+
+      ###################################################################
+      # Combine everything into 'etcd' using symlinkJoin
+      ###################################################################
+      etcd = super.symlinkJoin {
+        name = "etcd-${version}";
+        paths = [etcdserver etcdctl etcdutl];
+        doCheck = false;
+      };
+    }
+  )
 ]
