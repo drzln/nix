@@ -24,6 +24,7 @@ in {
         cfg.package
         zoxide
         bash
+        xsel
         fzf
         git
         fd
@@ -61,8 +62,8 @@ in {
         alias cd=z
 
         if [[ "$(uname)" == "Linux" ]]; then
-          alias pbpaste=${pkgs.xsel}/bin/xsel --clipboard --output
-          alias pbcopy=${pkgs.xsel}/bin/xsel --clipboard --input
+          alias pbpaste=xsel --clipboard --output
+          alias pbcopy=xsel --clipboard --input
         fi
 
         # Completion (must come before plugin init that registers completions)
