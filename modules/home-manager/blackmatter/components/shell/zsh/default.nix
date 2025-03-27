@@ -1,7 +1,7 @@
 {
   lib,
-  config,
   pkgs,
+  config,
   ...
 }:
 with lib; let
@@ -64,6 +64,18 @@ in {
         if [[ "$(uname)" == "Linux" ]]; then
           alias pbpaste=xsel --clipboard --output
           alias pbcopy=xsel --clipboard --input
+        fi
+
+        if [[ "$(uname)" == "Linux" ]]; then
+          # If Wayland is detected
+          if [[ -n "$WAYLAND_DISPLAY" ]]; then
+            alias pbcopy='wl-copy'
+            alias pbpaste='wl-paste'
+          # Else if X11 is available
+          elif [[ -n "$DISPLAY" ]]; then
+            alias pbcopy='xsel --clipboard --input'
+            alias pbpaste='xsel --clipboard --output'
+          fi
         fi
 
         # Completion (must come before plugin init that registers completions)
