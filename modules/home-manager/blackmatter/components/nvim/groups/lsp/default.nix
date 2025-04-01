@@ -33,6 +33,7 @@ in {
           rm -rf ~/.local/share/nvim/mason/bin/rust-analyzer
           rm -rf ~/.local/share/nvim/mason/bin/markdown-oxide
           rm -rf ~/.local/share/nvim/mason/bin/ruby-lsp
+          rm -rf ~/.local/share/nvim/mason/bin/tree-sitter
         '';
         home.file."${configPath}".source = ./config.lua;
         home.packages = with pkgs;
