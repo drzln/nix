@@ -24,7 +24,6 @@ in {
         [
           cfg.package
           google-java-format
-          wl-clipboard-rs
           terraform
           zoxide
           ruby
@@ -35,7 +34,10 @@ in {
           git
           fd
         ]
-        ++ lib.optionals pkgs.stdenv.isLinux [julia];
+        ++ lib.optionals pkgs.stdenv.isLinux [
+          wl-clipboard-rs
+          julia
+        ];
       home.file.".config/sheldon/plugins.toml".text = ''
         shell = "zsh"
 
