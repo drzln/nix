@@ -75,7 +75,8 @@ in {
         gpclient
         gnome-tweaks
         fractal
-        # blender
+        blender
+        hyprshot
         spotify
         slack
         google-chrome
