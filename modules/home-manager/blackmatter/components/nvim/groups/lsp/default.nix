@@ -54,10 +54,9 @@ in {
           nodejs
           prettier
           composer
-          python39
+          (python312.withPackages (ps: with ps; [pip]))
           solargraph
           luarocks-nix
-          python312Packages.pip
           google-java-format
           # dotnet_9.sdk
           # dotnet_9.runtime
@@ -65,6 +64,7 @@ in {
           rust-analyzer
           markdown-oxide
           sourcekit-lsp
+          tree-sitter
           # (pkgs.ruby_3_4.withPackages (ps: with ps; [ruby-lsp]))
         ];
         blackmatter.components.nvim.plugins = {
