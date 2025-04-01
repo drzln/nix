@@ -24,9 +24,9 @@ in {
         [
           cfg.package
           google-java-format
+          wl-clipboard-rs
           terraform
           zoxide
-          wl-copy
           ruby
           bash
           xsel
