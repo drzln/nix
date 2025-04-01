@@ -57,6 +57,7 @@ in {
           python39
           solargraph
           luarocks-nix
+          python312Packages.pip
           google-java-format
           # dotnet_9.sdk
           # dotnet_9.runtime
