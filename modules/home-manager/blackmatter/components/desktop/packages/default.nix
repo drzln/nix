@@ -91,7 +91,7 @@ in {
         freecad
         libreoffice
         vscode
-        beekeeper-studio
+        # beekeeper-studio
         tor-browser
       ];
     })
