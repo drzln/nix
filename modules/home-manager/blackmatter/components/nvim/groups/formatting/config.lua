@@ -3,7 +3,7 @@ function M.setup()
 	require("conform").setup({
 		formatters_by_ft = {
 			["terraform-vars"] = { "terraform_fmt" },
-			java = { "google_java_format" },
+			java = { "google-java-format" },
 			swift = { "swift_format" },
 			terraform = { "terraform_fmt" },
 			typescript = { "prettier" },
