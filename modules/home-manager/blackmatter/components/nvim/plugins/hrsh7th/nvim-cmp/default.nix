@@ -8,7 +8,7 @@ with lib; let
   common = import ../../../common;
   url = "${common.baseRepoUrl}/${author}/${name}";
   plugPath = "${common.basePlugPath}/${author}/start/${name}";
-  configPath = "${common.includesPath}/${author}/${plugName}.lua";
+  # configPath = "${common.includesPath}/${author}/${plugName}.lua";
   author = "hrsh7th";
   name = "nvim-cmp";
   # plugName = name;
