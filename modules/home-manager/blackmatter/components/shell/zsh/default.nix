@@ -22,10 +22,11 @@ in {
     (mkIf cfg.enable {
       home.packages = with pkgs; [
         cfg.package
+        google-java-format
         terraform
-        ruby
-        julia
         zoxide
+        julia
+        ruby
         bash
         xsel
         fzf
