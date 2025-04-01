@@ -23,6 +23,8 @@ in {
       home.packages = with pkgs; [
         cfg.package
         terraform
+        ruby
+        julia
         zoxide
         bash
         xsel
