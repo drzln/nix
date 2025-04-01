@@ -26,6 +26,7 @@ in {
           google-java-format
           terraform
           zoxide
+          wl-copy
           ruby
           bash
           xsel
