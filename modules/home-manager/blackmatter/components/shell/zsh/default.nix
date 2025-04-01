@@ -29,6 +29,7 @@ in {
         ruby
         bash
         xsel
+        php
         fzf
         git
         fd
