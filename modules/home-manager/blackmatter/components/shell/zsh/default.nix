@@ -20,20 +20,21 @@ in {
   };
   config = mkMerge [
     (mkIf cfg.enable {
-      home.packages = with pkgs; [
-        cfg.package
-        google-java-format
-        terraform
-        zoxide
-        julia
-        ruby
-        bash
-        xsel
-        php
-        fzf
-        git
-        fd
-      ];
+      home.packages = with pkgs;
+        [
+          cfg.package
+          google-java-format
+          terraform
+          zoxide
+          ruby
+          bash
+          xsel
+          php
+          fzf
+          git
+          fd
+        ]
+        ++ lib.optionals pkgs.stdenv.isLinux [julia];
       home.file.".config/sheldon/plugins.toml".text = ''
         shell = "zsh"
 
