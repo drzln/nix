@@ -21,7 +21,7 @@ in {
     (
       mkIf cfg.enable
       {
-        home.packages = with pkgs; [rustfmt taplo shfmt];
+        home.packages = with pkgs; [rustfmt taplo shfmt php83Packages.php-cs-fixer];
         home.file."${configPath}".source = ./config.lua;
         blackmatter.components.nvim.plugins = {
           # formatting framework
