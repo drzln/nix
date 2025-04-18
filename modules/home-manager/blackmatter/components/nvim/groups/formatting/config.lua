@@ -5,6 +5,7 @@ function M.setup()
 			["terraform-vars"] = { "terraform_fmt" },
 			java = { "google-java-format" },
 			swift = { "swift_format" },
+			php = { "php_cs_fixer" },
 			terraform = { "terraform_fmt" },
 			typescript = { "prettier" },
 			javascript = { "prettier" },
