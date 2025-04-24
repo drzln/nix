@@ -22,6 +22,7 @@ function M.setup()
 		"sqls",
 		"pbls",
 		"openscad_lsp",
+		"pest_language_server",
 		"pest-language-server",
 		"nickel-lang-lsp",
 		"starlark_rust",
