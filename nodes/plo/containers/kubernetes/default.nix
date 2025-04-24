@@ -9,7 +9,6 @@
     ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQChyPrBmWSILSlqfgd7a4bPyDyzKTERfHEF+V0IQSiDZxcLSkE8+90lqYNh81c9xme09DUKAfd95obUKdcws5PI8NSoHbw70M3Ik2ZVkqGOQpGfcq7BeIDvtqkZyKjCmrCZlEb6RmFVCfso0Xts3/FdxeD3y6BMvGY/oRDLOrwPzGlX+hHAjE4jxG+tGAMWaI3KoAkwU3kfnnDxrp0swJ5Ns3vlR0yihci8SdMECA4fdPUpwzy0uaIpKXruiB44OdW/rxEyM1MujeBVaLeygtKjtYBvC1CZ7ofia1bHDJ2qzmlsDckmIAgVTH6BrcSw3ZOmmG6tx2H5yl/Tchmq72YeBP647fGVsVwLqf3wIPeoR8qcrYTE51/R/URXYlOMsuyYg+2WJrUKXO8pX/n60YDD0BR26VW/d3yjkDH+csWspmAcqN7vPIu8hIMjK0p8EryP/G7yy985kjETkNuyQPX19pGnEMJEBzFlm8XE+HzdxFm06gi/i8y1XC/TBk/IIWk= luis@plo
   '';
 
-  # This sets up the host, plus defines container IPs, etc.
   host = {
     bridge = "internal-br-1";
     gateway = "10.3.0.1";
@@ -72,8 +71,6 @@
     networking.domain = domain;
     networking.useDHCP = false;
     networking.defaultGateway = host.gateway;
-
-    # Basic user + packages
     programs.zsh.enable = true;
     users.users.luis = {
       isSystemUser = false;
@@ -90,15 +87,13 @@
     users.users.root.openssh.authorizedKeys.keys = [];
   };
 
-  # Default container settings
   container.defaults = {
     hostBridge = host.bridge;
     privateNetwork = true;
     autoStart = true;
-    ephemeral = true; # ephemeral so container state is dropped if container is destroyed
+    ephemeral = true;
   };
 
-  # Helper function for container modules
   mk-nixos-container-module = {baseConfig}: {
     lib,
     config,
@@ -111,11 +106,8 @@
     ];
   };
 
-  # Home Manager config for user 'luis'
   home-manager-common-module = {
-    imports = [
-      requirements.inputs.self.homeManagerModules.blackmatter
-    ];
+    imports = [requirements.inputs.self.homeManagerModules.blackmatter];
     home.stateVersion = state.version;
     home.packages = with pkgs; [vim git];
     home.homeDirectory = "/home/luis";
@@ -135,7 +127,6 @@
     blackmatter.components.gitconfig.user = "luis";
   };
 
-  # Our containers
   containers = {
     bastion =
       {
@@ -288,7 +279,6 @@ in {
   #   )
   # ];
 
-  # Host-level networking config
   networking.nat.enable = true;
   networking.nat.internalInterfaces = [host.bridge];
 
