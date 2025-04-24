@@ -22,6 +22,7 @@ function M.setup()
 		"sqls",
 		"pbls",
 		"gradle_ls",
+		"pest_ls",
 		"openscad_lsp",
 		"haxe_language_server",
 		"nickel_ls",
