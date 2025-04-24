@@ -165,7 +165,6 @@
   environment.systemPackages = with pkgs; [
     gh
     slack-cli
-    ghostty
     # sumneko-lua-language-server
     # docker
     # docker-client
