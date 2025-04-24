@@ -2,6 +2,7 @@
   description = "drzzln systems";
 
   inputs = {
+    nix-kubernetes = "github:drzln/nix-kubernetes";
     nixhashsync = {url = "github:gahbdias/NixHashSync";};
     pwnixos.url = "github:exploitoverload/PwNixOS";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -44,6 +45,7 @@
     pwnixos,
     rednix,
     nixified-ai,
+    nix-kubernetes,
     ...
   } @ inputs: let
     inherit inputs self;
@@ -51,7 +53,9 @@
     overlays =
       builtins.attrValues sops-nix.overlays
       ++ [
-        (final: prev: {nixhashsync = nixhashsync.packages.${prev.system}.default;})
+        (final: prev: {
+          nixhashsync = nixhashsync.packages.${prev.system}.default;
+        })
       ]
       ++ import ./overlays;
 
@@ -78,6 +82,7 @@
       pkgs = mkPkgs system;
     in {
       kubernetes = pkgs.kubernetes;
+      kubelet = nix-kubernetes.outputs.packages.${system}.kubelet;
       etcd = pkgs.etcd;
       neovim = pkgs.callPackage ./packages/neovim {};
       nixhashsync = nixhashsync.packages.${system}.default;
