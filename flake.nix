@@ -83,6 +83,15 @@
     in {
       kubernetes = pkgs.kubernetes;
       kubelet = nix-kubernetes.outputs.packages.${system}.kubelet;
+      kubectl = nix-kubernetes.outputs.packages.${system}.kubectl;
+      kube-apiserver = nix-kubernetes.outputs.packages.${system}.kube-apiserver;
+      kube-controller-manager = nix-kubernetes.outputs.packages.${system}.kube-controller-manager;
+      etcdserver = nix-kubernetes.outputs.packages.${system}.etcdserver;
+      containerd = nix-kubernetes.outputs.packages.${system}.containerd;
+      cilium-cli = nix-kubernetes.outputs.packages.${system}.cilium-cli;
+      etcdctl = nix-kubernetes.outputs.packages.${system}.etcdctl;
+      etcdutl = nix-kubernetes.outputs.packages.${system}.etcdutl;
+      runc = nix-kubernetes.outputs.packages.${system}.runc;
       etcd = pkgs.etcd;
       neovim = pkgs.callPackage ./packages/neovim {};
       nixhashsync = nixhashsync.packages.${system}.default;
