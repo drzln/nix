@@ -39,8 +39,8 @@
   # DNS mappings
   dns.addresses = [
     "/bastion.${domain}/${ip.space.bastion.local}"
-    "/k8s-master.${domain}/${ip.space.k8s-master.local}"
-    "/k8s-worker.${domain}/${ip.space.k8s-worker.local}"
+    # "/k8s-master.${domain}/${ip.space.k8s-master.local}"
+    # "/k8s-worker.${domain}/${ip.space.k8s-worker.local}"
   ];
 
   # Common config for containers

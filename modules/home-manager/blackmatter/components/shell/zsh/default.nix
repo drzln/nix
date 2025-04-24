@@ -24,7 +24,7 @@ in {
         [
           cfg.package
           google-java-format
-          terraform
+          # terraform
           zoxide
           ruby
           bash
