@@ -21,6 +21,7 @@ function M.setup()
 		"nil",
 		"sqls",
 		"pbls",
+		"gradle_ls",
 		"openscad_lsp",
 		"pest_language_server",
 		"pest-language-server",
