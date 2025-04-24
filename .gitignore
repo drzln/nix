@@ -1,11 +1,5 @@
-# direnv
 .envrc
-
-# nix
-result
-
-# vagrant
 .vagrant
-
-# vm
+result
+result-man
 nixos.qcow2
