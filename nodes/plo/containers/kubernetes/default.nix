@@ -61,7 +61,7 @@
     services.openssh.settings.PasswordAuthentication = false;
 
     # DNS + networking
-    services.dnsmasq.enable = false;
+    services.dnsmasq.enable = true;
     services.dnsmasq.resolveLocalQueries = true;
     services.dnsmasq.settings.server = [
       "${host.gateway}"
