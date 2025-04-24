@@ -260,6 +260,8 @@
     home.stateVersion = "23.11";
     home.sessionVariables = {
       KUBE_EDITOR = "nvim";
+      LIBRARY_PATH = "${pkgs.libiconv}/lib";
+      C_INCLUDE_PATH = "${pkgs.libiconv}/include";
     };
 
     programs.home-manager.enable = true;
