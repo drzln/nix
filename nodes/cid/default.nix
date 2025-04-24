@@ -170,10 +170,6 @@
     docker
     docker-client
     tfswitch
-    yarn2nix
-    starship
-    dnsmasq
-    ansible
     ripgrep
     weechat
     gnumake
@@ -186,9 +182,6 @@
     unzip
     gnupg
     lorri
-    ruby
-    yarn
-    xsel
     htop
     nmap
     stow
