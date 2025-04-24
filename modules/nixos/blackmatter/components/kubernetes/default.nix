@@ -1,111 +1,87 @@
 {
   lib,
+  pkgs,
   config,
-  # pkgs,
+  inputs,
   ...
 }:
 with lib; let
   cfg = config.blackmatter.components.kubernetes;
-  # interface = {
-  #   enable = mkOption {
-  #     type = types.bool;
-  #     default = false;
-  #     description = "Enable application reverse proxy as a whole";
-  #   };
-  #
-  #   namespace = mkOption {
-  #     type = types.str;
-  #     default = "default";
-  #     description = mdDoc ''
-  #       namespace for application_reverse_proxy instance
-  #     '';
-  #   };
-  #
-  #   traefik = {
-  #     enable = mkOption {
-  #       type = types.bool;
-  #       default = false;
-  #       description = "Enable Traefik within the application reverse proxy";
-  #     };
-  #     settings = mkOption {
-  #       type = types.attrsOf types.anything;
-  #       default = {};
-  #       description = "Traefik dynamic settings (overrides defaults if non-empty).";
-  #     };
-  #     package = mkOption {
-  #       type = types.package;
-  #       default = pkgs.traefik;
-  #       description = mdDoc "Traefik binary to use";
-  #     };
-  #   };
-  #
-  #   consul = {
-  #     enable = mkOption {
-  #       type = types.bool;
-  #       default = false;
-  #       description = "Enable Consul service within the reverse proxy setup";
-  #     };
-  #     package = mkOption {
-  #       type = types.package;
-  #       default = pkgs.consul;
-  #       description = mdDoc "Consul binary to use";
-  #     };
-  #   };
-  #
-  #   nomad = {
-  #     enable = mkOption {
-  #       type = types.bool;
-  #       default = false;
-  #       description = "Enable Nomad service within the reverse proxy setup";
-  #     };
-  #     package = mkOption {
-  #       type = types.package;
-  #       default = pkgs.nomad;
-  #       description = mdDoc "Nomad binary to use";
-  #     };
-  #   };
-  # };
-in {
-  imports = [
-    ../consul
-    ../traefik
-    ../nomad
-  ];
 
-  options = {
-    blackmatter = {
-      components = {
-        microservices = {
-          application_reverse_proxy = interface;
-        };
-      };
+  # Your kubernetes overlay / packages (optional, leave out if not needed)
+  overlay = cfg.overlay or inputs.nix-kubernetes.overlays.default;
+  pkgs = import inputs.nixpkgs {
+    system = pkgs.system;
+    overlays = [overlay];
+  };
+in {
+  ### ───── options ───────────────────────────────────────────────────────────
+  options.blackmatter.components.kubernetes = {
+    enable = mkEnableOption "Enable the Kubernetes stack";
+
+    role = mkOption {
+      type = types.enum ["master" "worker" "single"];
+      default = "single";
+      description = "Node role in the cluster. 'single' = all-in-one.";
     };
+
+    # namespace = mkOption {
+    #   type = types.str;
+    #   default = "default";
+    #   description = "Namespace prefix used for auxiliary services.";
+    # };
+
+    # overlay = mkOption {
+    #   type = types.nullOr types.attrs;
+    #   default = null;
+    #   description = "Overlay providing custom Kubernetes / etcd / containerd builds.";
+    # };
   };
 
-  config = mkMerge [
-    (mkIf (cfg.enable && cfg.traefik.enable) {
-      blackmatter.components.microservices.traefik = {
-        enable = cfg.traefik.enable;
-        package = cfg.traefik.package;
-        namespace = cfg.namespace;
-        settings = cfg.traefik.settings;
-      };
-    })
+  ###########################################################################
+  # Configuration
+  ###########################################################################
+  config = mkIf cfg.enable (mkMerge [
+    #######################################
+    # Kubernetes core (placeholder)
+    #######################################
+    {
+      # … put master/worker/single logic here …
+      # e.g. services.kubernetes roles, packages, etc.
+    }
 
-    # (mkIf (cfg.enable && cfg.consul.enable) {
+    #######################################
+    # Traefik binding
+    #######################################
+    # (mkIf cfg.reverseProxy.traefik.enable {
+    #   blackmatter.components.microservices.traefik = {
+    #     enable = true;
+    #     namespace = cfg.namespace;
+    #     package = cfg.reverseProxy.traefik.package;
+    #     settings = cfg.reverseProxy.traefik.settings;
+    #   };
+    # })
+
+    #######################################
+    # Consul binding
+    #######################################
+    # (mkIf cfg.reverseProxy.consul.enable {
     #   blackmatter.components.microservices.consul = {
-    #     enable = cfg.consul.enable;
-    #     package = cfg.consul.package;
+    #     enable = true;
     #     namespace = cfg.namespace;
+    #     package = cfg.reverseProxy.consul.package;
     #   };
     # })
 
-    # (mkIf (cfg.enable && cfg.nomad.enable) {
+    #######################################
+    # Nomad binding
+    #######################################
+    # (mkIf cfg.reverseProxy.nomad.enable {
     #   blackmatter.components.microservices.nomad = {
-    #     enable = cfg.nomad.enable;
-    #     package = cfg.nomad.package;
+    #     enable = true;
     #     namespace = cfg.namespace;
+    #     package = cfg.reverseProxy.nomad.package;
     #   };
     # })
-  ];
+  ]);
 }
