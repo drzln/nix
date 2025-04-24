@@ -19,6 +19,7 @@ function M.setup()
 
 	local exclude_servers = {
 		"nil",
+		"sqls",
 		"pbls",
 		"openscad_lsp",
 		"pest_language_server",
