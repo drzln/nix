@@ -1,18 +1,20 @@
-{ lib, config, ... }:
-with lib;
-let
-  cfg = config.blackmatter.components;
-in
 {
+  lib,
+  config,
+  ...
+}:
+with lib; let
+  cfg = config.blackmatter.components;
+in {
   imports = [
-  ./microservices
+    ./microservices
   ];
 
   options = {
     blackmatter = {
-			components = {
-				enable = mkEnableOption "enable blackmatter components";
-			};
+      components = {
+        enable = mkEnableOption "enable blackmatter components";
+      };
     };
   };
 }
