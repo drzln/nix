@@ -165,42 +165,41 @@
   environment.systemPackages = with pkgs; [
     gh
     slack-cli
-    # sumneko-lua-language-server
-    # docker
-    # docker-client
-    # tfswitch
-    # yarn2nix
-    # starship
-    # dnsmasq
-    # ansible
-    # ripgrep
-    # weechat
-    # gnumake
-    # openssh
-    # nix-index
-    # nodejs
-    # bundix
-    # zoxide
-    # cargo
-    # arion
-    # unzip
-    # gnupg
-    # lorri
-    # ruby
-    # yarn
-    # xsel
-    # htop
-    # nmap
-    # stow
-    # zlib
-    # wget
-    # curl
-    # gcc
-    # age
-    # git
-    # dig
-    # vim
-    # gh
+    cargo
+    sumneko-lua-language-server
+    docker
+    docker-client
+    tfswitch
+    yarn2nix
+    starship
+    dnsmasq
+    ansible
+    ripgrep
+    weechat
+    gnumake
+    openssh
+    nix-index
+    nodejs
+    bundix
+    zoxide
+    arion
+    unzip
+    gnupg
+    lorri
+    ruby
+    yarn
+    xsel
+    htop
+    nmap
+    stow
+    zlib
+    wget
+    curl
+    gcc
+    age
+    git
+    dig
+    vim
   ];
 
   ############################################
