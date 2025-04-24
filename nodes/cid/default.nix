@@ -208,29 +208,29 @@
   ############################################
 
   # Example local user
-  users.users.ldesiqueira = {
-    # Make sure this matches the actual UID on your system if not using the default 501
-    uid = 1002;
-    home = "/Users/ldesiqueira";
+  #users.users.ldesiqueira = {
+  #  # Make sure this matches the actual UID on your system if not using the default 501
+  #  uid = 1002;
+  #  home = "/Users/ldesiqueira";
 
-    # Packages installed specifically for this user in /run/current-system/sw (global-ish).
-    # Typically, you'd prefer to manage user-specific packages in Home Manager, but it's fine.
-    packages = with pkgs; [
-      # ruby # NB: This duplicates the system package. Consider removing from one place.
-      # php83Packages.composer
-      darwin.apple_sdk.frameworks.CoreServices
-      nerd-fonts.fira-code
-      dotnet-sdk_8
-      home-manager
-      nixhashsync
-      libiconv
-      poetry
-      clang
-      delta
-      bat
-      go
-    ];
-  };
+  #  # Packages installed specifically for this user in /run/current-system/sw (global-ish).
+  #  # Typically, you'd prefer to manage user-specific packages in Home Manager, but it's fine.
+  #  packages = with pkgs; [
+  #    # ruby # NB: This duplicates the system package. Consider removing from one place.
+  #    # php83Packages.composer
+  #    darwin.apple_sdk.frameworks.CoreServices
+  #    nerd-fonts.fira-code
+  #    dotnet-sdk_8
+  #    home-manager
+  #    nixhashsync
+  #    libiconv
+  #    poetry
+  #    clang
+  #    delta
+  #    bat
+  #    go
+  #  ];
+  #};
 
   users.users.drzzln = {
     # Make sure this matches the actual UID on your system if not using the default 501
@@ -289,30 +289,30 @@
     '';
   };
 
-  home-manager.users.ldesiqueira = {...}: {
-    imports = [../../modules/home-manager/blackmatter];
-    home.stateVersion = "23.11";
-    home.sessionVariables = {
-      KUBE_EDITOR = "nvim";
-    };
+  #home-manager.users.ldesiqueira = {...}: {
+  #  imports = [../../modules/home-manager/blackmatter];
+  #  home.stateVersion = "23.11";
+  #  home.sessionVariables = {
+  #    KUBE_EDITOR = "nvim";
+  #  };
 
-    programs.home-manager.enable = true;
-    blackmatter.profiles.frost.enable = true;
-    manual.manpages.enable = false;
-    home.file.".gitconfig".text = ''
-      [user]
-        email = ldesiqueira@pinger.com
-        name = luis
+  #  programs.home-manager.enable = true;
+  #  blackmatter.profiles.frost.enable = true;
+  #  manual.manpages.enable = false;
+  #  home.file.".gitconfig".text = ''
+  #    [user]
+  #      email = ldesiqueira@pinger.com
+  #      name = luis
 
-      [merge]
-        default = merge
+  #    [merge]
+  #      default = merge
 
-      [core]
-        pager = delta --dark --line-numbers
-        editor = vim
+  #    [core]
+  #      pager = delta --dark --line-numbers
+  #      editor = vim
 
-      [delta]
-        side-by-side = true
-    '';
-  };
+  #    [delta]
+  #      side-by-side = true
+  #  '';
+  #};
 }
