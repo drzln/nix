@@ -2,7 +2,7 @@
   description = "drzzln systems";
 
   inputs = {
-    nix-kubernetes = "github:drzln/nix-kubernetes";
+    nix-kubernetes = {url = "github:drzln/nix-kubernetes";};
     nixhashsync = {url = "github:gahbdias/NixHashSync";};
     pwnixos.url = "github:exploitoverload/PwNixOS";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
