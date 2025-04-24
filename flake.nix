@@ -77,7 +77,7 @@
 
     nixos-modules = import ./modules/nixos;
 
-    darwin-pkgs = mkPkgs "x86_64-darwin";
+    darwin-pkgs = mkPkgs "aarch64-darwin";
     base-packages = flake-utils.lib.eachDefaultSystem (system: let
       pkgs = mkPkgs system;
     in {
