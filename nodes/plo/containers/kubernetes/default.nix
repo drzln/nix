@@ -17,7 +17,7 @@
   };
 
   name = "kubernetes";
-  domain_prefix = "local.pleme.io";
+  domain_prefix = "local.puel.io";
   domain = "${name}.${domain_prefix}";
 
   # IP addresses for each container
@@ -26,14 +26,14 @@
       prefix = host.prefix;
       local = "10.3.0.2";
     };
-    k8s-master = {
-      prefix = host.prefix;
-      local = "10.3.0.3";
-    };
-    k8s-worker = {
-      prefix = host.prefix;
-      local = "10.3.0.4";
-    };
+    # k8s-master = {
+    #   prefix = host.prefix;
+    #   local = "10.3.0.3";
+    # };
+    # k8s-worker = {
+    #   prefix = host.prefix;
+    #   local = "10.3.0.4";
+    # };
   };
 
   # DNS mappings
@@ -131,7 +131,7 @@
     blackmatter.components.shell.enable = true;
     blackmatter.components.desktop.enable = false;
     blackmatter.components.gitconfig.enable = true;
-    blackmatter.components.gitconfig.email = "luis@pleme.io";
+    blackmatter.components.gitconfig.email = "drzzln@protonmail.com";
     blackmatter.components.gitconfig.user = "luis";
   };
 
@@ -158,53 +158,53 @@
       }
       // container.defaults;
 
-    k8s-master =
-      {
-        config = mk-nixos-container-module {
-          baseConfig = {
-            networking.interfaces.eth0.ipv4.addresses = [
-              {
-                address = ip.space.k8s-master.local;
-                prefixLength = ip.space.k8s-master.prefix;
-              }
-            ];
-            networking.hostName = "k8s-master";
+    # k8s-master =
+    #   {
+    #     config = mk-nixos-container-module {
+    #       baseConfig = {
+    #         networking.interfaces.eth0.ipv4.addresses = [
+    #           {
+    #             address = ip.space.k8s-master.local;
+    #             prefixLength = ip.space.k8s-master.prefix;
+    #           }
+    #         ];
+    #         networking.hostName = "k8s-master";
+    #
+    #         # Master node => runs etcd, pinned to an older version
+    #         # (set below in the overlay)
+    #         # services.etcd.package = pkgs.etcd-special;
+    #
+    #         services.kubernetes = {
+    #           roles = ["master"];
+    #           masterAddress = ip.space.k8s-master.local;
+    #         };
+    #         virtualisation.docker.enable = true;
+    #       };
+    #     };
+    #   }
+    #   // container.defaults;
 
-            # Master node => runs etcd, pinned to an older version
-            # (set below in the overlay)
-            # services.etcd.package = pkgs.etcd-special;
-
-            services.kubernetes = {
-              roles = ["master"];
-              masterAddress = ip.space.k8s-master.local;
-            };
-            virtualisation.docker.enable = true;
-          };
-        };
-      }
-      // container.defaults;
-
-    k8s-worker =
-      {
-        config = mk-nixos-container-module {
-          baseConfig = {
-            networking.interfaces.eth0.ipv4.addresses = [
-              {
-                address = ip.space.k8s-worker.local;
-                prefixLength = ip.space.k8s-worker.prefix;
-              }
-            ];
-            networking.hostName = "k8s-worker";
-
-            services.kubernetes = {
-              roles = ["node"];
-              masterAddress = ip.space.k8s-master.local;
-            };
-            virtualisation.docker.enable = true;
-          };
-        };
-      }
-      // container.defaults;
+    # k8s-worker =
+    #   {
+    #     config = mk-nixos-container-module {
+    #       baseConfig = {
+    #         networking.interfaces.eth0.ipv4.addresses = [
+    #           {
+    #             address = ip.space.k8s-worker.local;
+    #             prefixLength = ip.space.k8s-worker.prefix;
+    #           }
+    #         ];
+    #         networking.hostName = "k8s-worker";
+    #
+    #         services.kubernetes = {
+    #           roles = ["node"];
+    #           masterAddress = ip.space.k8s-master.local;
+    #         };
+    #         virtualisation.docker.enable = true;
+    #       };
+    #     };
+    #   }
+    #   // container.defaults;
   };
 in {
   inherit containers;
@@ -212,81 +212,81 @@ in {
   ###########################################################################
   # Overlay: Pin/downgrade etcd to a known older version (no Go override)
   ###########################################################################
-  nixpkgs.overlays = [
-    (
-      self: super: let
-        version = "3.5.9";
-
-        # 1) Top-level fetch of the Etcd source tarball with an SRI "fake" placeholder.
-        #    The 'sha256' attribute must be in "sha256-<base64>=" form, or Nix complains
-        #    it doesn't know the type. This *will* fail on first build, printing the real hash.
-        src = super.fetchFromGitHub {
-          owner = "etcd-io";
-          repo = "etcd";
-          rev = "v${version}";
-          # 64 A's as a base64 placeholder => "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="
-          sha256 = "sha256-Vp8U49fp0FowIuSSvbrMWjAKG2oDO1o0qO4izSnTR3U=";
-        };
-      in rec {
-        ###################################################################
-        # etcdserver (server subdir)
-        ###################################################################
-        etcdserver = super.buildGoModule {
-          pname = "etcdserver";
-          inherit version src;
-          doCheck = false;
-
-          # Use a base64 SRI placeholder for 'vendorHash':
-          vendorHash = "sha256-vu5VKHnDbvxSd8qpIFy0bA88IIXLaQ5S8dVUJEwnKJA=";
-
-          modRoot = "./server";
-          env = {CGO_ENABLED = "0";};
-
-          postBuild = ''
-            # If the submodule outputs a binary named "server", rename to "etcd"
-            mv "$GOPATH"/bin/{server,etcd} || true
-          '';
-        };
-
-        ###################################################################
-        # etcdctl (CLI subdir)
-        ###################################################################
-        etcdctl = super.buildGoModule {
-          pname = "etcdctl";
-          inherit version src;
-          doCheck = false;
-
-          vendorHash = "sha256-awl/4kuOjspMVEwfANWK0oi3RId6ERsFkdluiRaaXlA=";
-
-          modRoot = "./etcdctl";
-          env = {CGO_ENABLED = "0";};
-        };
-
-        ###################################################################
-        # etcdutl (utility subdir)
-        ###################################################################
-        etcdutl = super.buildGoModule {
-          pname = "etcdutl";
-          inherit version src;
-          doCheck = false;
-
-          vendorHash = "sha256-i60rKCmbEXkdFOZk2dTbG5EtYKb5eCBSyMcsTtnvATs=";
-
-          modRoot = "./etcdutl";
-          env = {CGO_ENABLED = "0";};
-        };
-
-        ###################################################################
-        # Combine everything into 'etcd' using symlinkJoin
-        ###################################################################
-        etcd = super.symlinkJoin {
-          name = "etcd-${version}";
-          paths = [etcdserver etcdctl etcdutl];
-          doCheck = false;
-        };
-      }
-    )
-  ];
+  # nixpkgs.overlays = [
+  #   (
+  #     self: super: let
+  #       version = "3.5.9";
+  #
+  #       # 1) Top-level fetch of the Etcd source tarball with an SRI "fake" placeholder.
+  #       #    The 'sha256' attribute must be in "sha256-<base64>=" form, or Nix complains
+  #       #    it doesn't know the type. This *will* fail on first build, printing the real hash.
+  #       src = super.fetchFromGitHub {
+  #         owner = "etcd-io";
+  #         repo = "etcd";
+  #         rev = "v${version}";
+  #         # 64 A's as a base64 placeholder => "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="
+  #         sha256 = "sha256-Vp8U49fp0FowIuSSvbrMWjAKG2oDO1o0qO4izSnTR3U=";
+  #       };
+  #     in rec {
+  #       ###################################################################
+  #       # etcdserver (server subdir)
+  #       ###################################################################
+  #       etcdserver = super.buildGoModule {
+  #         pname = "etcdserver";
+  #         inherit version src;
+  #         doCheck = false;
+  #
+  #         # Use a base64 SRI placeholder for 'vendorHash':
+  #         vendorHash = "sha256-vu5VKHnDbvxSd8qpIFy0bA88IIXLaQ5S8dVUJEwnKJA=";
+  #
+  #         modRoot = "./server";
+  #         env = {CGO_ENABLED = "0";};
+  #
+  #         postBuild = ''
+  #           # If the submodule outputs a binary named "server", rename to "etcd"
+  #           mv "$GOPATH"/bin/{server,etcd} || true
+  #         '';
+  #       };
+  #
+  #       ###################################################################
+  #       # etcdctl (CLI subdir)
+  #       ###################################################################
+  #       etcdctl = super.buildGoModule {
+  #         pname = "etcdctl";
+  #         inherit version src;
+  #         doCheck = false;
+  #
+  #         vendorHash = "sha256-awl/4kuOjspMVEwfANWK0oi3RId6ERsFkdluiRaaXlA=";
+  #
+  #         modRoot = "./etcdctl";
+  #         env = {CGO_ENABLED = "0";};
+  #       };
+  #
+  #       ###################################################################
+  #       # etcdutl (utility subdir)
+  #       ###################################################################
+  #       etcdutl = super.buildGoModule {
+  #         pname = "etcdutl";
+  #         inherit version src;
+  #         doCheck = false;
+  #
+  #         vendorHash = "sha256-i60rKCmbEXkdFOZk2dTbG5EtYKb5eCBSyMcsTtnvATs=";
+  #
+  #         modRoot = "./etcdutl";
+  #         env = {CGO_ENABLED = "0";};
+  #       };
+  #
+  #       ###################################################################
+  #       # Combine everything into 'etcd' using symlinkJoin
+  #       ###################################################################
+  #       etcd = super.symlinkJoin {
+  #         name = "etcd-${version}";
+  #         paths = [etcdserver etcdctl etcdutl];
+  #         doCheck = false;
+  #       };
+  #     }
+  #   )
+  # ];
 
   # Host-level networking config
   networking.nat.enable = true;
