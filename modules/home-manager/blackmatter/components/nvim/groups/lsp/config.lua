@@ -18,6 +18,16 @@ function M.setup()
 	local available_servers = merge_configs(mason_available_servers, local_available_servers)
 
 	local exclude_servers = {
+		"nil",
+		"pbls",
+		"openscad_lsp",
+		"pest_language_server",
+		"starlark_rust",
+		"svls",
+		"glslls",
+		"motoko_lsp",
+		"jinja_lsp",
+		"cucumber_language_server",
 		"superhtml",
 		"cairo_ls",
 		"ginko_ls",
