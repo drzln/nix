@@ -96,8 +96,7 @@
       neovim = pkgs.callPackage ./packages/neovim {};
       nixhashsync = nixhashsync.packages.${system}.default;
     });
-    packages =
-      base-packages;
+    packages = base-packages;
   in {
     inherit nixosConfigurations packages;
 
