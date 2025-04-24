@@ -18,7 +18,7 @@ function M.setup()
 	local available_servers = merge_configs(mason_available_servers, local_available_servers)
 
 	local exclude_servers = {
-		"nil",
+		"nil_ls",
 		"sqls",
 		"pbls",
 		"gradle_ls",
