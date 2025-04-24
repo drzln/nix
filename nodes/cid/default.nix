@@ -183,6 +183,7 @@
     gnupg
     lorri
     htop
+    wget
     nmap
     stow
     zlib
