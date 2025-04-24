@@ -25,6 +25,7 @@ function M.setup()
 		"openscad_lsp",
 		"pest_language_server",
 		"pest-language-server",
+		"haxe_language_server",
 		"nickel-lang-lsp",
 		"starlark_rust",
 		"svls",
