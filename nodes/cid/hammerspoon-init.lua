@@ -1,12 +1,17 @@
--- hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "R", function()
--- 	hs.reload()
--- 	hs.alert("🔁 Hammerspoon reloaded")
--- end)
+------------------------------------------------------------------
+-- Spotlight helpers
+------------------------------------------------------------------
+local function showSpotlight()
+	-- simulate the default Spotlight shortcut: ⌘ + space
+	hs.eventtap.keyStroke({ "cmd" }, "space", 0)
+end
 
-hs.hotkey.bind({ "alt" }, "space", function()
-	hs.application.launchOrFocus("Raycast")
-end)
+------------------------------------------------------------------
+-- Hot-keys
+------------------------------------------------------------------
+-- Alt + Space  ➜ Spotlight
+hs.hotkey.bind({ "alt" }, "space", showSpotlight)
 
-hs.hotkey.bind({ "cmd" }, "space", function()
-	hs.application.launchOrFocus("Raycast")
-end)
+-- Cmd + Space ➜ Spotlight  (works even if you disabled the macOS
+-- global shortcut and gave it to Raycast)
+hs.hotkey.bind({ "cmd" }, "space", showSpotlight)
