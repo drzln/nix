@@ -1,4 +1,11 @@
 ------------------------------------------------------------------
+-- Raycast helpers
+------------------------------------------------------------------
+local function showRaycast()
+	-- simulate the default Raycast shortcut: ⌘ + space
+	hs.eventtap.keyStroke({ "cmd" }, "space", 0)
+end
+------------------------------------------------------------------
 -- Spotlight helpers
 ------------------------------------------------------------------
 local function showSpotlight()
