@@ -1,8 +1,8 @@
 {
   lib,
-  pkgs,
   config,
-  inputs,
+  # pkgs,
+  # inputs,
   ...
 }:
 with lib;
@@ -27,7 +27,7 @@ with lib;
     #   };
 
     # etcdPkg = cfg.etcdPackage or pkgs'.etcd;
-    containerdPkg = cfg.containerdPackage or pkgs'.containerd;
+    # containerdPkg = cfg.containerdPackage or pkgs'.containerd;
 
     isMaster = cfg.role == "master" || cfg.role == "single";
     isWorker = cfg.role == "worker" || cfg.role == "single";
