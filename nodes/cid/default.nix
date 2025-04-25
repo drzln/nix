@@ -277,7 +277,7 @@
       hs.hotkey.bind({ "alt" }, "space", function()
         hs.application.launchOrFocus("Raycast")
       end)
-    ''
+    '';
     home.file.".gitconfig".text = ''
       [user]
         email = drzzln@protonmail.com
