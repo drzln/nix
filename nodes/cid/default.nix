@@ -267,17 +267,7 @@
     programs.home-manager.enable = true;
     blackmatter.profiles.frost.enable = true;
     manual.manpages.enable = false;
-    home.file.".hammerspoon/init.lua".text = ''
-      -- Simple Hammerspoon setup
-      hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "R", function()
-        hs.reload()
-        hs.alert("🔁 Hammerspoon reloaded")
-      end)
-
-      hs.hotkey.bind({ "alt" }, "space", function()
-        hs.application.launchOrFocus("Raycast")
-      end)
-    '';
+    home.file.".hammerspoon/init.lua".source = ./hammerspoon-init.lua;
     home.file.".gitconfig".text = ''
       [user]
         email = drzzln@protonmail.com
