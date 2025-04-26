@@ -1,8 +1,7 @@
 local function run(cmd)
-	hs.execute(cmd, true) -- ‘true’ captures output
+	hs.execute(cmd, true)
 end
 
--- Helper: ask macOS whether autohide is currently on
 local function dockIsAutoHidden()
 	local out = run([[defaults read com.apple.dock autohide || echo 0]])
 	return tonumber(out) == 1
@@ -15,6 +14,7 @@ local function showRaycast()
 	-- simulate the default Raycast shortcut: ⌘ + space
 	hs.eventtap.keyStroke({ "cmd" }, "space", 0)
 end
+
 ------------------------------------------------------------------
 -- Spotlight helpers
 ------------------------------------------------------------------
