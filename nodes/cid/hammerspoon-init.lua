@@ -1,3 +1,13 @@
+local function run(cmd)
+	hs.execute(cmd, true) -- ‘true’ captures output
+end
+
+-- Helper: ask macOS whether autohide is currently on
+local function dockIsAutoHidden()
+	local out = run([[defaults read com.apple.dock autohide || echo 0]])
+	return tonumber(out) == 1
+end
+
 ------------------------------------------------------------------
 -- Raycast helpers
 ------------------------------------------------------------------
@@ -22,3 +32,15 @@ hs.hotkey.bind({ "alt" }, "space", showSpotlight)
 -- Cmd + Space ➜ Spotlight  (works even if you disabled the macOS
 -- global shortcut and gave it to Raycast)
 hs.hotkey.bind({ "cmd" }, "space", showSpotlight)
+
+-- Toggle auto-hide (⌃⌥⌘ D)
+hs.hotkey.bind({ "ctrl", "alt", "cmd" }, "D", function()
+	if dockIsAutoHidden() then
+		run([[defaults write com.apple.dock autohide -bool false]])
+		hs.alert.show("Dock: always visible")
+	else
+		run([[defaults write com.apple.dock autohide -bool true]])
+		hs.alert.show("Dock: auto-hide")
+	end
+	run([[killall Dock]])
+end)
