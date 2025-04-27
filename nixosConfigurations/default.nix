@@ -3,6 +3,7 @@
   specialArgs,
   home-manager,
   sops-nix,
+  inputs,
 }: let
   finalSpecialArgs =
     specialArgs
@@ -32,6 +33,7 @@ in {
     modules = [
       /etc/nixos/configuration.nix
       ../nodes/plo
+      inputs.nix-kubernetes.nixosModules.kubernetes
       home-manager.nixosModules.home-manager
       sops-nix.nixosModules.sops
     ];

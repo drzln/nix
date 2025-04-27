@@ -72,7 +72,7 @@
     };
 
     nixosConfigurations = import ./nixosConfigurations {
-      inherit nixpkgs home-manager sops-nix specialArgs;
+      inherit nixpkgs home-manager sops-nix specialArgs inputs;
     };
 
     nixos-modules = import ./modules/nixos;
