@@ -1,6 +1,6 @@
 {
   imports = [
-    ./kubernetes
+    # ./kubernetes
     ./microservices
     ./goomba
   ];
