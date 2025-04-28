@@ -174,7 +174,7 @@ in {
   blackmatter.components.kubernetes = {
     enable = true;
     role = "single";
-    firwallOpen = true;
+    firewallOpen = true;
     extraApiArgs = {
       "audit-log-maxage" = "10";
     };
