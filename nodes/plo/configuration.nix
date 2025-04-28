@@ -170,4 +170,13 @@ in {
     gaby ALL=(ALL) NOPASSWD:ALL
   '';
   nixpkgs.config.allowImportFromDerivation = true;
+
+  blackmatter.components.kubernetes = {
+    enable = true;
+    role = "single";
+    firwallOpen = true;
+    extraApiArgs = {
+      "audit-log-maxage" = "10";
+    };
+  };
 }
