@@ -1035,11 +1035,11 @@
         "statix": "statix"
       },
       "locked": {
-        "lastModified": 1745855497,
-        "narHash": "sha256-T4AYR9vIjhq09Xsjr3NYsSkwb+9K4cZ0+ZVmgIzobHc=",
+        "lastModified": 1745857319,
+        "narHash": "sha256-6iM8SA5445fL5s5CffTJ00gq5yeicw4ctJTBrS+Aoog=",
         "owner": "drzln",
         "repo": "nix-kubernetes",
-        "rev": "bc193a7f493617ff93c9bdc2e51666d0bf829741",
+        "rev": "d6b0099e1075f9b650c9b95a95040d7b805e35d1",
         "type": "github"
       },
       "original": {
