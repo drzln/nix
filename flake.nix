@@ -68,7 +68,7 @@
     requirements = {inherit inputs self;};
 
     specialArgs = {
-      inherit requirements packages;
+      inherit requirements packages inputs;
     };
 
     nixosConfigurations = import ./nixosConfigurations {
