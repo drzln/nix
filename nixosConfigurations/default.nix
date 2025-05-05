@@ -1,3 +1,4 @@
+# nixosConfigurations/default.nix
 {
   nixpkgs,
   specialArgs,
