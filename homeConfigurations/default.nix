@@ -1,3 +1,4 @@
+# homeConfigurations/default.nix
 {
   home-manager,
   sops-nix,
