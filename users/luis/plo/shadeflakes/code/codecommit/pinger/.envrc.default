@@ -1,5 +1,0 @@
-export AWS_PROFILE=pinger-shared-services
-export AWS_REGION=us-west-2
-rm -rf flake.nix
-[ ! -f flake.nix ] && cat shadeflake.nix > flake.nix
-use flake
