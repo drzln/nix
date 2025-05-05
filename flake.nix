@@ -1,6 +1,7 @@
 # flake.nix
 {
   description = "drzzln nix configurations";
+
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
@@ -13,9 +14,9 @@
       url = "github:Pamplemousse/tangerinixos";
       flake = false;
     };
-    home-manager = {url = "github:nix-community/home-manager?branch=master";};
+    home-manager.url = "github:nix-community/home-manager/master";
     nix-darwin = {
-      url = "github:LnL7/nix-darwin?branch=master";
+      url = "github:LnL7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprland = {
@@ -26,10 +27,10 @@
       url = "github:hyprwm/hyprland-plugins";
       inputs.hyprland.follows = "hyprland";
     };
-    stylix = {url = "github:danth/stylix";};
+    stylix.url = "github:danth/stylix";
   };
 
-  outputs = {
+  outputs = inputs @ {
     self,
     nixpkgs,
     flake-utils,
@@ -37,51 +38,52 @@
     nix-darwin,
     sops-nix,
     ...
-  } @ inputs: let
-    inherit inputs self;
-    overlays =
-      builtins.attrValues sops-nix.overlays
-      ++ [
-        (final: prev: {
-          # extra packages can go here
-        })
-      ]
-      ++ import ./overlays;
-    mkPkgs = system:
-      import nixpkgs {
-        inherit system overlays;
-        config.allowUnfree = true;
-      };
-    requirements = {inherit inputs self;};
-    specialArgs = {inherit requirements packages inputs;};
-    nixosConfigurations = import ./nixosConfigurations {
-      inherit nixpkgs home-manager sops-nix specialArgs;
+  }: let
+    overlays = builtins.attrValues sops-nix.overlays ++ import ./overlays ++ [
+      (final: prev: {
+        # extra packages can go here
+      })
+    ];
+
+    mkPkgs = system: import nixpkgs {
+      inherit system overlays;
+      config.allowUnfree = true;
     };
-    nixos-modules = import ./modules/nixos;
-    darwin-pkgs = mkPkgs "aarch64-darwin";
-    linux-pkgs = mkPkgs "x86_64-linux";
-    base-packages = flake-utils.lib.eachDefaultSystem (system: let
+
+    basePackages = flake-utils.lib.eachDefaultSystem (system: let
       pkgs = mkPkgs system;
     in {
       neovim = pkgs.callPackage ./pkgs/neovim {};
     });
-    packages = base-packages;
+
+    requirements = { inherit inputs self; };
+
+    specialArgs = {
+      inherit inputs self requirements;
+      packages = basePackages;
+    };
   in {
-    inherit nixosConfigurations packages;
+    inherit basePackages;
+    packages = basePackages;
+
+    nixosConfigurations = import ./nixosConfigurations {
+      inherit nixpkgs home-manager sops-nix specialArgs;
+    };
+
+    nixosModules = import ./modules/nixos;
+
     homeManagerModules = import ./modules/home-manager;
-    nixosModules = nixos-modules;
+
     homeConfigurations = import ./homeConfigurations {
       inherit home-manager sops-nix nixpkgs;
       extraSpecialArgs = specialArgs;
-      pkgs = linux-pkgs;
+      pkgs = mkPkgs "x86_64-linux";
     };
+
     darwinConfigurations = import ./darwinConfigurations {
-      inherit
-        darwin-pkgs
-        nix-darwin
-        home-manager
-        inputs
-        ;
+      pkgs = mkPkgs "aarch64-darwin";
+      inherit nix-darwin home-manager inputs;
     };
   };
 }
+
