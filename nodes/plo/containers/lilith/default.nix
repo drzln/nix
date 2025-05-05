@@ -1,3 +1,4 @@
+# nodes/plo/containers/lilith/default.nix
 {
   pkgs,
   requirements,
