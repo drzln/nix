@@ -5,22 +5,17 @@
   ...
 }: let
   state.version = "24.11";
-
   pubkey = ''
     ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQChyPrBmWSILSlqfgd7a4bPyDyzKTERfHEF+V0IQSiDZxcLSkE8+90lqYNh81c9xme09DUKAfd95obUKdcws5PI8NSoHbw70M3Ik2ZVkqGOQpGfcq7BeIDvtqkZyKjCmrCZlEb6RmFVCfso0Xts3/FdxeD3y6BMvGY/oRDLOrwPzGlX+hHAjE4jxG+tGAMWaI3KoAkwU3kfnnDxrp0swJ5Ns3vlR0yihci8SdMECA4fdPUpwzy0uaIpKXruiB44OdW/rxEyM1MujeBVaLeygtKjtYBvC1CZ7ofia1bHDJ2qzmlsDckmIAgVTH6BrcSw3ZOmmG6tx2H5yl/Tchmq72YeBP647fGVsVwLqf3wIPeoR8qcrYTE51/R/URXYlOMsuyYg+2WJrUKXO8pX/n60YDD0BR26VW/d3yjkDH+csWspmAcqN7vPIu8hIMjK0p8EryP/G7yy985kjETkNuyQPX19pGnEMJEBzFlm8XE+HzdxFm06gi/i8y1XC/TBk/IIWk= luis@plo
   '';
-
   host = {
     bridge = "internal-br-1";
     gateway = "10.3.0.1";
     prefix = 24;
   };
-
   name = "kubernetes";
   domain_prefix = "local.puel.io";
   domain = "${name}.${domain_prefix}";
-
-  # IP addresses for each container
   ip.space = {
     bastion = {
       prefix = host.prefix;
@@ -35,18 +30,14 @@
     #   local = "10.3.0.4";
     # };
   };
-
-  # DNS mappings
   dns.addresses = [
     "/bastion.${domain}/${ip.space.bastion.local}"
     # "/k8s-master.${domain}/${ip.space.k8s-master.local}"
     # "/k8s-worker.${domain}/${ip.space.k8s-worker.local}"
   ];
-
-  # Common config for containers
   nixos-common-module = {
-    lib,
-    config,
+    # lib,
+    # config,
     pkgs,
     ...
   }: {
@@ -54,13 +45,9 @@
       requirements.inputs.home-manager.nixosModules.home-manager
     ];
     system.stateVersion = state.version;
-
-    # Basic SSH setup
     services.openssh.enable = true;
     services.openssh.settings.PermitRootLogin = "no";
     services.openssh.settings.PasswordAuthentication = false;
-
-    # DNS + networking
     services.dnsmasq.enable = true;
     services.dnsmasq.resolveLocalQueries = true;
     services.dnsmasq.settings.server = [
@@ -87,18 +74,16 @@
     environment.systemPackages = with pkgs; [dig nmap];
     users.users.root.openssh.authorizedKeys.keys = [];
   };
-
   container.defaults = {
     hostBridge = host.bridge;
     privateNetwork = true;
     autoStart = true;
     ephemeral = true;
   };
-
   mk-nixos-container-module = {baseConfig}: {
-    lib,
-    config,
-    pkgs,
+    # lib,
+    # config,
+    # pkgs,
     ...
   }: {
     imports = [
@@ -106,7 +91,6 @@
       baseConfig
     ];
   };
-
   home-manager-common-module = {
     imports = [requirements.inputs.self.homeManagerModules.blackmatter];
     home.stateVersion = state.version;
@@ -127,7 +111,6 @@
     blackmatter.components.gitconfig.email = "drzzln@protonmail.com";
     blackmatter.components.gitconfig.user = "luis";
   };
-
   containers = {
     bastion =
       {
@@ -149,7 +132,6 @@
         };
       }
       // container.defaults;
-
     # k8s-master =
     #   {
     #     config = mk-nixos-container-module {
@@ -175,7 +157,6 @@
     #     };
     #   }
     #   // container.defaults;
-
     # k8s-worker =
     #   {
     #     config = mk-nixos-container-module {
@@ -200,7 +181,6 @@
   };
 in {
   inherit containers;
-
   ###########################################################################
   # Overlay: Pin/downgrade etcd to a known older version (no Go override)
   ###########################################################################
@@ -279,10 +259,8 @@ in {
   #     }
   #   )
   # ];
-
   networking.nat.enable = true;
   networking.nat.internalInterfaces = [host.bridge];
-
   networking.bridges."${host.bridge}".interfaces = [];
   networking.interfaces."${host.bridge}" = {
     ipv4 = {
@@ -296,7 +274,6 @@ in {
     };
     ipv6.addresses = [];
   };
-
   services.dnsmasq.enable = true;
   services.dnsmasq.settings = {
     listen-address = "127.0.0.1,${host.gateway}";
