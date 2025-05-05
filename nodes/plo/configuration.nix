@@ -171,12 +171,12 @@ in {
   '';
   nixpkgs.config.allowImportFromDerivation = true;
 
-  blackmatter.components.kubernetes = {
-    enable = true;
-    role = "single";
-    firewallOpen = true;
-    extraApiArgs = {
-      "audit-log-maxage" = "10";
-    };
-  };
+  # blackmatter.components.kubernetes = {
+  #   enable = true;
+  #   role = "single";
+  #   firewallOpen = true;
+  #   extraApiArgs = {
+  #     "audit-log-maxage" = "10";
+  #   };
+  # };
 }
