@@ -11,12 +11,10 @@ in {
   options.blackmatter.components.nvim.plugin.groups.common = {
     enable = mkEnableOption "plugins that should always be included";
   };
-
   imports = [
     ../../plugins/nvim-lua/plenary
     ../../plugins/nvim-tree/nvim-web-devicons
   ];
-
   config = mkMerge [
     (
       mkIf cfg.enable
