@@ -1,3 +1,4 @@
+# users/luis/plo/home.nix
 {...}: {
   imports = [
     ./blackmatter.nix
@@ -9,7 +10,6 @@
   home.homeDirectory = "/home/luis";
   programs.ssh.enable = true;
   programs.ssh.userKnownHostsFile = "/dev/null";
-
   # StrictHostKeyChecking no - for changing virtual machines
   # SetEnv TERM=xterm-256color - helps ghostty when sshing
   programs.ssh.extraConfig = ''
