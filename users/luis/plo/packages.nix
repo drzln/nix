@@ -1,3 +1,4 @@
+# users/luis/plo/packages.nix
 {pkgs, ...}: {
   home.packages = [
     (pkgs.stdenv.mkDerivation {
