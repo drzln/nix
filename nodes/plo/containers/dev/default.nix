@@ -1,12 +1,17 @@
-{ config, pkgs, requirements, ... }:
-let
+# nodes/plo/containers/dev/default.nix
+{
+  # config,
+  # pkgs,
+  requirements,
+  ...
+}: let
   name = "dev";
   gateway = "10.1.0.1";
   prefix = 24;
   domain = "${name}.local.pleme.io";
   user.name = "luis";
   user.uid = 1001;
-  data = import ../goomba-data.nix { };
+  data = import ../goomba-data.nix {};
   user.ssh.pubkey = data.ssh-pub-key;
 
   ip.space = {
@@ -35,7 +40,12 @@ let
     # "/dnsmasq.${domain}/${ip-space.dnsmasq.local}"
   ];
 
-  common = { lib, config, pkgs, ... }: {
+  common = {
+    lib,
+    config,
+    pkgs,
+    ...
+  }: {
     system.stateVersion = "24.11";
     # permit user level ssh but no root
     # user will be a privileged managed user
@@ -55,7 +65,7 @@ let
     networking.domain = domain;
     networking.useDHCP = false;
     networking.defaultGateway = gateway;
-		programs.zsh.enable = true;
+    programs.zsh.enable = true;
     users.users."${user.name}" = {
       isSystemUser = false;
       isNormalUser = true;
@@ -63,110 +73,114 @@ let
       group = user.name;
       shell = pkgs.zsh;
       createHome = true;
-      openssh.authorizedKeys.keys = [ user.ssh.pubkey ];
+      openssh.authorizedKeys.keys = [user.ssh.pubkey];
     };
     users.groups."${user.name}".gid = user.uid;
     security.sudo.extraConfig = ''${user.name} ALL=(ALL) NOPASSWD:ALL'';
-    users.users.root.openssh.authorizedKeys.keys = [ ];
-    environment.systemPackages = with pkgs; [ dig nmap ];
+    users.users.root.openssh.authorizedKeys.keys = [];
+    environment.systemPackages = with pkgs; [dig nmap];
   };
 
-  container.defaults =
-    {
-      hostBridge = "internal-br-1";
-      privateNetwork = true;
-      autoStart = true;
-      ephemeral = true;
-    };
+  container.defaults = {
+    hostBridge = "internal-br-1";
+    privateNetwork = true;
+    autoStart = true;
+    ephemeral = true;
+  };
 
-  mk-container-module = { main }:
-    let
-      container-module = { lib, config, pkgs, ... }: {
-        imports = [
-          # ../../../../modules/nixos/blackmatter/components/microservices/minio
-          # ../../../../modules/nixos/blackmatter/components/microservices/${name}
-          common
-          main
-        ];
-      };
-    in
+  mk-container-module = {main}: let
+    container-module = {
+      lib,
+      config,
+      pkgs,
+      ...
+    }: {
+      imports = [
+        # ../../../../modules/nixos/blackmatter/components/microservices/minio
+        # ../../../../modules/nixos/blackmatter/components/microservices/${name}
+        common
+        main
+      ];
+    };
+  in
     container-module;
 
-  containers =
-    {
-      # haproxy =
-      #   {
-      #     config = mk-container-module {
-      #       main = {
-      #         networking.interfaces.eth0.ipv4.addresses = [{
-      #           address = ip.space.haproxy.local;
-      #           prefixLength = ip.space.haproxy.prefix;
-      #         }];
-      #         networking.hostName = "haproxy";
-      #         services.haproxy = {
-      #           enable = true;
-      #           config = ''
-      #             global
-      #               log stdout format raw local0
-      #               maxconn 2000
-      #
-      #             defaults
-      #               mode http
-      #               log global
-      #               option httplog
-      #               option dontlognull
-      #               timeout connect 5000ms
-      #               timeout client 50000ms
-      #               timeout server 50000ms
-      #
-      #             # frontend http-in
-      #             #   bind *:80
-      #             #   default_backend servers
-      #
-      #             # backend servers
-      #             #   server server1 127.0.0.1:8000 maxconn 32
-      #           '';
-      #         };
-      #       };
-      #     };
-      #   } // container.defaults;
+  containers = {
+    # haproxy =
+    #   {
+    #     config = mk-container-module {
+    #       main = {
+    #         networking.interfaces.eth0.ipv4.addresses = [{
+    #           address = ip.space.haproxy.local;
+    #           prefixLength = ip.space.haproxy.prefix;
+    #         }];
+    #         networking.hostName = "haproxy";
+    #         services.haproxy = {
+    #           enable = true;
+    #           config = ''
+    #             global
+    #               log stdout format raw local0
+    #               maxconn 2000
+    #
+    #             defaults
+    #               mode http
+    #               log global
+    #               option httplog
+    #               option dontlognull
+    #               timeout connect 5000ms
+    #               timeout client 50000ms
+    #               timeout server 50000ms
+    #
+    #             # frontend http-in
+    #             #   bind *:80
+    #             #   default_backend servers
+    #
+    #             # backend servers
+    #             #   server server1 127.0.0.1:8000 maxconn 32
+    #           '';
+    #         };
+    #       };
+    #     };
+    #   } // container.defaults;
 
-      # minio =
-      #   {
-      #     bindMounts = {
-      #       "/var/lib/minio" = {
-      #         hostPath = "/home/luis/.goomba/attic/mnt/var/lib/minio";
-      #         isReadOnly = false; # set to true if you want a read-only mount
-      #       };
-      #     };
-      #     config = mk-container-module {
-      #       main = {
-      #         networking.interfaces.eth0.ipv4.addresses = [{
-      #           address = ip.space.minio.local;
-      #           prefixLength = ip.space.minio.prefix;
-      #         }];
-      #         networking.hostName = "minio";
-      #         blackmatter.components.microservices.minio.enable = true;
-      #       };
-      #     };
-      #   } // container.defaults;
+    # minio =
+    #   {
+    #     bindMounts = {
+    #       "/var/lib/minio" = {
+    #         hostPath = "/home/luis/.goomba/attic/mnt/var/lib/minio";
+    #         isReadOnly = false; # set to true if you want a read-only mount
+    #       };
+    #     };
+    #     config = mk-container-module {
+    #       main = {
+    #         networking.interfaces.eth0.ipv4.addresses = [{
+    #           address = ip.space.minio.local;
+    #           prefixLength = ip.space.minio.prefix;
+    #         }];
+    #         networking.hostName = "minio";
+    #         blackmatter.components.microservices.minio.enable = true;
+    #       };
+    #     };
+    #   } // container.defaults;
 
-      "${name}" =
-        {
-          config = mk-container-module {
-            main = {
-              networking.interfaces.eth0.ipv4.addresses = [{
+    "${name}" =
+      {
+        config = mk-container-module {
+          main = {
+            networking.interfaces.eth0.ipv4.addresses = [
+              {
                 address = ip.space.main.local;
                 prefixLength = ip.space.main.prefix;
-              }];
-              networking.hostName = "${name}";
-              # blackmatter.components.microservices.${name}.enable = true;
-            };
+              }
+            ];
+            networking.hostName = "${name}";
+            # blackmatter.components.microservices.${name}.enable = true;
           };
-        } // container.defaults;
-    };
-in
-{
+        };
+      }
+      // container.defaults;
+  };
+in {
   inherit containers;
 
   # host level node settings to run containers the goomba way
@@ -174,18 +188,20 @@ in
     requirements.outputs.nixosModules.blackmatter
   ];
 
-  networking.bridges.internal-br-1.interfaces = [ ]; # Explicitly empty
+  networking.bridges.internal-br-1.interfaces = []; # Explicitly empty
   networking.interfaces.internal-br-1 = {
     ipv4 = {
-      addresses = [{
-        address = gateway;
-        prefixLength = prefix;
-      }];
+      addresses = [
+        {
+          address = gateway;
+          prefixLength = prefix;
+        }
+      ];
       # Don't create a default route for the bridge
-      routes = [ ];
+      routes = [];
     };
     # Keep IPv6 disabled for internal network
-    ipv6.addresses = [ ];
+    ipv6.addresses = [];
   };
   # blackmatter.components.goomba-global.enable = true;
   # blackmatter.components.goomba-global.bridge =
@@ -204,4 +220,3 @@ in
   #   path = "/etc/attic/key";
   # };
 }
-
