@@ -29,7 +29,6 @@
     };
     stylix.url = "github:danth/stylix";
   };
-
   outputs = inputs @ {
     self,
     nix-kubernetes,
@@ -48,23 +47,18 @@
           # extra packages can go here
         })
       ];
-
     systems = ["x86_64-linux"];
-
     mkPkgs = system:
       import nixpkgs {
         inherit system overlays;
         config.allowUnfree = true;
       };
-
     basePackages = flake-utils.lib.eachSystem systems (system: let
       pkgs = mkPkgs system;
     in {
       neovim = pkgs.callPackage ./pkgs/neovim {};
-      # expose nix-kubernetes kubectl explicitly here:
       kubectl = nix-kubernetes.packages.${system}.kubectl;
     });
-
     requirements = {inherit inputs self;};
     specialArgs = {
       inherit inputs self requirements;
@@ -73,20 +67,16 @@
   in {
     inherit basePackages;
     packages = basePackages;
-
     nixosConfigurations = import ./nixosConfigurations {
       inherit nixpkgs home-manager sops-nix specialArgs;
     };
-
     nixosModules = import ./modules/nixos;
     homeManagerModules = import ./modules/home-manager;
-
     homeConfigurations = import ./homeConfigurations {
       inherit home-manager sops-nix nixpkgs;
       extraSpecialArgs = specialArgs;
       pkgs = mkPkgs "x86_64-linux";
     };
-
     darwinConfigurations = import ./darwinConfigurations {
       pkgs = mkPkgs "aarch64-darwin";
       inherit nix-darwin home-manager inputs;
