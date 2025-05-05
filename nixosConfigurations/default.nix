@@ -31,22 +31,11 @@ in {
     inherit specialArgs;
     system = "x86_64-linux";
     modules = [
+      home-manager.nixosModules.home-manager
+      sops-nix.nixosModules.sops
+      # inputs.nix-kubernetes.nixosModules.kubernetes
       /etc/nixos/configuration.nix
       ../nodes/plo
-      # inputs.nix-kubernetes.nixosModules.kubernetes
-      home-manager.nixosModules.home-manager
-      sops-nix.nixosModules.sops
-    ];
-  };
-
-  gcd = nixpkgs.lib.nixosSystem {
-    inherit specialArgs;
-    system = "x86_64-linux";
-    modules = [
-      /etc/nixos/configuration.nix
-      ../nodes/gcd
-      home-manager.nixosModules.home-manager
-      sops-nix.nixosModules.sops
     ];
   };
 }
