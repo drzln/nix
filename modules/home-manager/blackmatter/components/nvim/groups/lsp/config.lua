@@ -1,11 +1,12 @@
 local M = {}
+
 function M.setup()
 	local mason = require("mason")
 	local mason_lspconfig = require("mason-lspconfig")
+	local lspconfig = require("lspconfig")
 
 	local function merge_configs(base, overrides)
-		local merged = vim.tbl_deep_extend("force", {}, base, overrides)
-		return merged
+		return vim.tbl_deep_extend("force", {}, base, overrides)
 	end
 
 	mason.setup()
@@ -13,9 +14,11 @@ function M.setup()
 	local mason_available_servers = mason_lspconfig.get_available_servers()
 	local local_available_servers = {
 		"ts_ls",
-		-- "ruby_lsp",
+		"nixd", -- explicitly adding nixd
 	}
-	local available_servers = merge_configs(mason_available_servers, local_available_servers)
+
+	-- properly merge server lists
+	local available_servers = vim.list_extend(vim.deepcopy(mason_available_servers), local_available_servers)
 
 	local exclude_servers = {
 		"nil_ls",
@@ -125,12 +128,131 @@ function M.setup()
 		"denols",
 		"quick_lint_js",
 		"als",
+		"slint_lsp",
+		"smithy_ls",
+		"snakeskin_ls",
+		"solang",
+		"solc",
+		"solidity",
+		"apex_ls",
+		"solidity_ls",
+		"arduino_language_server",
+		"fsautocomplete",
+		"somesass_ls",
+		"astro",
+		"sqlls",
+		"css_variables",
+		"graphql",
+		"stylelint_lsp",
+		"groovyls",
+		"bicep",
+		"svlangserver",
+		"bright_script",
+		"glsl_analyzer",
+		"helm_ls",
+		"zls",
+		"buf_ls",
+		"hoon_ls",
+		"terraformls",
+		"clangd",
+		"texlab",
+		"clojure_lsp",
+		"hyprls",
+		"intelephense",
+		"thriftls",
+		"jdtls",
+		"codeqlls",
+		"yamlls",
+		"jqls",
+		"crystalline",
+		"jsonls",
+		"cssls",
+		"jsonnet_ls",
+		"v_analyzer",
+		"julials",
+		"vacuum",
+		"kcl",
+		"kotlin_language_server",
+		"veryl_ls",
+		"ruby_lsp",
+		"dagger",
+		"lexical",
+		"wgsl_analyzer",
+		"visualforce_ls",
+		"luau_lsp",
+		"volar",
+		"docker_compose_language_service",
+		"markdown_oxide",
+		"dockerls",
+		"matlab_ls",
+		"dotls",
+		"mdx_analyzer",
+		"drools_lsp",
+		"millet",
+		"earthlyls",
+		"elixirls",
+		"vimls",
+		"mutt_ls",
+		"elp",
+		"tinymist",
+		"nextls",
+		"twiggy_language_server",
+		"erg_language_server",
+		"theme_check",
+		"nim_langserver",
+		"esbonio",
+		"mesonlsp",
+		"facility_language_server",
+		"ols",
+		"omnisharp",
+		"fennel_ls",
+		"opencl_ls",
+		"solidity_ls_nomicfoundation",
+		"dhall_lsp_server",
+		"perlnavigator",
+		"golangci_lint_ls",
+		"html",
+		"pico8_ls",
+		"rust_analyzer",
+		"cobol_ls",
+		"powershell_es",
+		"textlsp",
+		"prismals",
+		"tsp_server",
+		"elmls",
+		"psalm",
+		"puppet",
+		"purescriptls",
+		"phpactor",
+		"neocmake",
+		"pyright",
+		"lemminx",
+		"bashls",
+		"raku_navigator",
+		"cypher_ls",
+		"reason_ls",
+		"regols",
+		"regal",
+		"swift_mesonls",
+		"rescriptls",
+		"bzl",
+		"nginx_language_server",
+		"robotframework_ls",
+		"templ",
+		"svelte",
+		"fortls",
+		"bsl_ls",
+		"serve_d",
+		"gopls",
+		"shopify_theme_ls",
+		"ansiblels",
 	}
 
 	local configure_only_servers = {
 		"rust_analyzer",
 		"ts_ls",
 		"ruby_lsp",
+		"nixd", -- explicitly configure nixd
 	}
 
 	local function is_excluded(server)
@@ -150,22 +272,27 @@ function M.setup()
 		automatic_installation = false,
 	})
 
-	local lspconfig = require("lspconfig")
+	local common_config = {
+		capabilities = require("cmp_nvim_lsp").default_capabilities(),
+	}
 
 	local server_configs = {
 		lua_ls = {
 			settings = {
-				Lua = {
-					diagnostics = {
-						globals = { "vim" },
+				Lua = { diagnostics = { globals = { "vim" } } },
+			},
+		},
+		nixd = {
+			settings = {
+				nixd = {
+					options = {
+						nixpkgs = {
+							expr = "import <nixpkgs> {}",
+						},
 					},
 				},
 			},
 		},
-	}
-
-	local common_config = {
-		capabilities = require("cmp_nvim_lsp").default_capabilities(),
 	}
 
 	for _, server in ipairs(available_servers) do
@@ -176,7 +303,7 @@ function M.setup()
 				lspconfig[server].setup(final_config)
 			end)
 			if not success then
-				print("Error setting up " .. server .. ": " .. err)
+				vim.notify("Error setting up " .. server .. ": " .. err, vim.log.levels.ERROR)
 			end
 		end
 	end
