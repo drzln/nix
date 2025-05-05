@@ -1,6 +1,10 @@
-{ lib, pkgs, config, ... }:
-with lib;
-let
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
+with lib; let
   inherit (pkgs.stdenv.hostPlatform) isLinux isDarwin;
   cfg = config.blackmatter.components.desktop.hyprland;
 
@@ -79,10 +83,7 @@ let
       foreground = nord.colors.foreground;
     };
   };
-
-
-in
-{
+in {
   options = {
     blackmatter = {
       components = {
@@ -93,7 +94,6 @@ in
 
   config = mkMerge [
     (mkIf cfg.enable {
-
       programs.obs-studio.enable = true;
       home.packages = with pkgs; [
         ghostty
@@ -148,6 +148,7 @@ in
       };
 
       home.sessionVariables = {
+        NIXOS_OZONE_WL=1;
         OZONE_PLATFORM = "wayland";
         LIBVA_DRIVER_NAME = "nvidia";
         __GLX_VENDOR_LIBRARY_NAME = "nvidia";
@@ -191,7 +192,6 @@ in
       #xdph
       home.file.".config/hypr/xdph.conf".source = ./xdph.conf;
 
-
       # notifications
       services.dunst = {
         enable = true;
@@ -208,7 +208,6 @@ in
             # positioning of alert window
             # does not seem to be working
             #geometry = "300x5-10-50"; # Width x Stack Size - X Offset - Y Offset
-
           };
           urgency_low = {
             background = nord.colors.secondary;

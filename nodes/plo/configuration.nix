@@ -18,7 +18,7 @@
     ];
     packages = with pkgs; [
       home-manager
-      element-desktop-wayland
+      element-desktop
     ];
   };
 in {
