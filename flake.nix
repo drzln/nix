@@ -3,7 +3,6 @@
   description = "drzzln nix configurations";
   inputs = {
     nix-kubernetes = {url = "github:drzln/nix-kubernetes";};
-    nixhashsync = {url = "github:gahbdias/NixHashSync";};
     pwnixos.url = "github:exploitoverload/PwNixOS";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
@@ -41,7 +40,6 @@
     home-manager,
     nix-darwin,
     sops-nix,
-    nixhashsync,
     pwnixos,
     rednix,
     nixified-ai,
@@ -53,7 +51,7 @@
       builtins.attrValues sops-nix.overlays
       ++ [
         (final: prev: {
-          nixhashsync = nixhashsync.packages.${prev.system}.default;
+          # extra packages can go here
         })
       ]
       ++ import ./overlays;
