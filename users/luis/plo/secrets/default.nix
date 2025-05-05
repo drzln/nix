@@ -3,7 +3,6 @@
   imports = [
     ./aws.nix
     ./openai.nix
-    ./attic
   ];
   # sops.validateSopsFiles = false;
   sops.gnupg.home = "/home/luis/.gnupg";
