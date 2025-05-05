@@ -18,6 +18,7 @@
     ];
     packages = with pkgs; [
       home-manager
+      element-web
     ];
   };
 in {
