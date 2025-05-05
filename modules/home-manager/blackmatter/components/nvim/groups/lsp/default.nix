@@ -45,6 +45,7 @@ in {
           go
           gcc
           zulu
+          nixd
           bash
           opam
           unzip
