@@ -59,6 +59,7 @@
     };
     nixos-modules = import ./modules/nixos;
     darwin-pkgs = mkPkgs "aarch64-darwin";
+    linux-pkgs = mkPkgs "x86_64-linux";
     base-packages = flake-utils.lib.eachDefaultSystem (system: let
       pkgs = mkPkgs system;
     in {
@@ -72,7 +73,7 @@
     homeConfigurations = import ./homeConfigurations {
       inherit home-manager sops-nix nixpkgs;
       extraSpecialArgs = specialArgs;
-      pkgs = mkPkgs "x86_64-linux";
+      pkgs = linux-pkgs;
     };
     darwinConfigurations = import ./darwinConfigurations {
       inherit
