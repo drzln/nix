@@ -1,18 +1,17 @@
 local M = {}
 function M.setup()
+	vim.opt.showtabline = 0
 	vim.cmd([[colorscheme nord]])
-
-  -- bufferline
 	local base = "#2E3440"
 	local popout = "#d8dee9"
-	require("bufferline").setup {
+	require("bufferline").setup({
 		highlights = {
 			separator = {
 				bg = base,
-				fg = popout
+				fg = popout,
 			},
 			fill = {
-				bg = base
+				bg = base,
 			},
 			background = {
 				bg = base,
@@ -44,19 +43,20 @@ function M.setup()
 		},
 		options = {
 			numbers = "buffer_id",
+			mode = "buffers",
 			diagnostics = "nvim_lsp",
 			separator_style = "thin",
-			show_buffer_close_icons = true,
-			show_close_icon = true,
+			show_buffer_close_icons = false,
+			show_close_icon = false,
 			enforce_regular_tabs = false,
-			always_show_bufferline = true,
+			always_show_bufferline = false,
 			offsets = { {
 				filetype = "NvimTree",
 				text = "File Explorer",
 				text_align = "left",
 			} },
-		}
-	}
+		},
+	})
 end
 
 return M
