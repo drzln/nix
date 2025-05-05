@@ -1,3 +1,4 @@
+# user/luis/plo/blackmatter.nix
 {requirements, ...}: {
   imports = [
     requirements.inputs.self.homeManagerModules.blackmatter
