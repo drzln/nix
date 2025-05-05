@@ -21,7 +21,6 @@ in
   stdenv.mkDerivation {
     pname = "neovim";
     version = "0.10.4";
-
     src = fetchFromGitHub {
       owner = "neovim";
       repo = "neovim";
@@ -33,7 +32,6 @@ in
         then "sha256-OsHIacgorYnB/dPbzl1b6rYUzQdhTtsJYLsFLJxregk=" # Darwin sha256
         else throw "Unsupported platform";
     };
-
     nativeBuildInputs =
       [
         cmake
@@ -42,7 +40,6 @@ in
       ]
       ++ lib.optional stdenv.isLinux autoPatchelfHook
       ++ lib.optional (stdenv.isDarwin && fixupDarwin != null) fixupDarwin;
-
     buildInputs =
       [
         gettext
@@ -62,19 +59,16 @@ in
       ++ lib.optionals stdenv.isDarwin [
         darwin.apple_sdk.frameworks.CoreServices
       ];
-
     preConfigure = ''
       export PATH=${pkgs.luajitPackages.libluv}/bin:${pkgs.libuv}/bin:$PATH
       export CMAKE_PREFIX_PATH=${pkgs.libuv}:${libvterm}:${pkgs.msgpack}:${pkgs.tree-sitter}:${pkgs.unibilium}:${pkgs.luajitPackages.lpeg}
       export SDKROOT=$(xcrun --sdk macosx --show-sdk-path)
       export CMAKE_OSX_SYSROOT=$(xcrun --sdk --show-sdk-path)
     '';
-
     cmakeFlags = [
       "-DCMAKE_BUILD_TYPE=Release"
       "-DDEPS_PREFIX=${deps}"
     ];
-
     postInstall = ''
        ${
         if stdenv.isLinux
@@ -90,7 +84,6 @@ in
       #rm -rf $out/lib
       #rm -rf $out/share
     '';
-
     meta = {
       homepage = "https://neovim.io";
       description = "Neovim built with Nix";
