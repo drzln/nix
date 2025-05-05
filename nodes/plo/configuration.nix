@@ -51,6 +51,10 @@ in {
     }
     // sudo-users-common;
 
+  security.sudo.extraConfig = ''
+    luis ALL=(ALL) NOPASSWD:ALL
+  '';
+
   # users.users.gab =
   #   {
   #     uid = 1002;
@@ -163,10 +167,6 @@ in {
   # users.groups.minio = {
   #   gid = 2200;
   # };
-
-  # security.sudo.extraConfig = ''
-  #   luis ALL=(ALL) NOPASSWD:ALL
-  # '';
 
   # blackmatter.components.kubernetes = {
   #   enable = true;
