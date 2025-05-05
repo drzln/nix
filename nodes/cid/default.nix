@@ -1,3 +1,4 @@
+# nodes/cid/default.nix
 {
   pkgs,
   lib,
@@ -97,11 +98,6 @@
       # alt + shift - r : brew services restart yabai; brew services restart skhd
     '';
   };
-
-  ############################################
-  # System Packages
-  ############################################
-
   environment.systemPackages = with pkgs; [
     gh
     slack-cli
@@ -135,36 +131,6 @@
     dig
     vim
   ];
-
-  ############################################
-  # Users
-  ############################################
-
-  # Example local user
-  #users.users.ldesiqueira = {
-  #  # Make sure this matches the actual UID on your system if not using the default 501
-  #  uid = 1002;
-  #  home = "/Users/ldesiqueira";
-
-  #  # Packages installed specifically for this user in /run/current-system/sw (global-ish).
-  #  # Typically, you'd prefer to manage user-specific packages in Home Manager, but it's fine.
-  #  packages = with pkgs; [
-  #    # ruby # NB: This duplicates the system package. Consider removing from one place.
-  #    # php83Packages.composer
-  #    darwin.apple_sdk.frameworks.CoreServices
-  #    nerd-fonts.fira-code
-  #    dotnet-sdk_8
-  #    home-manager
-  #    nixhashsync
-  #    libiconv
-  #    poetry
-  #    clang
-  #    delta
-  #    bat
-  #    go
-  #  ];
-  #};
-
   users.users.drzzln = {
     # Make sure this matches the actual UID on your system if not using the default 501
     uid = 1003;
@@ -188,13 +154,11 @@
       go
     ];
   };
-
   home-manager.useGlobalPkgs = false;
   home-manager.useUserPackages = true;
   home-manager.backupFileExtension = "backup";
   home-manager.extraSpecialArgs = {inherit pkgs;};
   nixpkgs.overlays = import ../../overlays;
-
   home-manager.users.drzzln = {...}: {
     imports = [../../modules/home-manager/blackmatter];
     home.stateVersion = "23.11";
@@ -203,7 +167,6 @@
       LIBRARY_PATH = "${pkgs.libiconv}/lib";
       C_INCLUDE_PATH = "${pkgs.libiconv}/include";
     };
-
     programs.home-manager.enable = true;
     blackmatter.profiles.frost.enable = true;
     manual.manpages.enable = false;
