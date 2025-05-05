@@ -63,7 +63,7 @@
     base-packages = flake-utils.lib.eachDefaultSystem (system: let
       pkgs = mkPkgs system;
     in {
-      neovim = pkgs.callPackage ./packages/neovim {};
+      neovim = pkgs.callPackage ./pkgs/neovim {};
     });
     packages = base-packages;
   in {
