@@ -2,6 +2,7 @@
 {
   description = "drzzln nix configurations";
   inputs = {
+    nix-kubernetes.url = "github:drzln/nix-kubernetes";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
     sops-nix.url = "github:Mic92/sops-nix";
@@ -28,8 +29,10 @@
     };
     stylix.url = "github:danth/stylix";
   };
+
   outputs = inputs @ {
     self,
+    nix-kubernetes,
     nixpkgs,
     flake-utils,
     home-manager,
@@ -45,16 +48,23 @@
           # extra packages can go here
         })
       ];
+
+    systems = ["x86_64-linux"];
+
     mkPkgs = system:
       import nixpkgs {
         inherit system overlays;
         config.allowUnfree = true;
       };
-    basePackages = flake-utils.lib.eachDefaultSystem (system: let
+
+    basePackages = flake-utils.lib.eachSystem systems (system: let
       pkgs = mkPkgs system;
     in {
       neovim = pkgs.callPackage ./pkgs/neovim {};
+      # expose nix-kubernetes kubectl explicitly here:
+      kubectl = nix-kubernetes.packages.${system}.kubectl;
     });
+
     requirements = {inherit inputs self;};
     specialArgs = {
       inherit inputs self requirements;
@@ -63,16 +73,20 @@
   in {
     inherit basePackages;
     packages = basePackages;
+
     nixosConfigurations = import ./nixosConfigurations {
       inherit nixpkgs home-manager sops-nix specialArgs;
     };
+
     nixosModules = import ./modules/nixos;
     homeManagerModules = import ./modules/home-manager;
+
     homeConfigurations = import ./homeConfigurations {
       inherit home-manager sops-nix nixpkgs;
       extraSpecialArgs = specialArgs;
       pkgs = mkPkgs "x86_64-linux";
     };
+
     darwinConfigurations = import ./darwinConfigurations {
       pkgs = mkPkgs "aarch64-darwin";
       inherit nix-darwin home-manager inputs;
