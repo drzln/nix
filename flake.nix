@@ -55,7 +55,7 @@
     requirements = {inherit inputs self;};
     specialArgs = {inherit requirements packages inputs;};
     nixosConfigurations = import ./nixosConfigurations {
-      inherit nixpkgs home-manager sops-nix specialArgs inputs;
+      inherit nixpkgs home-manager sops-nix specialArgs;
     };
     nixos-modules = import ./modules/nixos;
     darwin-pkgs = mkPkgs "aarch64-darwin";
