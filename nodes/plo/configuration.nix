@@ -1,3 +1,4 @@
+# nodes/plo/configuration.nix
 {
   pkgs,
   requirements,
