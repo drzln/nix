@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 NIX_CONFIG="experimental-features = nix-command flakes" home-manager switch \
-	--flake .#"$USER@$(hostname)" \
-	-b backup
+  --flake .#"$USER@$(hostname)" \
+  -b backup
