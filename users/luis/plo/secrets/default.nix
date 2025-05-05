@@ -4,7 +4,6 @@
     ./aws.nix
     ./openai.nix
   ];
-  # sops.validateSopsFiles = false;
   sops.gnupg.home = "/home/luis/.gnupg";
   sops.gnupg.sshKeyPaths = [];
   programs.gpg.enable = true;
