@@ -5,6 +5,7 @@
   home-manager,
   sops-nix,
   # inputs,
+  ...
 }: let
   finalSpecialArgs =
     specialArgs
