@@ -1,3 +1,4 @@
+# nodes/cid/vms/default.nix
 {...}: {
   nix = {
     settings.trusted-users = ["ldesiqueira"];
