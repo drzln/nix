@@ -1,4 +1,9 @@
-{ config, lib, ... }: {
+# users/luis/plo/secrets/attic/default.nix
+{
+  # config,
+  # lib,
+  ...
+}: {
   sops.secrets."attic/key" = {
     sopsFile = ../../../../../secrets.yaml;
     path = "/home/luis/.secrets/attic/key";
