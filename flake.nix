@@ -2,8 +2,6 @@
 {
   description = "drzzln nix configurations";
   inputs = {
-    nix-kubernetes = {url = "github:drzln/nix-kubernetes";};
-    pwnixos.url = "github:exploitoverload/PwNixOS";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
     sops-nix.url = "github:Mic92/sops-nix";
@@ -15,7 +13,6 @@
       url = "github:Pamplemousse/tangerinixos";
       flake = false;
     };
-    rednix = {url = "github:redcode-labs/RedNix";};
     home-manager = {url = "github:nix-community/home-manager?branch=master";};
     nix-darwin = {
       url = "github:LnL7/nix-darwin?branch=master";
@@ -30,7 +27,6 @@
       inputs.hyprland.follows = "hyprland";
     };
     stylix = {url = "github:danth/stylix";};
-    nixified-ai = {url = "github:nixified-ai/flake";};
   };
 
   outputs = {
@@ -40,10 +36,6 @@
     home-manager,
     nix-darwin,
     sops-nix,
-    pwnixos,
-    rednix,
-    nixified-ai,
-    nix-kubernetes,
     ...
   } @ inputs: let
     inherit inputs self;
