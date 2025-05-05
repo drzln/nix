@@ -1,3 +1,4 @@
+# darwinConfigurations/default.nix
 {
   nix-darwin,
   home-manager,
