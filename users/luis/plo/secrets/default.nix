@@ -1,3 +1,4 @@
+# users/luis/plo/secrets/default.nix
 {pkgs, ...}: {
   imports = [
     ./aws.nix
