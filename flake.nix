@@ -1,5 +1,5 @@
 {
-  description = "drzzln systems";
+  description = "drzzln nix configurations";
   inputs = {
     nix-kubernetes = {url = "github:drzln/nix-kubernetes";};
     nixhashsync = {url = "github:gahbdias/NixHashSync";};
