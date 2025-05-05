@@ -14,7 +14,7 @@ in {
     package = mkOption {
       type = types.package;
       default = pkgs.neovim;
-      description = mdDoc "neovim package/declaration";
+      description = mdDoc "neovim configuration management";
     };
   };
 
