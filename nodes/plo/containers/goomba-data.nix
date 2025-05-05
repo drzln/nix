@@ -1,3 +1,4 @@
+# nodes/plo/containers/goomba-data.nix
 {...}: let
   data = rec {
     name = "attic";
