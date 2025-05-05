@@ -1,3 +1,4 @@
+# flake.nix
 {
   description = "drzzln nix configurations";
   inputs = {
