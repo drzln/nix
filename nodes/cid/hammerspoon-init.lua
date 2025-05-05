@@ -1,3 +1,4 @@
+-- nodes/cid/hammerspoon-init.lua
 local function run(cmd)
 	hs.execute(cmd, true)
 end
