@@ -198,6 +198,55 @@ in {
                 owner = "root";
                 group = "root";
               };
+              "kubernetes/admin/crt" = {
+                path = "/var/lib/blackmatter/pki/admin.crt";
+                sopsFile = "${secretsFile}/secrets.yaml";
+                mode = "0444";
+                owner = "root";
+                group = "root";
+              };
+              "kubernetes/apiserver/crt" = {
+                path = "/var/lib/blackmatter/pki/apiserver.crt";
+                sopsFile = "${secretsFile}/secrets.yaml";
+                mode = "0444";
+                owner = "root";
+                group = "root";
+              };
+              "kubernetes/apiserver/key" = {
+                path = "/var/lib/blackmatter/pki/apiserver.key";
+                sopsFile = "${secretsFile}/secrets.yaml";
+                mode = "0444";
+                owner = "root";
+                group = "root";
+              };
+              "kubernetes/apiserver/ca.crt" = {
+                path = "/var/lib/blackmatter/pki/ca.crt";
+                sopsFile = "${secretsFile}/secrets.yaml";
+                mode = "0444";
+                owner = "root";
+                group = "root";
+              };
+              "kubernetes/apiserver/ca.key" = {
+                path = "/var/lib/blackmatter/pki/ca.key";
+                sopsFile = "${secretsFile}/secrets.yaml";
+                mode = "0444";
+                owner = "root";
+                group = "root";
+              };
+              "kubernetes/apiserver/kubelet.crt" = {
+                path = "/var/lib/blackmatter/pki/kubelet.crt";
+                sopsFile = "${secretsFile}/secrets.yaml";
+                mode = "0444";
+                owner = "root";
+                group = "root";
+              };
+              "kubernetes/apiserver/san.cnf" = {
+                path = "/var/lib/blackmatter/pki/san.cnf";
+                sopsFile = "${secretsFile}/secrets.yaml";
+                mode = "0444";
+                owner = "root";
+                group = "root";
+              };
             };
           };
         } {};
