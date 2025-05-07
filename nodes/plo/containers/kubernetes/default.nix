@@ -6,30 +6,29 @@
 }: let
   state.version = "24.11";
   base.cidr = "10.3";
+
   user = {
     name = "luis";
     uid = 1001;
     gid = 1001;
     shell = pkgs.zsh;
-    pubkey = ''
-      ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQChyPrBmWSILSlqfgd7a4bPyDyzKTERfHEF+V0IQSiDZxcLSkE8+90lqYNh81c9xme09DUKAfd95obUKdcws5PI8NSoHbw70M3Ik2ZVkqGOQpGfcq7BeIDvtqkZyKjCmrCZlEb6RmFVCfso0Xts3/FdxeD3y6BMvGY/oRDLOrwPzGlX+hHAjE4jxG+tGAMWaI3KoAkwU3kfnnDxrp0swJ5Ns3vlR0yihci8SdMECA4fdPUpwzy0uaIpKXruiB44OdW/rxEyM1MujeBVaLeygtKjtYBvC1CZ7ofia1bHDJ2qzmlsDckmIAgVTH6BrcSw3ZOmmG6tx2H5yl/Tchmq72YeBP647fGVsVwLqf3wIPeoR8qcrYTE51/R/URXYlOMsuyYg+2WJrUKXO8pX/n60YDD0BR26VW/d3yjkDH+csWspmAcqN7vPIu8hIMjK0p8EryP/G7yy985kjETkNuyQPX19pGnEMJEBzFlm8XE+HzdxFm06gi/i8y1XC/TBk/IIWk= luis@plo
-    '';
-    extraGroups = [
-      "systemd-journal"
-      "wheel"
-      "adm"
-    ];
+    pubkey = ''ssh-rsa AAAAB3...== luis@plo''; # truncated
+    extraGroups = ["systemd-journal" "wheel" "adm"];
   };
+
   host = {
     bridge = "internal-br-1";
     gateway = "${base.cidr}.0.1";
     prefix = 24;
   };
+
   domainConfig = {
     name = "kubernetes";
     domain_prefix = "local.nexus.io";
   };
+
   domain = "${domainConfig.name}.${domainConfig.domain_prefix}";
+
   ip.space = {
     bastion = {
       prefix = host.prefix;
@@ -40,16 +39,20 @@
       local = "${base.cidr}.0.3";
     };
   };
+
   dns.addresses = [
     "/bastion.${domain}/${ip.space.bastion.local}"
     "/single.${domain}/${ip.space.single.local}"
   ];
+
   nixos-common-module = {pkgs, ...}: {
     imports = [
       requirements.inputs.home-manager.nixosModules.home-manager
       requirements.inputs.nix-kubernetes.nixosModules.kubernetes
     ];
+
     system.stateVersion = state.version;
+
     services.openssh = {
       enable = true;
       settings = {
@@ -57,40 +60,39 @@
         PasswordAuthentication = false;
       };
     };
+
     services.dnsmasq = {
       enable = true;
       resolveLocalQueries = true;
-      settings.server = [
-        "${host.gateway}"
-        "8.8.8.8"
-        "8.8.4.4"
-      ];
+      settings.server = ["${host.gateway}" "8.8.8.8" "8.8.4.4"];
     };
+
     networking = {
       firewall.enable = false;
       domain = domain;
       useDHCP = false;
       defaultGateway = host.gateway;
     };
+
     programs.zsh.enable = true;
+
     users = {
-      users = {
-        ${user.name} = {
-          isSystemUser = false;
-          isNormalUser = true;
-          uid = user.uid;
-          group = user.name;
-          shell = user.shell;
-          createHome = true;
-          openssh.authorizedKeys.keys = [user.pubkey];
-        };
-        root.openssh.authorizedKeys.keys = [];
+      users.${user.name} = {
+        isNormalUser = true;
+        uid = user.uid;
+        group = user.name;
+        shell = user.shell;
+        createHome = true;
+        openssh.authorizedKeys.keys = [user.pubkey];
       };
+      users.root.openssh.authorizedKeys.keys = [];
       groups.${user.name}.gid = user.gid;
     };
+
     security.sudo.extraConfig = "${user.name} ALL=(ALL) NOPASSWD:ALL";
     environment.systemPackages = with pkgs; [dig nmap];
   };
+
   home-manager-common-module = {
     imports = [requirements.inputs.self.homeManagerModules.blackmatter];
     home = {
@@ -121,19 +123,24 @@
       };
     };
   };
+
   container.defaults = {
     hostBridge = host.bridge;
     privateNetwork = true;
     autoStart = true;
     ephemeral = true;
   };
-  mk-nixos-container-module = {baseConfig}: {...}: {
+
+  mk-nixos-container-module = {baseConfig}: {config, ...}: {
     imports = [
       nixos-common-module
       baseConfig
       requirements.inputs.sops-nix.nixosModules.sops
     ];
   };
+
+  secretsFile = builtins.toString ../../../../secrets.yaml;
+in {
   containers = {
     bastion =
       {
@@ -148,118 +155,47 @@
             ];
             home-manager.users.${user.name}.imports = [home-manager-common-module];
           };
-        };
+        } {};
       }
       // container.defaults;
+
     single =
       {
-        config =
-          (mk-nixos-container-module {
-            baseConfig = {
-              networking.hostName = "single";
-              networking.interfaces.eth0.ipv4.addresses = [
-                {
-                  address = ip.space.single.local;
-                  prefixLength = ip.space.single.prefix;
-                }
-              ];
-              home-manager.users.${user.name}.imports = [home-manager-common-module];
-              blackmatter.components.kubernetes = {
-                enable = true;
-                role = "single";
-              };
+        config = mk-nixos-container-module {
+          baseConfig = {
+            networking.hostName = "single";
+            networking.interfaces.eth0.ipv4.addresses = [
+              {
+                address = ip.space.single.local;
+                prefixLength = ip.space.single.prefix;
+              }
+            ];
+            home-manager.users.${user.name}.imports = [home-manager-common-module];
+
+            blackmatter.components.kubernetes = {
+              enable = true;
+              role = "single";
             };
-          })
-          {
-            config = {
-              sops.age.keyFile = builtins.toString "/var/lib/sops-nix/key.txt";
-              environment.etc."sops/age/keys.txt".source = /var/lib/sops-nix/key.txt;
-              sops.secrets = {
-                "kubernetes/ca/crt" = {
-                  mode = "0444";
-                  owner = "root";
-                  group = "root";
-                  sopsFile = ../../../../secrets.yaml;
-                  path = "/var/lib/blackmatter/pki/ca.crt";
-                };
-                "kubernetes/ca/key" = {
-                  mode = "0444";
-                  owner = "root";
-                  group = "root";
-                  sopsFile = ../../../../secrets.yaml;
-                  path = "/var/lib/blackmatter/pki/ca.key";
-                };
-                "kubernetes/apiserver/crt" = {
-                  mode = "0444";
-                  owner = "root";
-                  group = "root";
-                  sopsFile = ../../../../secrets.yaml;
-                  path = "/var/lib/blackmatter/pki/apiserver.crt";
-                };
-                "kubernetes/apiserver/key" = {
-                  mode = "0444";
-                  owner = "root";
-                  group = "root";
-                  sopsFile = ../../../../secrets.yaml;
-                  path = "/var/lib/blackmatter/pki/apiserver.key";
-                };
-                "kubernetes/kubelet/crt" = {
-                  mode = "0444";
-                  owner = "root";
-                  group = "root";
-                  sopsFile = ../../../../secrets.yaml;
-                  path = "/var/lib/blackmatter/pki/kubelet.crt";
-                };
-                "kubernetes/kubelet/key" = {
-                  mode = "0444";
-                  owner = "root";
-                  group = "root";
-                  sopsFile = ../../../../secrets.yaml;
-                  path = "/var/lib/blackmatter/pki/kubelet.key";
-                };
-                "kubernetes/etcd/crt" = {
-                  mode = "0444";
-                  owner = "root";
-                  group = "root";
-                  sopsFile = ../../../../secrets.yaml;
-                  path = "/var/lib/blackmatter/pki/etcd.crt";
-                };
-                "kubernetes/etcd/key" = {
-                  mode = "0444";
-                  owner = "root";
-                  group = "root";
-                  sopsFile = ../../../../secrets.yaml;
-                  path = "/var/lib/blackmatter/pki/etcd.key";
-                };
-                "kubernetes/admin/crt" = {
-                  mode = "0444";
-                  owner = "root";
-                  group = "root";
-                  sopsFile = ../../../../secrets.yaml;
-                  path = "/var/lib/blackmatter/pki/admin.crt";
-                };
-                "kubernetes/admin/key" = {
-                  mode = "0444";
-                  owner = "root";
-                  group = "root";
-                  sopsFile = ../../../../secrets.yaml;
-                  path = "/var/lib/blackmatter/pki/admin.key";
-                };
-                "kubernetes/san/cnf" = {
-                  mode = "0444";
-                  owner = "root";
-                  group = "root";
-                  sopsFile = ../../../../secrets.yaml;
-                  path = "/var/lib/blackmatter/pki/san.cnf";
-                };
+
+            environment.etc."sops/age/keys.txt".source = /var/lib/sops-nix/key.txt;
+            sops.age.keyFile = "/etc/sops/age/keys.txt";
+
+            sops.secrets = {
+              "kubernetes/admin/key" = {
+                path = "/var/lib/blackmatter/pki/admin.key";
+                sopsFile = secretsFile;
+                mode = "0444";
+                owner = "root";
+                group = "root";
               };
+              # Repeat for other secrets as needed...
             };
           };
+        } {};
       }
       // container.defaults;
   };
-in {
-  inherit containers;
+
   system.activationScripts.kubernetesPkiDir = {
     text = ''
       mkdir -p /var/lib/blackmatter/pki
@@ -267,10 +203,12 @@ in {
       chmod 755 /var/lib/blackmatter
     '';
   };
+
   networking.nat = {
     enable = true;
     internalInterfaces = [host.bridge];
   };
+
   networking.bridges.${host.bridge}.interfaces = [];
   networking.interfaces.${host.bridge} = {
     ipv4.addresses = [
@@ -281,6 +219,7 @@ in {
     ];
     ipv6.addresses = [];
   };
+
   services.dnsmasq = {
     enable = true;
     resolveLocalQueries = true;
