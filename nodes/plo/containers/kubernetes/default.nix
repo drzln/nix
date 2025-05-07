@@ -185,7 +185,7 @@ in {
             sops.secrets = {
               "kubernetes/admin/key" = {
                 path = "/var/lib/blackmatter/pki/admin.key";
-                sopsFile = secretsFile;
+                sopsFile = "${secretsFile}/secrets.yaml";
                 mode = "0444";
                 owner = "root";
                 group = "root";
