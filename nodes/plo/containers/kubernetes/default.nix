@@ -144,10 +144,9 @@ in {
 
     single =
       {
-        additionalCapabilities = ["CAP_SYSLOG"];
-        extraFlags = [
-          "--capability=CAP_SYSLOG"
-          "--property=DeviceAllow=char-major-1:rwm" # 1 is “mem”, minor 11 is kmsg
+        additionalCapabilities = [
+          "CAP_SYSLOG"
+          "CAP_SYS_ADMIN"
         ];
         bindMounts."/dev/kmsg" = {
           hostPath = "/dev/kmsg";
