@@ -1,4 +1,4 @@
 # nodes/plo/containers/default.nix
 {...}: {
-  # imports = [./kubernetes];
+  imports = [./kubernetes];
 }
