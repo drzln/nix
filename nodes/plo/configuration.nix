@@ -27,6 +27,7 @@ in {
   nixpkgs.config.allowImportFromDerivation = true;
   imports = [
     requirements.inputs.self.nixosModules.blackmatter
+    ./containers
   ];
   blackmatter.profiles.blizzard.enable = true;
   # makes /bin/bash work
