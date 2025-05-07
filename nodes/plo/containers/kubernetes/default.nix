@@ -142,7 +142,7 @@
       // container.defaults;
   };
 in {
-  inherit containers;
+  # inherit containers;
 
   networking = {
     nat = {
