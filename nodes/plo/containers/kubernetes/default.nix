@@ -153,20 +153,24 @@
       // container.defaults;
     single =
       {
-        config = mk-nixos-container-module {
-          baseConfig = {
-            networking.hostName = "single";
-            networking.interfaces.eth0.ipv4.addresses = [
-              {
-                address = ip.space.single.local;
-                prefixLength = ip.space.single.prefix;
-              }
-            ];
-            home-manager.users.${user.name}.imports = [home-manager-common-module];
-            blackmatter.components.kubernetes = {
-              enable = true;
-              role = "single";
+        config =
+          mk-nixos-container-module {
+            baseConfig = {
+              networking.hostName = "single";
+              networking.interfaces.eth0.ipv4.addresses = [
+                {
+                  address = ip.space.single.local;
+                  prefixLength = ip.space.single.prefix;
+                }
+              ];
+              home-manager.users.${user.name}.imports = [home-manager-common-module];
+              blackmatter.components.kubernetes = {
+                enable = true;
+                role = "single";
+              };
             };
+          }
+          // {
             sops.age.keyFile = builtins.toString "/var/lib/sops-nix/key.txt";
             environment.etc."sops/age/keys.txt".source = /var/lib/sops-nix/key.txt;
             sops.secrets = {
@@ -249,7 +253,6 @@
               };
             };
           };
-        };
       }
       // container.defaults;
   };
