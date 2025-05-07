@@ -146,6 +146,15 @@ in {
   # };
 
   networking.bridges.${host.bridge}.interfaces = [];
+  networking.interfaces.${host.bridge} = {
+    ipv4.addresses = [
+      {
+        address = host.gateway;
+        prefixLength = host.prefix;
+      }
+    ];
+    ipv6.addresses = [];
+  };
 
   # networking.bridges."${host.bridge}" = {
   #   interfaces = [];
