@@ -171,6 +171,13 @@
   };
 in {
   inherit containers;
+  system.activationScripts.kubernetesPkiDir = {
+    text = ''
+      mkdir -p /var/lib/blackmatter/pki
+      chown root:root /var/lib/blackmatter
+      chmod 755 /var/lib/blackmatter
+    '';
+  };
   networking.nat = {
     enable = true;
     internalInterfaces = [host.bridge];
