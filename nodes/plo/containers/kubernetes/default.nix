@@ -161,7 +161,9 @@ in {
       {
         config = mk-nixos-container-module {
           baseConfig = let
-            secretsFile = pkgs.writeText "secrets.yaml" (builtins.readFile ../../../../secrets.yaml);
+            secretsFile = pkgs.runCommandLocal "secrets.yaml" {} ''
+              cp ${../../../../secrets.yaml} $out
+            '';
           in {
             networking.hostName = "single";
             networking.interfaces.eth0.ipv4.addresses = [
