@@ -6,7 +6,6 @@
 }: let
   state.version = "24.11";
   base.cidr = "10.3";
-
   user = {
     name = "luis";
     uid = 1001;
@@ -17,20 +16,16 @@
     '';
     extraGroups = ["systemd-journal" "wheel" "adm"];
   };
-
   host = {
     bridge = "internal-br-1";
     gateway = "${base.cidr}.0.1";
     prefix = 24;
   };
-
   domainConfig = {
     name = "kubernetes";
     domain_prefix = "local.nexus.io";
   };
-
   domain = "${domainConfig.name}.${domainConfig.domain_prefix}";
-
   ip.space = {
     bastion = {
       prefix = host.prefix;
@@ -41,20 +36,16 @@
       local = "${base.cidr}.0.3";
     };
   };
-
   dns.addresses = [
     "/bastion.${domain}/${ip.space.bastion.local}"
     "/single.${domain}/${ip.space.single.local}"
   ];
-
   nixos-common-module = {pkgs, ...}: {
     imports = [
       requirements.inputs.home-manager.nixosModules.home-manager
       requirements.inputs.nix-kubernetes.nixosModules.kubernetes
     ];
-
     system.stateVersion = state.version;
-
     services.openssh = {
       enable = true;
       settings = {
@@ -62,22 +53,18 @@
         PasswordAuthentication = false;
       };
     };
-
     services.dnsmasq = {
       enable = true;
       resolveLocalQueries = true;
       settings.server = ["${host.gateway}" "8.8.8.8" "8.8.4.4"];
     };
-
     networking = {
       firewall.enable = false;
       domain = domain;
       useDHCP = false;
       defaultGateway = host.gateway;
     };
-
     programs.zsh.enable = true;
-
     users = {
       users.${user.name} = {
         isNormalUser = true;
@@ -90,11 +77,9 @@
       users.root.openssh.authorizedKeys.keys = [];
       groups.${user.name}.gid = user.gid;
     };
-
     security.sudo.extraConfig = "${user.name} ALL=(ALL) NOPASSWD:ALL";
     environment.systemPackages = with pkgs; [dig nmap];
   };
-
   home-manager-common-module = {
     imports = [requirements.inputs.self.homeManagerModules.blackmatter];
     home = {
@@ -125,14 +110,12 @@
       };
     };
   };
-
   container.defaults = {
     hostBridge = host.bridge;
     privateNetwork = true;
     autoStart = true;
     ephemeral = true;
   };
-
   mk-nixos-container-module = {baseConfig}: {...}: {
     imports = [
       nixos-common-module
@@ -239,7 +222,6 @@ in {
       }
       // container.defaults;
   };
-
   system.activationScripts.kubernetesPkiDir = {
     text = ''
       mkdir -p /var/lib/blackmatter/pki
@@ -247,12 +229,10 @@ in {
       chmod 755 /var/lib/blackmatter
     '';
   };
-
   networking.nat = {
     enable = true;
     internalInterfaces = [host.bridge];
   };
-
   networking.bridges.${host.bridge}.interfaces = [];
   networking.interfaces.${host.bridge} = {
     ipv4.addresses = [
@@ -263,7 +243,6 @@ in {
     ];
     ipv6.addresses = [];
   };
-
   services.dnsmasq = {
     enable = true;
     resolveLocalQueries = true;
