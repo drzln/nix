@@ -174,7 +174,6 @@
               role = "single";
             };
             sops.age.keyFile = builtins.toString "/var/lib/sops-nix/key.txt";
-            sops.debug = true;
             environment.etc."sops/age/keys.txt".source = /var/lib/sops-nix/key.txt;
             sops.secrets = {
               "kubernetes/ca/crt" = {
