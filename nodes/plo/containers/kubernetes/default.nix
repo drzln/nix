@@ -5,6 +5,7 @@
   ...
 }: let
   state.version = "24.11";
+  base.cidr = "10.3";
   user = {
     name = "luis";
     uid = 1001;
@@ -16,7 +17,7 @@
   };
   host = {
     bridge = "internal-br-1";
-    gateway = "10.3.0.1";
+    gateway = "${base.cidr}.0.1";
     prefix = 24;
   };
   domainConfig = {
@@ -27,7 +28,7 @@
   ip.space = {
     bastion = {
       prefix = host.prefix;
-      local = "10.3.0.2";
+      local = "${base.cidr}.0.2";
     };
   };
   dns.addresses = [
