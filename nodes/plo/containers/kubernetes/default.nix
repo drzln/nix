@@ -129,13 +129,13 @@
       {
         config = mk-nixos-container-module {
           baseConfig = {
+            networking.hostName = "bastion";
             networking.interfaces.eth0.ipv4.addresses = [
               {
                 address = ip.space.bastion.local;
                 prefixLength = ip.space.bastion.prefix;
               }
             ];
-            networking.hostName = "bastion";
             home-manager.users.${user.name}.imports = [home-manager-common-module];
           };
         };
@@ -145,13 +145,13 @@
       {
         config = mk-nixos-container-module {
           baseConfig = {
+            networking.hostName = "single";
             networking.interfaces.eth0.ipv4.addresses = [
               {
                 address = ip.space.single.local;
                 prefixLength = ip.space.single.prefix;
               }
             ];
-            networking.hostName = "single";
             home-manager.users.${user.name}.imports = [home-manager-common-module];
           };
         };
