@@ -27,6 +27,7 @@ in {
   nixpkgs.config.allowImportFromDerivation = true;
   imports = [
     requirements.inputs.self.nixosModules.blackmatter
+    requirements.inputs.nix-kubernetes.nixosModules.kubernetes
     ./kubernetes
     ./secrets.nix
   ];
