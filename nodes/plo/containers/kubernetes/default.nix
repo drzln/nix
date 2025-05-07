@@ -138,7 +138,7 @@
       requirements.inputs.sops-nix.nixosModules.sops
     ];
   };
-  secretsFile = builtins.toString ../../../../secrets.yaml;
+  secretsFile = pkgs.writeText "secrets.yaml" (builtins.readFile ../../../../secrets.yaml);
 in {
   containers = {
     bastion =
