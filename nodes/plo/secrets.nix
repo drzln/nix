@@ -1,6 +1,6 @@
 # nodes/plo/secrets.nix
 {...}: {
-  sops.age.keyFile = "/etc/sops/age/keys.txt";
+  sops.age.keyFile = "/var/lib/sops-nix/key.txt";
   sops.secrets = {
     "kubernetes/ca/crt" = {
       sopsFile = ../../secrets.yaml;
