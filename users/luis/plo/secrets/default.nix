@@ -3,7 +3,6 @@
   imports = [
     ./aws.nix
     ./openai.nix
-    ./kubernetes.nix
   ];
   sops.gnupg.home = "/home/luis/.gnupg";
   sops.gnupg.sshKeyPaths = [];
