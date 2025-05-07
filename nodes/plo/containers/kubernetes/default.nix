@@ -161,8 +161,9 @@ in {
       {
         config = mk-nixos-container-module {
           baseConfig = let
-            secretsFile = pkgs.runCommandLocal "secrets.yaml" {} ''
-              cp ${../../../../secrets.yaml} $out
+            secretsFile = pkgs.runCommand "secrets.yaml" {} ''
+              mkdir -p $out
+              cp ${../../../../secrets.yaml} $out/secrets.yaml
             '';
           in {
             networking.hostName = "single";
