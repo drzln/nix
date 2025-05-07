@@ -159,7 +159,12 @@
               }
             ];
             home-manager.users.${user.name}.imports = [home-manager-common-module];
-
+            bindMounts = {
+              "/var/lib/blackmatter/pki" = {
+                hostPath = "/var/lib/blackmatter/pki";
+                isReadOnly = true;
+              };
+            };
             blackmatter.components.kubernetes = {
               enable = true;
               role = "single";
