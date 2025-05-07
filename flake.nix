@@ -2,6 +2,9 @@
 {
   description = "drzzln nix configurations";
   inputs = {
+    secrets = {
+      url = "path:./secrets.yaml";
+    };
     nix-kubernetes.url = "github:drzln/nix-kubernetes";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";

@@ -138,8 +138,7 @@
       requirements.inputs.sops-nix.nixosModules.sops
     ];
   };
-
-  secretsFile = builtins.toString ../../../../secrets.yaml;
+  secretsFile = builtins.toString requirements.inputs.secrets;
 in {
   containers = {
     bastion =
@@ -188,7 +187,6 @@ in {
                 owner = "root";
                 group = "root";
               };
-              # Repeat for other secrets as needed...
             };
           };
         } {};
