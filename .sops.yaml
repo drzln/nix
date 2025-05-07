@@ -1,4 +1,6 @@
 creation_rules:
   - path_regex: secrets.yaml
-    pgp: A2F005F2EEE89CA748E4D2B5C6E2E8FB1FA19829
-    age: age1q3tep4cc4d89y0ajd9ywafmarq69202z3za48rhcdra0ya579ews56awfd
+    pgp:
+      - A2F005F2EEE89CA748E4D2B5C6E2E8FB1FA19829
+    age:
+      - age1q3tep4cc4d89y0ajd9ywafmarq69202z3za48rhcdra0ya579ews56awfd
