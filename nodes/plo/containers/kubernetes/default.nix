@@ -100,7 +100,7 @@
     home = {
       stateVersion = state.version;
       homeDirectory = "/home/${user.name}";
-      packages = with pkgs; [vim git];
+      packages = with pkgs; [vim git bat];
       sessionVariables = {EDITOR = "vim";};
     };
     programs.ssh = {
