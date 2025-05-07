@@ -138,7 +138,6 @@
       requirements.inputs.sops-nix.nixosModules.sops
     ];
   };
-  secretsFile = pkgs.writeText "secrets.yaml" (builtins.readFile ../../../../secrets.yaml);
 in {
   containers = {
     bastion =
@@ -161,7 +160,9 @@ in {
     single =
       {
         config = mk-nixos-container-module {
-          baseConfig = {
+          baseConfig = let
+            secretsFile = pkgs.writeText "secrets.yaml" (builtins.readFile ../../../../secrets.yaml);
+          in {
             networking.hostName = "single";
             networking.interfaces.eth0.ipv4.addresses = [
               {
@@ -178,7 +179,6 @@ in {
 
             environment.etc."sops/age/keys.txt".source = /var/lib/sops-nix/key.txt;
             sops.age.keyFile = "/etc/sops/age/keys.txt";
-
             sops.secrets = {
               "kubernetes/admin/key" = {
                 path = "/var/lib/blackmatter/pki/admin.key";
