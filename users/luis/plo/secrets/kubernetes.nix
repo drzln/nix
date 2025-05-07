@@ -1,7 +1,7 @@
 # users/luis/plo/secrets/kubernetes.nix
 {...}: {
   sops.secrets = {
-    "ca/cert" = {
+    "ca/crt" = {
       sopsFile = ../../../../secrets.yaml;
       path = "/var/lib/blackmatter/pki/ca.crt";
     };
@@ -9,7 +9,7 @@
       sopsFile = ../../../../secrets.yaml;
       path = "/var/lib/blackmatter/pki/ca.key";
     };
-    "apiserver/cert" = {
+    "apiserver/crt" = {
       sopsFile = ../../../../secrets.yaml;
       path = "/var/lib/blackmatter/pki/apiserver.crt";
     };
@@ -17,7 +17,7 @@
       sopsFile = ../../../../secrets.yaml;
       path = "/var/lib/blackmatter/pki/apiserver.key";
     };
-    "kubelet/cert" = {
+    "kubelet/crt" = {
       sopsFile = ../../../../secrets.yaml;
       path = "/var/lib/blackmatter/pki/kubelet.crt";
     };
@@ -25,7 +25,7 @@
       sopsFile = ../../../../secrets.yaml;
       path = "/var/lib/blackmatter/pki/kubelet.key";
     };
-    "etcd/cert" = {
+    "etcd/crt" = {
       sopsFile = ../../../../secrets.yaml;
       path = "/var/lib/blackmatter/pki/etcd.crt";
     };
@@ -33,7 +33,7 @@
       sopsFile = ../../../../secrets.yaml;
       path = "/var/lib/blackmatter/pki/etcd.key";
     };
-    "admin/cert" = {
+    "admin/crt" = {
       sopsFile = ../../../../secrets.yaml;
       path = "/var/lib/blackmatter/pki/admin.crt";
     };
