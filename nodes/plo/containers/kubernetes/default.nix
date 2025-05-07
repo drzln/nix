@@ -131,7 +131,7 @@
     ephemeral = true;
   };
 
-  mk-nixos-container-module = {baseConfig}: {config, ...}: {
+  mk-nixos-container-module = {baseConfig}: {...}: {
     imports = [
       nixos-common-module
       baseConfig
