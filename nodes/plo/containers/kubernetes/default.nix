@@ -43,6 +43,7 @@
   }: {
     imports = [
       requirements.inputs.home-manager.nixosModules.home-manager
+      requirements.inputs.nix-kubernetes.nixosModules.kubernetes
     ];
     system.stateVersion = state.version;
     services.openssh.enable = true;
