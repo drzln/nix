@@ -27,7 +27,7 @@ in {
   nixpkgs.config.allowImportFromDerivation = true;
   imports = [
     requirements.inputs.self.nixosModules.blackmatter
-    ./containers
+    ./kubernetes
     ./secrets.nix
   ];
   blackmatter.profiles.blizzard.enable = true;
