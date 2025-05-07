@@ -161,6 +161,10 @@ in {
 
     single =
       {
+        bindMounts."/home/luis/.local/share/sheldon" = {
+          hostPath = "/home/luis/.local/share/sheldon";
+          isReadOnly = true;
+        };
         config = mk-nixos-container-module {
           baseConfig = let
             secretsFile = pkgs.runCommand "secrets.yaml" {} ''
