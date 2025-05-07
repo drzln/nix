@@ -165,6 +165,10 @@ in {
           hostPath = "/home/luis/.local/share/sheldon/repos";
           isReadOnly = true;
         };
+        bindMounts."/home/luis/.local/share/sheldon/plugins.zsh" = {
+          hostPath = "/home/luis/.local/share/sheldon/plugins.zsh";
+          isReadOnly = true;
+        };
         config = mk-nixos-container-module {
           baseConfig = let
             secretsFile = pkgs.runCommand "secrets.yaml" {} ''
