@@ -149,17 +149,16 @@ in {
       enable = true;
       internalInterfaces = [host.bridge];
     };
-    bridges."${host.bridge}".interfaces = [];
-    interfaces."${host.bridge}".ipv4 = {
-      addresses = [
+    networking.bridges."${host.bridge}" = {
+      interfaces = [];
+      ipv4.addresses = [
         {
           address = host.gateway;
           prefixLength = host.prefix;
         }
       ];
-      routes = [];
+      ipv6.addresses = [];
     };
-    interfaces."${host.bridge}".ipv6.addresses = [];
   };
 
   services.dnsmasq = {
