@@ -139,21 +139,22 @@
   # };
 in {
   # inherit containers;
+
   # networking.nat = {
   #   enable = true;
   #   internalInterfaces = [host.bridge];
   # };
 
-  # networking.bridges."${host.bridge}" = {
-  #   interfaces = [];
-  #   ipv4.addresses = [
-  #     {
-  #       address = host.gateway;
-  #       prefixLength = host.prefix;
-  #     }
-  #   ];
-  #   ipv6.addresses = [];
-  # };
+  networking.bridges."${host.bridge}" = {
+    interfaces = [];
+    ipv4.addresses = [
+      {
+        address = host.gateway;
+        prefixLength = host.prefix;
+      }
+    ];
+    ipv6.addresses = [];
+  };
 
   services.dnsmasq = {
     enable = true;
