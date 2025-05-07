@@ -154,7 +154,7 @@
     single =
       {
         config =
-          mk-nixos-container-module {
+          (mk-nixos-container-module {
             baseConfig = {
               networking.hostName = "single";
               networking.interfaces.eth0.ipv4.addresses = [
@@ -169,7 +169,7 @@
                 role = "single";
               };
             };
-          }
+          })
           // {
             sops.age.keyFile = builtins.toString "/var/lib/sops-nix/key.txt";
             environment.etc."sops/age/keys.txt".source = /var/lib/sops-nix/key.txt;
