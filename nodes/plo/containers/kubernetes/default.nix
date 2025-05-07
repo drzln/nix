@@ -144,6 +144,10 @@ in {
 
     single =
       {
+        bindMounts."/dev/kmsg" = {
+          hostPath = "/dev/kmsg";
+          isReadOnly = true;
+        };
         # bindMounts."/home/luis/.local/share/sheldon/repos" = {
         #   hostPath = "/home/luis/.local/share/sheldon/repos";
         #   isReadOnly = true;
