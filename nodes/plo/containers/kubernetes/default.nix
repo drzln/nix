@@ -230,7 +230,27 @@ in {
                 owner = "root";
                 group = "root";
               };
-              # etcd.crt  etcd.key  kubelet.crt  kubelet.key  san.cnf
+              "kubernetes/etcd/crt" = {
+                path = "/var/lib/blackmatter/pki/etcd.crt";
+                sopsFile = "${secretsFile}/secrets.yaml";
+                mode = "0444";
+                owner = "root";
+                group = "root";
+              };
+              "kubernetes/etcd/key" = {
+                path = "/var/lib/blackmatter/pki/etcd.key";
+                sopsFile = "${secretsFile}/secrets.yaml";
+                mode = "0444";
+                owner = "root";
+                group = "root";
+              };
+              "kubernetes/kubelet/key" = {
+                path = "/var/lib/blackmatter/pki/kubelet.key";
+                sopsFile = "${secretsFile}/secrets.yaml";
+                mode = "0444";
+                owner = "root";
+                group = "root";
+              };
             };
           };
         } {};
