@@ -37,6 +37,7 @@
   };
   dns.addresses = [
     "/bastion.${domain}/${ip.space.bastion.local}"
+    "/single.${domain}/${ip.space.single.local}"
   ];
   nixos-common-module = {pkgs, ...}: {
     imports = [
