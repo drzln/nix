@@ -144,6 +144,7 @@ in {
 
     single =
       {
+        additionalCapabilities = ["CAP_SYSLOG"];
         bindMounts."/dev/kmsg" = {
           hostPath = "/dev/kmsg";
           isReadOnly = true;
