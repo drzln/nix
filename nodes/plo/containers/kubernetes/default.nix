@@ -128,7 +128,11 @@
     ephemeral = true;
   };
   mk-nixos-container-module = {baseConfig}: {...}: {
-    imports = [nixos-common-module baseConfig];
+    imports = [
+      nixos-common-module
+      baseConfig
+      requirements.inputs.sops-nix.nixosModules.sops
+    ];
   };
   containers = {
     bastion =
