@@ -30,6 +30,10 @@
       prefix = host.prefix;
       local = "${base.cidr}.0.2";
     };
+    single = {
+      prefix = host.prefix;
+      local = "${base.cidr}.0.3";
+    };
   };
   dns.addresses = [
     "/bastion.${domain}/${ip.space.bastion.local}"
@@ -132,6 +136,22 @@
               }
             ];
             networking.hostName = "bastion";
+            home-manager.users.${user.name}.imports = [home-manager-common-module];
+          };
+        };
+      }
+      // container.defaults;
+    single =
+      {
+        config = mk-nixos-container-module {
+          baseConfig = {
+            networking.interfaces.eth0.ipv4.addresses = [
+              {
+                address = ip.space.single.local;
+                prefixLength = ip.space.single.prefix;
+              }
+            ];
+            networking.hostName = "single";
             home-manager.users.${user.name}.imports = [home-manager-common-module];
           };
         };
