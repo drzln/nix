@@ -1,8 +1,5 @@
 # users/luis/plo/secrets/kubernetes.nix
-{lib, ...}: {
-  home.activation.kubernetes-config-pre-reqs = lib.mkBefore ''
-    [ ! -d /var/lib/blackmatter/pki ] && mkdir -p /var/lib/blackmatter/pki
-  '';
+{...}: {
   sops.secrets = {
     "kubernetes/ca/crt" = {
       sopsFile = ../../../../secrets.yaml;
