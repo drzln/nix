@@ -1,5 +1,4 @@
 # nodes/plo/containers/kubernetes/default.nix
-# nodes/plo/containers/kubernetes/default.nix
 {
   pkgs,
   requirements,
