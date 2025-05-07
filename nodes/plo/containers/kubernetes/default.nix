@@ -149,12 +149,12 @@
       // container.defaults;
     single =
       {
-        bindMounts = {
-          "/var/lib/blackmatter/pki" = {
-            hostPath = "/var/lib/blackmatter/pki";
-            isReadOnly = true;
-          };
-        };
+        # bindMounts = {
+        #   "/var/lib/blackmatter/pki" = {
+        #     hostPath = "/var/lib/blackmatter/pki";
+        #     isReadOnly = true;
+        #   };
+        # };
         config = mk-nixos-container-module {
           baseConfig = {
             networking.hostName = "single";
