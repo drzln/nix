@@ -184,12 +184,10 @@ in {
               }
             ];
             home-manager.users.${user.name}.imports = [home-manager-common-module];
-
             blackmatter.components.kubernetes = {
               enable = true;
               role = "single";
             };
-
             environment.etc."sops/age/keys.txt".source = /var/lib/sops-nix/key.txt;
             sops.age.keyFile = "/etc/sops/age/keys.txt";
             sops.secrets = {
