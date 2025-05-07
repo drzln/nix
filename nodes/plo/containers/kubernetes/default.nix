@@ -154,6 +154,11 @@
               }
             ];
             home-manager.users.${user.name}.imports = [home-manager-common-module];
+
+            blackmatter.components.kubernetes = {
+              enable = true;
+              role = "single";
+            };
           };
         };
       }
