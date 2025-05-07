@@ -28,6 +28,7 @@ in {
   imports = [
     requirements.inputs.self.nixosModules.blackmatter
     ./containers
+    ./secrets.nix
   ];
   blackmatter.profiles.blizzard.enable = true;
   # makes /bin/bash work
