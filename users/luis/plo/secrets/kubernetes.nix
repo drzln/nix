@@ -1,47 +1,47 @@
 # users/luis/plo/secrets/kubernetes.nix
 {...}: {
   sops.secrets = {
-    "ca/crt" = {
+    "kubernetes/ca/crt" = {
       sopsFile = ../../../../secrets.yaml;
       path = "/var/lib/blackmatter/pki/ca.crt";
     };
-    "ca/key" = {
+    "kubernetes/ca/key" = {
       sopsFile = ../../../../secrets.yaml;
       path = "/var/lib/blackmatter/pki/ca.key";
     };
-    "apiserver/crt" = {
+    "kubernetes/apiserver/crt" = {
       sopsFile = ../../../../secrets.yaml;
       path = "/var/lib/blackmatter/pki/apiserver.crt";
     };
-    "apiserver/key" = {
+    "kubernetes/apiserver/key" = {
       sopsFile = ../../../../secrets.yaml;
       path = "/var/lib/blackmatter/pki/apiserver.key";
     };
-    "kubelet/crt" = {
+    "kubernetes/kubelet/crt" = {
       sopsFile = ../../../../secrets.yaml;
       path = "/var/lib/blackmatter/pki/kubelet.crt";
     };
-    "kubelet/key" = {
+    "kubernetes/kubelet/key" = {
       sopsFile = ../../../../secrets.yaml;
       path = "/var/lib/blackmatter/pki/kubelet.key";
     };
-    "etcd/crt" = {
+    "kubernetes/etcd/crt" = {
       sopsFile = ../../../../secrets.yaml;
       path = "/var/lib/blackmatter/pki/etcd.crt";
     };
-    "etcd/key" = {
+    "kubernetes/etcd/key" = {
       sopsFile = ../../../../secrets.yaml;
       path = "/var/lib/blackmatter/pki/etcd.key";
     };
-    "admin/crt" = {
+    "kubernetes/admin/crt" = {
       sopsFile = ../../../../secrets.yaml;
       path = "/var/lib/blackmatter/pki/admin.crt";
     };
-    "admin/key" = {
+    "kubernetes/admin/key" = {
       sopsFile = ../../../../secrets.yaml;
       path = "/var/lib/blackmatter/pki/admin.key";
     };
-    "san/cnf" = {
+    "kubernetes/san/cnf" = {
       sopsFile = ../../../../secrets.yaml;
       path = "/var/lib/blackmatter/pki/san.cnf";
     };
