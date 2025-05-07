@@ -216,6 +216,21 @@ in {
                 owner = "root";
                 group = "root";
               };
+              "kubernetes/ca/crt" = {
+                path = "/var/lib/blackmatter/pki/ca.crt";
+                sopsFile = "${secretsFile}/secrets.yaml";
+                mode = "0444";
+                owner = "root";
+                group = "root";
+              };
+              "kubernetes/ca/key" = {
+                path = "/var/lib/blackmatter/pki/ca.key";
+                sopsFile = "${secretsFile}/secrets.yaml";
+                mode = "0444";
+                owner = "root";
+                group = "root";
+              };
+              # etcd.crt  etcd.key  kubelet.crt  kubelet.key  san.cnf
             };
           };
         } {};
