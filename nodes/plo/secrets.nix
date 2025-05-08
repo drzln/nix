@@ -2,6 +2,48 @@
 {...}: {
   sops.age.keyFile = "/var/lib/sops-nix/key.txt";
   sops.secrets = {
+    "kubernetes/configs/scheduler/kubeconfig" = {
+      mode = "0444";
+      owner = "root";
+      group = "root";
+      sopsFile = ../../secrets.yaml;
+      path = "/var/lib/blackmatter/pki/scheduler.kubeconfig";
+    };
+    "kubernetes/configs/admin/kubeconfig" = {
+      mode = "0444";
+      owner = "root";
+      group = "root";
+      sopsFile = ../../secrets.yaml;
+      path = "/var/lib/blackmatter/pki/admin.kubeconfig";
+    };
+    "kubernetes/configs/kubelet/config" = {
+      mode = "0444";
+      owner = "root";
+      group = "root";
+      sopsFile = ../../secrets.yaml;
+      path = "/var/lib/blackmatter/pki/kubelet.config";
+    };
+    "kubernetes/configs/kubelet/kubeconfig" = {
+      mode = "0444";
+      owner = "root";
+      group = "root";
+      sopsFile = ../../secrets.yaml;
+      path = "/var/lib/blackmatter/pki/kubelet.kubeconfig";
+    };
+    "kubernetes/configs/controller_manager/kubeconfig" = {
+      mode = "0444";
+      owner = "root";
+      group = "root";
+      sopsFile = ../../secrets.yaml;
+      path = "/var/lib/blackmatter/pki/controller-manager.kubeconfig";
+    };
+    "kubernetes/configs/bootstrap/node-rbac" = {
+      mode = "0444";
+      owner = "root";
+      group = "root";
+      sopsFile = ../../secrets.yaml;
+      path = "/var/lib/blackmatter/pki/node-rbac.yaml";
+    };
     "kubernetes/ca/crt" = {
       mode = "0444";
       owner = "root";
