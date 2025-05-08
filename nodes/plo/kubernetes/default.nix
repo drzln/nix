@@ -1,6 +1,6 @@
 {...}: {
   blackmatter.components.kubernetes = {
-    enable = true;
+    enable = false;
     role = "single";
   };
 }
