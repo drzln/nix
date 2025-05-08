@@ -30,7 +30,7 @@
       sopsFile = ../../secrets.yaml;
       path = "/var/lib/blackmatter/pki/kubelet.kubeconfig";
     };
-    "kubernetes/configs/controller_manager/kubeconfig" = {
+    "kubernetes/configs/controller-manager/kubeconfig" = {
       mode = "0444";
       owner = "root";
       group = "root";
