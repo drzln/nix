@@ -36,6 +36,7 @@ in {
   services.envfs.enable = true;
   environment.systemPackages = with pkgs; [
     kubectl
+    runc
   ];
   users.users.luis =
     {
