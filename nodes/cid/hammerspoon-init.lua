@@ -45,6 +45,6 @@
 -- 	end
 -- 	run([[killall Dock]])
 -- end)
-hs.hotkey.bind({ "cmd" }, "space", function()
-	hs.alert.show("Triggered")
-end)
+-- hs.hotkey.bind({ "cmd" }, "space", function()
+-- 	hs.alert.show("Triggered")
+-- end)
