@@ -1,7 +1,7 @@
 -- nodes/cid/hammerspoon-init.lua
-local function run(cmd)
-	hs.execute(cmd, true)
-end
+-- local function run(cmd)
+-- 	hs.execute(cmd, true)
+-- end
 
 -- local function dockIsAutoHidden()
 -- 	local out = run([[defaults read com.apple.dock autohide || echo 0]])
@@ -11,11 +11,11 @@ end
 ------------------------------------------------------------------
 -- Raycast helpers
 ------------------------------------------------------------------
-local function showRaycast()
-	-- simulate the default Raycast shortcut: ⌘ + space
-	hs.eventtap.keyStroke({ "cmd" }, "space", 0)
-end
-hs.hotkey.bind({ "cmd" }, "space", showRaycast)
+-- local function showRaycast()
+-- 	-- simulate the default Raycast shortcut: ⌘ + space
+-- 	hs.eventtap.keyStroke({ "cmd" }, "space", 0)
+-- end
+-- hs.hotkey.bind({ "cmd" }, "space", showRaycast)
 ------------------------------------------------------------------
 -- Spotlight helpers
 ------------------------------------------------------------------
@@ -45,3 +45,6 @@ hs.hotkey.bind({ "cmd" }, "space", showRaycast)
 -- 	end
 -- 	run([[killall Dock]])
 -- end)
+hs.hotkey.bind({ "cmd" }, "space", function()
+	hs.alert.show("Triggered")
+end)
