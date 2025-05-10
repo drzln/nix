@@ -1,7 +1,6 @@
 # 🧬 drzzln/nix
 
 **Composable, modular NixOS platform configurations — hardened, automated, and deeply DRY.**
-
 This flake powers all my computing infrastructure. Built on [`flake-parts`](https://flake.parts) for maximum flexibility and maintainability.
 
 ---
