@@ -1,3 +1,4 @@
+# modules/nixos/blackmatter/profiles/blizzard/sound/default.nix
 {
   services.pipewire = {
     enable = true;
@@ -6,7 +7,5 @@
     jack.enable = true;
   };
   services.pipewire.wireplumber.enable = true;
-
-  services.pulseaudio.enable = false; # Disable PulseAudio
-  # sound.enable = false; # Disable ALSA handling
+  services.pulseaudio.enable = false;
 }
