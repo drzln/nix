@@ -74,31 +74,27 @@ local function tbl_indexof(tbl, val)
 end
 
 -- Load .lua modules from `dir` and all subdirectories
-function M.load_files(dir)
-	local parts = M.split(dir, "/")
+function M.load_files(base_path)
+	local parts = split(base_path)
 	local lua_index = tbl_indexof(parts, "lua")
-	if not lua_index then
-		return
-	end
+	if not lua_index then return end
 
-	local base_module = table.concat(vim.list_slice(parts, lua_index + 1), ".")
+	local base_mod = table.concat(vim.list_slice(parts, lua_index + 1), ".")
 
-	-- Load files in the base directory
-	for _, file in ipairs(M.list_files(dir)) do
+	-- Load all top-level .lua files (like includes/init.lua)
+	for _, file in ipairs(list_files(base_path)) do
 		local modname = file:gsub("%.lua$", "")
-		load_module(base_module .. "." .. modname)
+		load_module(base_mod .. "." .. modname)
 	end
 
-	-- Load files in all subdirectories
-	for _, subdir in ipairs(M.list_directories(dir)) do
-		local rel_parts = M.split(subdir, "/")
+	-- Recursively load init.lua from all subdirs (like includes.common.init)
+	for _, subdir in ipairs(list_dirs(base_path)) do
+		local rel_parts = split(subdir)
 		local modpath = table.concat(vim.list_slice(rel_parts, lua_index + 1), ".")
-
-		for _, file in ipairs(M.list_files(subdir)) do
+		for _, file in ipairs(list_files(subdir)) do
 			local modname = file:gsub("%.lua$", "")
 			load_module(modpath .. "." .. modname)
 		end
 	end
 end
-
 return M
