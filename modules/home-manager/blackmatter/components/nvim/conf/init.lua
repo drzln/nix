@@ -10,8 +10,8 @@ vim.notify = function(msg, level, opts)
 end
 
 -- Load module loader
-local loader = require("includes.loader")
+local utils = require("utils")
 
 -- Expand ~ and load all includes
 local lua_home = vim.fn.expand("~/.config/nvim/lua/includes")
-loader.load_files(lua_home)
+utils.load_files(lua_home)
