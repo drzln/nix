@@ -30,6 +30,8 @@ in {
     inputs.nix-kubernetes.nixosModules.kubernetes
     ./kubernetes
     ./secrets.nix
+    ./base-configuration.nix
+    ./base-hardware.nix
   ];
   blackmatter.profiles.blizzard.enable = true;
   # makes /bin/bash work
