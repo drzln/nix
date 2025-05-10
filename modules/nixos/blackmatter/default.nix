@@ -8,7 +8,7 @@
 in {
   imports = [
     ./profiles
-    ./components
+    # ./components
   ];
 
   # options = {
