@@ -128,7 +128,6 @@ return {
 	"bright_script",
 	"glsl_analyzer",
 	"helm_ls",
-	"zls",
 	"buf_ls",
 	"hoon_ls",
 	"terraformls",
