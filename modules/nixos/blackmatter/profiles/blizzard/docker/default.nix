@@ -1,4 +1,4 @@
-# modules/nixos/blackmatter/profiles/blizzard/docker.nix
+# modules/nixos/blackmatter/profiles/blizzard/docker/default.nix
 {...}: {
   systemd.services.docker.serviceConfig = {
     LimitNOFILE = "1048576";
