@@ -7,7 +7,7 @@ in {
   flake.nixosModules = import ../modules/nixos;
 
   flake.nixosConfigurations = import ../nixosConfigurations {
-    inherit (inputs) nixpkgs sops-nix;
+    inherit (inputs) nixpkgs;
     inherit specialArgs;
   };
 }
