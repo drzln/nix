@@ -8,7 +8,7 @@ with lib; let
   plugName = name;
   cfg = config.blackmatter.components.nvim.plugin.groups.${name};
   common = import ../../common;
-  configPath = "${common.includesPath}/groups/${plugName}/init.lua";
+  configPath = "${common.includesPath}/${plugName}/init.lua";
 in {
   options.blackmatter.components.nvim.plugin.groups.completion = {
     enable = mkEnableOption name;

@@ -13,5 +13,7 @@ end
 local utils = require("utils")
 
 -- Expand ~ and load all includes
-local lua_home = vim.fn.expand("~/.config/nvim/lua/includes")
-utils.load_files(lua_home)
+-- local lua_home = vim.fn.expand("~/.config/nvim/lua/includes")
+-- utils.load_files(lua_home)
+require('common')
+require('formatting')
