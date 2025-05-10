@@ -1,7 +1,7 @@
 # user/luis/plo/blackmatter.nix
-{requirements, ...}: {
+{inputs, ...}: {
   imports = [
-    requirements.inputs.self.homeManagerModules.blackmatter
+    inputs.self.homeManagerModules.blackmatter
   ];
   blackmatter.enable = true;
   blackmatter.profiles.winter.enable = false;
