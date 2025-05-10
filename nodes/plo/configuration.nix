@@ -18,7 +18,6 @@
     ];
     packages = with pkgs; [
       home-manager
-      element-desktop
     ];
   };
 in {
