@@ -1,6 +1,17 @@
 local M = {}
 
 function M.setup()
+	vim.diagnostic.config({
+		virtual_text = true,
+		signs = true,
+		update_in_insert = false,
+		severity_sort = true,
+	})
+
+	vim.filetype.add({
+		pattern = { [".*%.rockspec"] = "lua" },
+	})
+
 	local mason = require("mason")
 	local mason_lspconfig = require("mason-lspconfig")
 	local lspconfig = require("lspconfig")
@@ -283,6 +294,9 @@ function M.setup()
 			},
 		},
 		nixd = {
+			on_attach = function(_, _)
+				vim.lsp.handlers["textDocument/didSave"] = function(...) end
+			end,
 			settings = {
 				nixd = {
 					options = {
