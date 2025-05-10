@@ -1,8 +1,8 @@
 # homeConfigurations/default.nix
 {
+  extraSpecialArgs,
   home-manager,
   sops-nix,
-  extraSpecialArgs,
   pkgs,
   ...
 }: {
