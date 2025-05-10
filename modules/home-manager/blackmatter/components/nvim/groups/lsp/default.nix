@@ -41,6 +41,7 @@ in {
         home.file."${configPath}/mason.lua".source = ./mason.lua;
         home.file."${configPath}/servers.lua".source = ./servers.lua;
         home.file."${configPath}/utils.lua".source = ./utils.lua;
+        home.file."${configPath}/exclude_list.lua".source = ./exclude_list.lua;
         home.packages = with pkgs;
         with dotnetCorePackages;
         with rubyPackages_3_4;
