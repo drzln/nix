@@ -1,4 +1,3 @@
-
 require("includes.common").setup()
 require("includes.treesitter").setup()
 require("includes.keybindings").setup()
