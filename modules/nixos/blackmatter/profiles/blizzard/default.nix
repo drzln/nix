@@ -1,3 +1,4 @@
+# modules/nixos/blackmatter/profiles/blizzard/default.nix
 {
   config,
   pkgs,
