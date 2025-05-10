@@ -75,7 +75,7 @@ end
 
 -- Load .lua modules from `dir` and all subdirectories
 function M.load_files(base_path)
-	local parts = split(base_path)
+	local parts = M.split(base_path)
 	local lua_index = tbl_indexof(parts, "lua")
 	if not lua_index then return end
 
