@@ -1,10 +1,10 @@
 {
   lib,
-  config,
+  # config,
   ...
 }:
 with lib; let
-  cfg = config.blackmatter.components;
+  # cfg = config.blackmatter.components;
 in {
   imports = [
     ./microservices
