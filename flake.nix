@@ -1,7 +1,6 @@
 # flake.nix
 {
   description = "drzzln nix configurations";
-
   inputs = {
     flake-parts.url = "github:hercules-ci/flake-parts";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -21,12 +20,10 @@
       url = "github:Pamplemousse/tangerinixos";
       flake = false;
     };
-
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
     hyprland.inputs.nixpkgs.follows = "nixpkgs";
     hyprland-plugins.inputs.hyprland.follows = "hyprland";
   };
-
   outputs = inputs @ {flake-parts, ...}:
     flake-parts.lib.mkFlake {inherit inputs;} {
       imports = [
