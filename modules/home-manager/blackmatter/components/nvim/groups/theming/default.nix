@@ -7,7 +7,7 @@
 with lib; let
   cfg = config.blackmatter.components.nvim.plugin.groups.theming;
   common = import ../../common;
-  configPath = "${common.includesPath}/theming/config.lua";
+  configPath = "${common.includesPath}/theming/init.lua";
 in {
   options.blackmatter.components.nvim.plugin.groups.theming = {
     enable = mkEnableOption "theming";
@@ -22,7 +22,7 @@ in {
     (
       mkIf cfg.enable
       {
-        home.file."${configPath}".source = ./config.lua;
+        home.file."${configPath}".source = ./init.lua;
         blackmatter.components.nvim.plugins = {
           shaunsingh."nord.nvim".enable = true;
           nvim-lualine."lualine.nvim".enable = true;
