@@ -246,7 +246,6 @@ in {
         background_color = "${nord.colors.i3lock.background.blue}"
       '';
 
-      # audio requirements and polybar assistance
       home.packages = with pkgs;
         [
         ]
