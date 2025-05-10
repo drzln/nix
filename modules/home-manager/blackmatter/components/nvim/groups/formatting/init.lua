@@ -2,6 +2,7 @@ local M = {}
 function M.setup()
 	require("conform").setup({
 		formatters_by_ft = {
+			zig = { "zigfmt" },
 			["terraform-vars"] = { "terraform_fmt" },
 			java = { "google-java-format" },
 			swift = { "swift_format" },
@@ -25,5 +26,4 @@ function M.setup()
 		},
 	})
 end
-
 return M
