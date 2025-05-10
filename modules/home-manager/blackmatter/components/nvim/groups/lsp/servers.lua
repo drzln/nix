@@ -1,3 +1,4 @@
+-- modules/home-manager/blackmatter/components/nvim/groups/lsp/servers.lua
 local common = {
 	capabilities = require("cmp_nvim_lsp").default_capabilities(),
 }
