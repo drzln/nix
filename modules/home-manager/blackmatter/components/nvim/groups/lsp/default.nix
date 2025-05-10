@@ -7,7 +7,7 @@
 with lib; let
   cfg = config.blackmatter.components.nvim.plugin.groups.lsp;
   common = import ../../common;
-  configPath = "${common.includesPath}/lsp/config.lua";
+  configPath = "${common.includesPath}/lsp/init.lua";
 in {
   options.blackmatter.components.nvim.plugin.groups.lsp = {
     enable = mkEnableOption "lsp";
@@ -35,7 +35,7 @@ in {
           rm -rf ~/.local/share/nvim/mason/bin/ruby-lsp
           rm -rf ~/.local/share/nvim/mason/bin/tree-sitter
         '';
-        home.file."${configPath}".source = ./config.lua;
+        home.file."${configPath}".source = ./init.lua;
         home.packages = with pkgs;
         with dotnetCorePackages;
         with rubyPackages_3_4;
