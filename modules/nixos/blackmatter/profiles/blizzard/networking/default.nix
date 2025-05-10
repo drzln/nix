@@ -1,10 +1,11 @@
-{ ... }: {
+# modules/nixos/blackmatter/profiles/blizzard/meta/default.nix
+{...}: {
   networking.networkmanager.enable = true;
   # networking.firewall.enable = false;
   # networking.firewall.extraCommands = ''
   #   ip46tables -I INPUT 1 -i vboxnet+ -p tcp -m tcp --dport 2049 -j ACCEPT
   # '';
-  networking.wireless.interfaces = [ "wlp0s20f3" ];
+  networking.wireless.interfaces = ["wlp0s20f3"];
   services.openssh.enable = true;
   services.openssh.settings.PermitRootLogin = "yes";
   services.openssh.settings.PasswordAuthentication = true;
