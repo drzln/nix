@@ -64,10 +64,19 @@ local function load_module(modpath)
 	end
 end
 
+local function tbl_indexof(tbl, val)
+	for i, v in ipairs(tbl) do
+		if v == val then
+			return i
+		end
+	end
+	return nil
+end
+
 -- Load .lua modules from `dir` and all subdirectories
 function M.load_files(dir)
 	local parts = M.split(dir, "/")
-	local lua_index = vim.tbl_indexof(parts, "lua")
+	local lua_index = tbl_indexof(parts, "lua")
 	if not lua_index then
 		return
 	end
