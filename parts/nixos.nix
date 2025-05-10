@@ -1,7 +1,11 @@
 # parts/nixos.nix
-{inputs, ...}: let
+{
+  inputs,
+  sops-nix,
+  ...
+}: let
   specialArgs = {
-    inherit inputs;
+    inherit inputs sops-nix;
   };
 in {
   flake.nixosModules = import ../modules/nixos;
