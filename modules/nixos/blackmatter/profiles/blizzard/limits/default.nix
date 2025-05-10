@@ -44,10 +44,10 @@
       domain = "*";
     }
     {
-      domain = "*";
-      type = "hard";
-      item = "memlock";
       value = "unlimited";
+      item = "memlock";
+      type = "hard";
+      domain = "*";
     }
     {
       value = "unlimited";
