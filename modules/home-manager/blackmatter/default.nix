@@ -1,10 +1,6 @@
 {lib, ...}:
 with lib; {
-  imports = [
-    ./profiles
-    # ./components
-  ];
-
+  imports = [./profiles];
   options = {
     blackmatter = {
       enable = mkEnableOption "enable blackmatter";
