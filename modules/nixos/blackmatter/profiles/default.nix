@@ -1,3 +1,4 @@
+# modules/nixos/blackmatter/profiles/default.nix
 {
   # lib,
   # config,
