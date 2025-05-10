@@ -1,11 +1,11 @@
 # users/luis/plo/home.nix
 {...}: {
   imports = [
+    ../../../common.nix
     ./blackmatter.nix
     ./packages.nix
     ./secrets
   ];
-  home.stateVersion = "24.05";
   home.username = "luis";
   home.homeDirectory = "/home/luis";
   programs.ssh.enable = true;
