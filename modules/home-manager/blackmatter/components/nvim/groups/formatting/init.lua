@@ -1,6 +1,13 @@
 local M = {}
 function M.setup()
 	require("conform").setup({
+		formatters = {
+			zigfmt = {
+				command = "zig",
+				args = { "fmt", "--stdin" },
+				stdin = true,
+			},
+		},
 		formatters_by_ft = {
 			zig = { "zigfmt" },
 			["terraform-vars"] = { "terraform_fmt" },
