@@ -1,3 +1,4 @@
+# parts/overlays.nix
 {inputs, ...}: {
   flake.overlays =
     builtins.attrValues inputs.sops-nix.overlays
