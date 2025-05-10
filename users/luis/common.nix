@@ -12,6 +12,6 @@
     SetEnv TERM=xterm-256color
   '';
   blackmatter.components.gitconfig.enable = true;
-  blackmatter.components.gitconfig.email = "luis@pleme.io";
-  blackmatter.components.gitconfig.user = "luis";
+  blackmatter.components.gitconfig.email = "drzzln@protonmail.com";
+  blackmatter.components.gitconfig.user = "drzln";
 }
