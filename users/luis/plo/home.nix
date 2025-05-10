@@ -1,7 +1,7 @@
 # users/luis/plo/home.nix
 {...}: {
   imports = [
-    ../../../common.nix
+    ../../common.nix
     ./blackmatter.nix
     ./packages.nix
     ./secrets
