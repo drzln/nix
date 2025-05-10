@@ -7,7 +7,6 @@
   time.timeZone = "America/New_York";
   networking.firewall.allowedTCPPorts = [22 2222];
   networking.firewall.enable = false;
-  # Basic system settings
   boot.loader.grub.device = "nodev"; # Direct kernel boot with QEMU
   networking.useDHCP = true;
   users.users.ldesiqueira = {
@@ -17,7 +16,6 @@
     password = "letmein";
     shell = pkgs.zsh;
   };
-  # OpenSSH for remote access
   services.openssh.enable = true;
   services.openssh.permitRootLogin = "yes";
   services.openssh.passwordAuthentication = true;
@@ -28,18 +26,14 @@
   '';
   systemd.services.sshd.serviceConfig.StandardOutput = "journal+console";
   systemd.services.sshd.serviceConfig.StandardError = "journal+console";
-  # Networking
   networking.interfaces.eth0.useDHCP = true;
-  # System Packages
   environment.systemPackages = with pkgs; [
-    vim # Text editor
-    git # Version control
-    htop # System monitoring
-    curl # Network tool
+    htop
+    curl
+    vim
+    git
   ];
-  # Enable QEMU guest services
   virtualisation.qemu.guestAgent.enable = true;
   services.qemuGuest.enable = true;
-  # Default target
   systemd.services.default.target = "multi-user.target";
 }
