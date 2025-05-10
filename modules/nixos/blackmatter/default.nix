@@ -1,17 +1,19 @@
-{ lib, config, ... }:
-with lib;
-let
-  cfg = config.blackmatter;
-in
+# modules/nixos/blackmatter/default.nix
 {
+  # lib,
+  # config,
+  ...
+}: let
+  # cfg = config.blackmatter;
+in {
   imports = [
     ./profiles
-		./components
+    ./components
   ];
 
-  options = {
-    blackmatter = {
-      enable = mkEnableOption "enable blackmatter";
-    };
-  };
+  # options = {
+  #   blackmatter = {
+  #     enable = mkEnableOption "enable blackmatter";
+  #   };
+  # };
 }
