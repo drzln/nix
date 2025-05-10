@@ -1,9 +1,9 @@
 -- modules/home-manager/blackmatter/components/nvim/groups/lsp/mason.lua
-local lspconfig = require("lspconfig")
-local mason = require("mason")
 local mason_lspconfig = require("mason-lspconfig")
-local utils = require("lsp.utils")
 local servers = require("lsp.servers")
+local lspconfig = require("lspconfig")
+local utils = require("lsp.utils")
+local mason = require("mason")
 local M = {}
 function M.setup()
 	mason.setup()
@@ -13,10 +13,7 @@ function M.setup()
 	local to_install = vim.tbl_filter(function(server)
 		return not utils.is_excluded(server) and not utils.is_configure_only(server)
 	end, available_servers)
-	mason_lspconfig.setup({
-		ensure_installed = to_install,
-		automatic_installation = false,
-	})
+	mason_lspconfig.setup({ ensure_installed = to_install, automatic_installation = false })
 	for _, server in ipairs(available_servers) do
 		if not utils.is_excluded(server) then
 			local ok, err = pcall(function()
