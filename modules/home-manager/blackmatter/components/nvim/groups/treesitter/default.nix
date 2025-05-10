@@ -6,7 +6,7 @@
 with lib; let
   cfg = config.blackmatter.components.nvim.plugin.groups.treesitter;
   common = import ../../common;
-  configPath = "${common.includesPath}/treesitter/config.lua";
+  configPath = "${common.includesPath}/treesitter/init.lua";
 in {
   options.blackmatter.components.nvim.plugin.groups.treesitter = {
     enable = mkEnableOption "treesitter";
@@ -29,7 +29,7 @@ in {
     (
       mkIf cfg.enable
       {
-        home.file."${configPath}".source = ./config.lua;
+        home.file."${configPath}".source = ./init.lua;
         blackmatter.components.nvim.plugins = {
           nvim-treesitter.nvim-treesitter.enable = true;
           JoosepAlviste.nvim-ts-context-commentstring.enable = true;
