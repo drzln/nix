@@ -14,15 +14,11 @@ end
 function M.list_directories(path)
 	local result = {}
 	local p = vim.loop.fs_scandir(path)
-	if not p then
-		return result
-	end
+	if not p then return result end
 
 	while true do
 		local name, t = vim.loop.fs_scandir_next(p)
-		if not name then
-			break
-		end
+		if not name then break end
 		if t == "directory" then
 			table.insert(result, path .. "/" .. name)
 		end
@@ -35,15 +31,11 @@ end
 function M.list_files(path)
 	local result = {}
 	local p = vim.loop.fs_scandir(path)
-	if not p then
-		return result
-	end
+	if not p then return result end
 
 	while true do
 		local name, t = vim.loop.fs_scandir_next(p)
-		if not name then
-			break
-		end
+		if not name then break end
 		if t == "file" and name:match("%.lua$") then
 			table.insert(result, name)
 		end
@@ -64,11 +56,10 @@ local function load_module(modpath)
 	end
 end
 
+-- Index lookup helper
 local function tbl_indexof(tbl, val)
 	for i, v in ipairs(tbl) do
-		if v == val then
-			return i
-		end
+		if v == val then return i end
 	end
 	return nil
 end
@@ -81,15 +72,15 @@ function M.load_files(base_path)
 
 	local base_mod = table.concat(vim.list_slice(parts, lua_index + 1), ".")
 
-	-- Load all top-level .lua files (like includes/init.lua)
+	-- Load all top-level .lua files
 	for _, file in ipairs(M.list_files(base_path)) do
 		local modname = file:gsub("%.lua$", "")
 		load_module(base_mod .. "." .. modname)
 	end
 
-	-- Recursively load init.lua from all subdirs (like includes.common.init)
-	for _, subdir in ipairs(M.list_dirs(base_path)) do
-		local rel_parts = split(subdir)
+	-- Recursively load init.lua and other files in subdirectories
+	for _, subdir in ipairs(M.list_directories(base_path)) do
+		local rel_parts = M.split(subdir)
 		local modpath = table.concat(vim.list_slice(rel_parts, lua_index + 1), ".")
 		for _, file in ipairs(M.list_files(subdir)) do
 			local modname = file:gsub("%.lua$", "")
@@ -97,4 +88,5 @@ function M.load_files(base_path)
 		end
 	end
 end
+
 return M
