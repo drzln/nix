@@ -4,8 +4,8 @@
   specialArgs,
 }: {
   plo = nixpkgs.lib.nixosSystem {
+    inherit specialArgs;
     system = "x86_64-linux";
-    specialArgs = specialArgs;
     modules = [
       ./plo/configuration.nix
     ];
