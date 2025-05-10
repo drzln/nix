@@ -1,3 +1,4 @@
+-- modules/home-manager/blackmatter/components/nvim/conf/init.lua
 require("groups.common").setup()
 require("groups.treesitter").setup()
 require("groups.keybindings").setup()
