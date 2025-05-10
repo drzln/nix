@@ -1,7 +1,7 @@
 # darwinConfigurations/default.nix
 {
-  nix-darwin,
   home-manager,
+  nix-darwin,
   inputs,
   pkgs,
 }: {
