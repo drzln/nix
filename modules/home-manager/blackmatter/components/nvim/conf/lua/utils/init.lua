@@ -1,59 +1,8 @@
 local M = {}
 
---[[
-This function loads files from a given directory.
-
-Parameters:
-dir (string): The directory to load files from.
---]]
-function M.load_files(dir)
-	local directories = M.list_directories(dir)
-	for _, directory in ipairs(directories) do
-		local substrings = M.split(directory, "/")
-		for _, file in ipairs(M.list_files(directory)) do
-			local thisfile = string.gsub(file, "%.lua$", "")
-			local path = string.format("includes.%s.%s", substrings[#substrings], thisfile)
-			require(path).setup()
-		end
-	end
-end
-
---[[
-This function lists directories at a given path.
-
-Parameters:
-path (string): The path to list directories from.
-
-Returns:
-table: A table of directory paths.
---]]
-function M.list_directories(path)
-	local cmd = string.format("ls -d %s/*/ 2>/dev/null", path)
-	local handle = io.popen(cmd)
-	local result = nil
-	if handle then
-		result = handle:read("*a")
-		handle:close()
-	end
-	local directories = {}
-	for dir in result:gmatch("(.-)\n") do
-		table.insert(directories, dir)
-	end
-	return directories
-end
-
---[[
-This function splits a string by a given separator.
-
-Parameters:
-str (string): The string to split.
-sep (string): The separator to split by. Defaults to space.
-
-Returns:
-table: A table of substrin
---]]
+-- Split a path string into components by separator
 function M.split(str, sep)
-	sep = sep or "%s"
+	sep = sep or "/"
 	local parts = {}
 	for match in string.gmatch(str, "([^" .. sep .. "]+)") do
 		table.insert(parts, match)
@@ -61,101 +10,86 @@ function M.split(str, sep)
 	return parts
 end
 
---[[
-This function lists files at a given path.
+-- List immediate subdirectories
+function M.list_directories(path)
+	local result = {}
+	local p = vim.loop.fs_scandir(path)
+	if not p then
+		return result
+	end
 
-Parameters:
-path (string): The path to list files from.
-
-Returns:
-table: A table of file names.
---]]
-function M.list_files(path)
-	local files = {}
-	for file in io.popen("ls " .. path .. " 2>/dev/null"):lines() do
-		if not file:match("/$") then
-			table.insert(files, file)
+	while true do
+		local name, t = vim.loop.fs_scandir_next(p)
+		if not name then
+			break
+		end
+		if t == "directory" then
+			table.insert(result, path .. "/" .. name)
 		end
 	end
-	return files
+
+	return result
 end
 
---[[
-This function removes the file extension from a given filename.
+-- List `.lua` files (no recursion)
+function M.list_files(path)
+	local result = {}
+	local p = vim.loop.fs_scandir(path)
+	if not p then
+		return result
+	end
 
-Parameters:
-filename (string): The filename to remove the extension from.
+	while true do
+		local name, t = vim.loop.fs_scandir_next(p)
+		if not name then
+			break
+		end
+		if t == "file" and name:match("%.lua$") then
+			table.insert(result, name)
+		end
+	end
 
-Returns:
-string: The filename without the extension.
---]]
--- function M.remove_file_extension(filename)
--- 	local basename = filename:match("(.+)%.[^.]*$")
--- 	return basename or filename
--- end
+	return result
+end
 
---[[
-This function gets subdirectories of a given directory.
+-- Load a single module safely with setup()
+local function load_module(modpath)
+	local ok, mod = pcall(require, modpath)
+	if not ok then
+		vim.notify("Failed to load module: " .. modpath, vim.log.levels.WARN)
+		return
+	end
+	if type(mod.setup) == "function" then
+		pcall(mod.setup)
+	end
+end
 
-Parameters:
-directory (string): The directory to get subdirectories from.
+-- Load .lua modules from `dir` and all subdirectories
+function M.load_files(dir)
+	local parts = M.split(dir, "/")
+	local lua_index = vim.tbl_indexof(parts, "lua")
+	if not lua_index then
+		return
+	end
 
-Returns:
-table: A table of subdirectory paths.
---]]
--- function M.get_subdirectories(directory)
--- 	local subdirectories = {}
--- 	local handle = io.popen(
--- 		"find " .. directory .. " -maxdepth 1 -type d -not -name '.' 2>/dev/null"
--- 	)
--- 	if handle then
--- 		for entry in handle:lines() do
--- 			table.insert(subdirectories, entry)
--- 		end
--- 		handle:close()
--- 	end
--- 	return subdirectories
--- end
+	local base_module = table.concat(vim.list_slice(parts, lua_index + 1), ".")
 
---[[
-This function gets files from a given module.
+	-- Load files in the base directory
+	for _, file in ipairs(M.list_files(dir)) do
+		local modname = file:gsub("%.lua$", "")
+		load_module(base_module .. "." .. modname)
+	end
 
-Parameters:
-module_name (string): The name of the module to get files from.
+	-- Load files in all subdirectories
+	for _, subdir in ipairs(M.list_directories(dir)) do
+		local rel_parts = M.split(subdir, "/")
+		local modpath = table.concat(vim.list_slice(rel_parts, lua_index + 1), ".")
 
-Returns:
-table: A table of file paths.
---]]
--- function M.get_files(module_name)
--- 	local path = package.searchpath(module_name, package.path)
--- 	local files = {}
--- 	if path then
--- 		local handle = io.popen("find " .. path:match("(.*/)") .. " -type f 2>/dev/null")
--- 		if handle then
--- 			for entry in handle:lines() do
--- 				table.insert(files, entry)
--- 			end
--- 			handle:close()
--- 		end
--- 	end
--- 	return files
--- end
-
---[[
--- safely load module with a warning
---
--- Parameters:
--- module_name: string
---
--- Returns:
--- module or false
---]]
--- function M.safe_module_load(module_name)
--- 	local status_ok = pcall(require, module_name)
--- 	if not status_ok then
--- 		print(module_name .. " not working")
--- 	end
--- 	return false
--- end
+		for _, file in ipairs(M.list_files(subdir)) do
+			local modname = file:gsub("%.lua$", "")
+			load_module(modpath .. "." .. modname)
+		end
+	end
+end
 
 return M
