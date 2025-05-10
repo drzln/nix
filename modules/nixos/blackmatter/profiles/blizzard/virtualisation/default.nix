@@ -1,4 +1,5 @@
-{ ... }: {
+# modules/nixos/blackmatter/profiles/blizzard/virtualisation/default.nix
+{...}: {
   virtualisation.libvirtd.enable = false;
   virtualisation.podman.enable = false;
   virtualisation.podman.dockerSocket.enable = false;
