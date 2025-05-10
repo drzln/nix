@@ -1,6 +1,6 @@
+# modules/nixos/blackmatter/components/default.nix
 {
   imports = [
-    # ./kubernetes
     ./microservices
     ./goomba
   ];
