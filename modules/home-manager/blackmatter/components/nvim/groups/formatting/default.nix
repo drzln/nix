@@ -7,7 +7,7 @@
 with lib; let
   cfg = config.blackmatter.components.nvim.plugin.groups.formatting;
   common = import ../../common;
-  configPath = "${common.includesPath}/formatting/config.lua";
+  configPath = "${common.includesPath}/formatting/init.lua";
 in {
   options.blackmatter.components.nvim.plugin.groups.formatting = {
     enable = mkEnableOption "manage formatting";
@@ -22,7 +22,7 @@ in {
       mkIf cfg.enable
       {
         home.packages = with pkgs; [rustfmt taplo shfmt php83Packages.php-cs-fixer];
-        home.file."${configPath}".source = ./config.lua;
+        home.file."${configPath}".source = ./init.lua;
         blackmatter.components.nvim.plugins = {
           # formatting framework
           stevearc."conform.nvim".enable = true;
