@@ -17,10 +17,7 @@ in
     mkMerge [
       (mkIf cfg.enable
         {
-          blackmatter.components.nvim.plugins =
-            {
-              christoomey.vim-tmux-navigator.enable = true;
-            };
+          blackmatter.components.nvim.plugins = {christoomey.vim-tmux-navigator.enable = true;};
         }
       )
     ];
