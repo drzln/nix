@@ -2,7 +2,7 @@
 
 **Composable, modular NixOS platform configurations — hardened, automated, and deeply DRY.**
 
-This flake powers a multi-platform setup including Kubernetes clusters, development environments, home/darwin systems, and fully declarative infrastructure. Built on [`flake-parts`](https://flake.parts) for maximum flexibility and maintainability.
+This flake powers all my computing infrastructure. Built on [`flake-parts`](https://flake.parts) for maximum flexibility and maintainability.
 
 ---
 
@@ -11,9 +11,7 @@ This flake powers a multi-platform setup including Kubernetes clusters, developm
 - ✅ **Flake-based structure** using [`flake-parts`](https://flake.parts) for clean modularization
 - 🧠 **Single-source DRY logic** for all system types: NixOS, Home Manager, Darwin/macOS
 - 🔐 **Secrets Management** via [`sops-nix`](https://github.com/Mic92/sops-nix)
-- 🐧 **Kubernetes platform** from source with [`nix-kubernetes`](https://github.com/drzln/nix-kubernetes)
 - ⚙️ **Overlays** and custom packages with lazy per-system resolution
-- 🧪 **Local Kubernetes clusters** via `nixos-containers` for testing
 - 🎨 Theming support with [`stylix`](https://github.com/danth/stylix)
 - ☁️ Darwin/macOS config bootstrapping with `nix-darwin` + Home Manager
 
@@ -53,23 +51,6 @@ nix run github:drzln/nix#devShells.x86_64-linux.default
 ```bash
 sudo nixos-rebuild switch --flake .#plo
 ```
-
-### 🧪 Launch a dev cluster
-
-Your Kubernetes platform is defined under `nix-kubernetes`, enabling:
-
-- Self-hosted control plane
-- TLS via SOPS
-- Cilium (no kube-proxy)
-- Systemd-ordered services (etcd → apiserver → controller → kubelet)
-
-To test locally:
-
-```bash
-sudo ./bin/bootstrap-plo.sh
-```
-
----
 
 ## 🔐 Secrets Management
 
