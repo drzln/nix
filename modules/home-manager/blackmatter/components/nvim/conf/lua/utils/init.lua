@@ -88,7 +88,7 @@ function M.load_files(base_path)
 	end
 
 	-- Recursively load init.lua from all subdirs (like includes.common.init)
-	for _, subdir in ipairs(list_dirs(base_path)) do
+	for _, subdir in ipairs(M.list_dirs(base_path)) do
 		local rel_parts = split(subdir)
 		local modpath = table.concat(vim.list_slice(rel_parts, lua_index + 1), ".")
 		for _, file in ipairs(M.list_files(subdir)) do
