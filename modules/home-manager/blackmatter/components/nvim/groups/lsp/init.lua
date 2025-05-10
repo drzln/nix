@@ -2,9 +2,9 @@
 local M = {}
 
 function M.setup()
-	require("includes.lsp.settings").apply()
-	require("includes.lsp.filetypes").setup()
-	require("includes.lsp.mason").setup()
+	require("groups.lsp.settings").apply()
+	require("groups.lsp.filetypes").setup()
+	require("groups.lsp.mason").setup()
 end
 
 return M
