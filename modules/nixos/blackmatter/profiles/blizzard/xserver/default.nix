@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+# modules/nixos/blackmatter/profiles/blizzard/xserver/default.nix
+{pkgs, ...}: {
   services.xserver = {
     enable = false;
     xkb = {
@@ -17,7 +18,7 @@
     };
     autoRepeatDelay = 135;
     autoRepeatInterval = 40;
-    videoDrivers = [ "nvidia" ];
+    videoDrivers = ["nvidia"];
     desktopManager = {
       gnome = {
         enable = true;
@@ -27,7 +28,7 @@
       };
     };
     windowManager = {
-      leftwm = { enable = false; };
+      leftwm = {enable = false;};
       i3 = {
         enable = true;
         extraPackages = with pkgs; [
