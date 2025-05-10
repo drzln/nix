@@ -1,5 +1,8 @@
 # users/luis/common.nix
-{...}: {
+{inputs, ...}: {
+  imports = [
+    inputs.self.homeManagerModules.blackmatter
+  ];
   home.username = "luis";
   home.homeDirectory = "/home/luis";
   programs.ssh.enable = true;
@@ -8,4 +11,7 @@
     StrictHostKeyChecking no
     SetEnv TERM=xterm-256color
   '';
+  blackmatter.components.gitconfig.enable = true;
+  blackmatter.components.gitconfig.email = "luis@pleme.io";
+  blackmatter.components.gitconfig.user = "luis";
 }
