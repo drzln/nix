@@ -15,10 +15,10 @@ local utils = require("utils")
 -- Expand ~ and load all includes
 -- local lua_home = vim.fn.expand("~/.config/nvim/lua/includes")
 -- utils.load_files(lua_home)
-require('includes.common').setup
-require('includes.treesitter').setup
-require('includes.keybindings').setup
-require('includes.formatting').setup
-require('includes.completion').setup
-require('includes.lsp').setup
-require('includes.theming').setup
+require('includes.common').setup()
+require('includes.treesitter').setup()
+require('includes.keybindings').setup()
+require('includes.formatting').setup()
+require('includes.completion').setup()
+require('includes.lsp').setup()
+require('includes.theming').setup()
