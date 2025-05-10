@@ -20,7 +20,6 @@ in {
     (mkIf cfg.enable {
       home.packages = [cfg.package];
       xdg.configFile."nvim/init.lua".source = ./conf/init.lua;
-      xdg.configFile."nvim/lua/utils".source = ./conf/lua/utils;
       blackmatter.components.nvim.plugin.groups.enable = true;
     })
   ];
