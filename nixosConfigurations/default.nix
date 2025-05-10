@@ -7,7 +7,7 @@
     inherit specialArgs;
     system = "x86_64-linux";
     modules = [
-      ./plo/configuration.nix
+      ./nodes/plo/configuration.nix
     ];
   };
 }
