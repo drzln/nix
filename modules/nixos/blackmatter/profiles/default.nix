@@ -1,9 +1,10 @@
-{ lib, config, ... }:
-with lib;
-let
-  cfg = config.blackmatter.profiles;
-in
 {
+  # lib,
+  # config,
+  ...
+}: let
+  # cfg = config.blackmatter.profiles;
+in {
   imports = [
     ./blizzard
   ];
