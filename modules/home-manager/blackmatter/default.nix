@@ -2,7 +2,7 @@
 with lib; {
   imports = [
     ./profiles
-    ./components
+    # ./components
   ];
 
   options = {
