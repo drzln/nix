@@ -145,7 +145,6 @@
       nerd-fonts.fira-code
       dotnet-sdk_8
       home-manager
-      nixhashsync
       libiconv
       poetry
       clang

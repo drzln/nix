@@ -3,7 +3,7 @@
   nix-darwin,
   home-manager,
   inputs,
-  darwin-pkgs,
+  pkgs,
 }: {
   cid = nix-darwin.lib.darwinSystem {
     system = "x86_64-darwin";
@@ -12,8 +12,7 @@
       ../nodes/cid
     ];
     specialArgs = {
-      inherit inputs;
-      pkgs = darwin-pkgs;
+      inherit inputs pkgs;
     };
   };
 }
