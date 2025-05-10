@@ -1,7 +1,7 @@
 # nodes/plo/configuration.nix
 {
+  inputs,
   pkgs,
-  requirements,
   ...
 }: let
   sudo-users-common = {
@@ -26,8 +26,8 @@ in {
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowImportFromDerivation = true;
   imports = [
-    requirements.inputs.self.nixosModules.blackmatter
-    requirements.inputs.nix-kubernetes.nixosModules.kubernetes
+    inputs.self.nixosModules.blackmatter
+    inputs.nix-kubernetes.nixosModules.kubernetes
     ./kubernetes
     ./secrets.nix
   ];
