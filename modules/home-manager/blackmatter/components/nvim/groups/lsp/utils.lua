@@ -1,6 +1,6 @@
 -- modules/home-manager/blackmatter/components/nvim/groups/lsp/utils.lua
 local M = {}
-M.exclude_servers = require("lsp.exclude_list")
+M.exclude_servers = require("includes.lsp.exclude_list")
 M.configure_only = {
 	"rust_analyzer",
 	"ruby_lsp",
