@@ -25,10 +25,9 @@ function M.setup()
 	local mason_available_servers = mason_lspconfig.get_available_servers()
 	local local_available_servers = {
 		"ts_ls",
-		"nixd", -- explicitly adding nixd
+		"nixd",
 	}
 
-	-- properly merge server lists
 	local available_servers = vim.list_extend(vim.deepcopy(mason_available_servers), local_available_servers)
 
 	local exclude_servers = {
