@@ -82,7 +82,7 @@ function M.load_files(base_path)
 	local base_mod = table.concat(vim.list_slice(parts, lua_index + 1), ".")
 
 	-- Load all top-level .lua files (like includes/init.lua)
-	for _, file in ipairs(list_files(base_path)) do
+	for _, file in ipairs(M.list_files(base_path)) do
 		local modname = file:gsub("%.lua$", "")
 		load_module(base_mod .. "." .. modname)
 	end
@@ -91,7 +91,7 @@ function M.load_files(base_path)
 	for _, subdir in ipairs(list_dirs(base_path)) do
 		local rel_parts = split(subdir)
 		local modpath = table.concat(vim.list_slice(rel_parts, lua_index + 1), ".")
-		for _, file in ipairs(list_files(subdir)) do
+		for _, file in ipairs(M.list_files(subdir)) do
 			local modname = file:gsub("%.lua$", "")
 			load_module(modpath .. "." .. modname)
 		end
