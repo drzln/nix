@@ -1,8 +1,8 @@
 -- modules/home-manager/blackmatter/components/nvim/groups/lsp/mason.lua
 local mason_lspconfig = require("mason-lspconfig")
-local servers = require("lsp.servers")
+local servers = require("includes.lsp.servers")
 local lspconfig = require("lspconfig")
-local utils = require("lsp.utils")
+local utils = require("includes.lsp.utils")
 local mason = require("mason")
 local M = {}
 function M.setup()
