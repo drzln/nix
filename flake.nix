@@ -29,9 +29,9 @@
       imports = [
         ./parts/overlays.nix
         ./parts/packages.nix
+        ./parts/darwin.nix
         ./parts/nixos.nix
         ./parts/home.nix
-        ./parts/darwin.nix
       ];
     };
 }
