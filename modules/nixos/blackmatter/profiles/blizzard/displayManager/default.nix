@@ -1,4 +1,5 @@
-{ ... }: {
+# modules/nixos/blackmatter/profiles/blizzard/displayManager.nix
+{...}: {
   # services.xserver.displayManager.setupCommands = ''
   #   mkdir -p /etc/sddm/scripts
   #   echo "#!/bin/sh" > /etc/sddm/scripts/Xsetup
