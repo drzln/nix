@@ -12,7 +12,6 @@ in {
   options.blackmatter.components.nvim.plugin.groups.lsp = {
     enable = mkEnableOption "lsp";
   };
-
   imports = [
     ../../plugins/williamboman/mason-lspconfig.nvim
     ../../plugins/williamboman/mason.nvim
@@ -20,7 +19,6 @@ in {
     ../../plugins/hrsh7th/cmp-nvim-lsp
     ../../plugins/hrsh7th/nvim-cmp
   ];
-
   config = mkMerge [
     (
       mkIf cfg.enable
@@ -61,18 +59,16 @@ in {
           nodejs
           prettier
           composer
-          (python312.withPackages (ps: with ps; [pip]))
           solargraph
+          tree-sitter
           luarocks-nix
-          google-java-format
-          # dotnet_9.sdk
-          # dotnet_9.runtime
           swift-format
           rust-analyzer
           markdown-oxide
           sourcekit-lsp
-          tree-sitter
-          # (pkgs.ruby_3_4.withPackages (ps: with ps; [ruby-lsp]))
+          google-java-format
+
+          (python312.withPackages (ps: with ps; [pip]))
         ];
         blackmatter.components.nvim.plugins = {
           hrsh7th.nvim-cmp.enable = true;
