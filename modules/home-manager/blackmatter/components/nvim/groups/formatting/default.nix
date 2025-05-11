@@ -1,3 +1,4 @@
+# modules/home-manager/blackmatter/components/nvim/groups/formatting/default.nix
 {
   config,
   pkgs,
