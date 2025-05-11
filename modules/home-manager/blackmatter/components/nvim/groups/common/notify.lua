@@ -1,3 +1,4 @@
+-- modules/home-manager/blackmatter/components/nvim/groups/common/notify.lua
 local M = {}
 
 function M.setup()
