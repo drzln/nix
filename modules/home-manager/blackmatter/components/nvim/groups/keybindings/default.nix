@@ -1,3 +1,4 @@
+# modules/home-manager/blackmatter/components/nvim/groups/keybindings/default.nix
 {
   config,
   lib,
@@ -11,7 +12,6 @@ in {
   options.blackmatter.components.nvim.plugin.groups.keybindings = {
     enable = mkEnableOption "keybindings";
   };
-
   imports = [
     ../../plugins/hrsh7th/nvim-cmp
   ];
