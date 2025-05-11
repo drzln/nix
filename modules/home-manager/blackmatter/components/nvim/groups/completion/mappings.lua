@@ -1,7 +1,7 @@
 -- modules/home-manager/blackmatter/components/nvim/groups/completion/mappings.lua
 local M = {}
 local cmp = require("cmp")
-local utils = require("completion.utils")
+local utils = require("groups.completion.utils")
 
 function M.get()
 	return {

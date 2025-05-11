@@ -1,6 +1,6 @@
 -- modules/home-manager/blackmatter/components/nvim/groups/completion/config.lua
 local M = {}
-local utils = require("completion.utils")
+local utils = require("groups.completion.utils")
 
 function M.setup_avante()
 	local aws_profile = "pleme" -- Replace with your actual profile name
