@@ -3,7 +3,7 @@ local M = {}
 local utils = require("completion.utils")
 
 function M.setup_avante()
-	local aws_profile = "pingersandbox01usw2" -- Replace with your actual profile name
+	local aws_profile = "pleme" -- Replace with your actual profile name
 	local aws_credentials, err = utils.read_aws_credentials_from_profile(aws_profile)
 	local anthropic_api_key, api_key_err = utils.read_anthropic_api_key()
 
