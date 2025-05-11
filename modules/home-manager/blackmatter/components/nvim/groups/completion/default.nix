@@ -8,7 +8,7 @@ with lib; let
   plugName = name;
   cfg = config.blackmatter.components.nvim.plugin.groups.${name};
   common = import ../../common;
-  configPath = "${common.includesPath}/${plugName}/init.lua";
+  configPath = "${common.includesPath}/${plugName}";
 in {
   options.blackmatter.components.nvim.plugin.groups.completion = {
     enable = mkEnableOption name;
@@ -35,7 +35,11 @@ in {
     (
       mkIf cfg.enable
       {
-        home.file."${configPath}".source = ./init.lua;
+        home.file."${configPath}/init.lua".source = ./init.lua;
+        home.file."${configPath}/config.lua".source = ./config.lua;
+        home.file."${configPath}/mappings.lua".source = ./mappings.lua;
+        home.file."${configPath}/sources.lua".source = ./sources.lua;
+        home.file."${configPath}/utils.lua".source = ./utils.lua;
         blackmatter.components.nvim.plugins = {
           L3MON4D3.LuaSnip.enable = true;
           hrsh7th.cmp-path.enable = true;
