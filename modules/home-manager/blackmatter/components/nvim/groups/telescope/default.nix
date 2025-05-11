@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }:
 with lib; let
@@ -10,7 +9,6 @@ in {
   options.blackmatter.components.nvim.plugin.groups.telescope = {
     enable = mkEnableOption "telescope";
   };
-
   imports = [
     ../../plugins/nvim-telescope/telescope.nvim
     ../../plugins/nvim-telescope/telescope-file-browser.nvim
@@ -19,7 +17,6 @@ in {
     ../../plugins/nvim-telescope/telescope-z.nvim
     ../../plugins/danielpieper/telescope-tmuxinator.nvim
   ];
-
   config = mkMerge [
     (
       mkIf cfg.enable
