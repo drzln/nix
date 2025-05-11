@@ -15,19 +15,19 @@ in {
   };
 
   imports = [
+    ../../plugins/rafamadriz/friendly-snippets
+    ../../plugins/zbirenbaum/copilot.lua
+    ../../plugins/zbirenbaum/copilot-cmp
+    ../../plugins/onsails/lspkind.nvim
+    ../../plugins/hrsh7th/cmp-nvim-lsp
+    ../../plugins/ray-x/cmp-treesitter
+    ../../plugins/hrsh7th/cmp-cmdline
+    ../../plugins/yetone/avante.nvim
+    ../../plugins/hrsh7th/cmp-buffer
     ../../plugins/hrsh7th/nvim-cmp
     ../../plugins/hrsh7th/cmp-path
     ../../plugins/sar/cmp-lsp.nvim
     ../../plugins/L3MON4D3/LuaSnip
-    ../../plugins/hrsh7th/cmp-buffer
-    ../../plugins/yetone/avante.nvim
-    ../../plugins/hrsh7th/cmp-cmdline
-    ../../plugins/ray-x/cmp-treesitter
-    ../../plugins/hrsh7th/cmp-nvim-lsp
-    ../../plugins/onsails/lspkind.nvim
-    ../../plugins/zbirenbaum/copilot-cmp
-    ../../plugins/zbirenbaum/copilot.lua
-    ../../plugins/rafamadriz/friendly-snippets
     ../../plugins/muni/nui.nvim
   ];
 
