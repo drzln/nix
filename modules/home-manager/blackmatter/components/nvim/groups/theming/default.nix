@@ -23,10 +23,10 @@ in {
       {
         home.file."${configPath}".source = ./init.lua;
         blackmatter.components.nvim.plugins = {
-          shaunsingh."nord.nvim".enable = true;
-          nvim-lualine."lualine.nvim".enable = true;
           norcalli."nvim-colorizer.lua".enable = true;
+          nvim-lualine."lualine.nvim".enable = true;
           akinsho."bufferline.nvim".enable = true;
+          shaunsingh."nord.nvim".enable = true;
         };
       }
     )
