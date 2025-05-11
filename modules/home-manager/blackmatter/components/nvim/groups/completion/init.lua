@@ -6,15 +6,12 @@ function M.setup()
 	local mappings = require("groups.completion.mappings")
 	local sources = require("groups.completion.sources")
 	local config = require("groups.completion.config")
-
 	vim.cmd([[ set completeopt=menu,menuone,noselect ]])
-
 	cmp.setup({
 		mapping = mappings.get(),
 		sources = cmp.config.sources(sources.get()),
 	})
-
-	config.setup_avante() -- Optional, uncomment when ready
+	config.setup_avante()
 end
 
 return M
