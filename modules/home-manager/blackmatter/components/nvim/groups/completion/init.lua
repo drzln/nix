@@ -3,9 +3,9 @@ local M = {}
 
 function M.setup()
 	local cmp = require("cmp")
-	local mappings = require("completion.mappings")
-	local sources = require("completion.sources")
-	local config = require("completion.config")
+	local mappings = require("groups.completion.mappings")
+	local sources = require("groups.completion.sources")
+	local config = require("groups.completion.config")
 
 	vim.cmd([[ set completeopt=menu,menuone,noselect ]])
 
