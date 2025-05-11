@@ -1,3 +1,4 @@
+# modules/home-manager/blackmatter/components/nvim/groups/default.nix
 {
   lib,
   config,
