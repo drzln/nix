@@ -1,3 +1,4 @@
+-- modules/home-manager/blackmatter/components/nvim/groups/theming/init.lua
 local M = {}
 function M.setup()
 	vim.opt.showtabline = 0
