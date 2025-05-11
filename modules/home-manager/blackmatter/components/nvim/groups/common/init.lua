@@ -1,3 +1,5 @@
+-- modules/home-manager/blackmatter/components/nvim/groups/common/init.lua
+
 local M = {}
 
 function M.setup()
