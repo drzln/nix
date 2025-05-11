@@ -1,3 +1,4 @@
+-- modules/home-manager/blackmatter/components/nvim/groups/lsp/exclude_list.lua
 return {
 	"docker_compose_language_service",
 	"graphql_language_service_cli",
