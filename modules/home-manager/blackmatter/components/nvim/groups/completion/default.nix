@@ -36,9 +36,9 @@ in {
       mkIf cfg.enable
       {
         home.file."${configPath}/init.lua".source = ./init.lua;
-        home.file."${configPath}/config.lua".source = ./config.lua;
         home.file."${configPath}/mappings.lua".source = ./mappings.lua;
         home.file."${configPath}/sources.lua".source = ./sources.lua;
+        home.file."${configPath}/config.lua".source = ./config.lua;
         home.file."${configPath}/utils.lua".source = ./utils.lua;
         blackmatter.components.nvim.plugins = {
           L3MON4D3.LuaSnip.enable = true;
