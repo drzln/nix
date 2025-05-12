@@ -14,5 +14,6 @@ in {
     inputs.self.nixosModules.blackmatter
     ./base-configuration.nix
     ./base-hardware.nix
+    ../common/kubernetes
   ];
 }
