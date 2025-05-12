@@ -16,5 +16,6 @@ in {
     ./base-configuration.nix
     ./base-hardware.nix
     ../common/kubernetes
+    ../common/kubernetes/packages
   ];
 }
