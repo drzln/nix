@@ -43,4 +43,13 @@
   systemd.network.waitOnline.enable = false;
   services.getty.autovts = 2;
   boot.initrd.compress = "lz4";
+
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 30d";
+  };
+
+  nix.optimise.automatic = true;
+  nix.optimise.dates = ["06:00"];
 }
