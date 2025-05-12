@@ -5,9 +5,7 @@
   ...
 }: let
 in {
-  environment.systemPackages = with pkgs; [
-    ghostty.terminfo
-  ];
+  environment.systemPackages = with pkgs; [ghostty.terminfo];
   system.stateVersion = "24.05";
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowImportFromDerivation = true;
