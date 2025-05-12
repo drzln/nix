@@ -61,13 +61,19 @@
   services.dnsmasq = {
     enable = true;
     settings = {
+      port = 53;
+      domain-needed = true;
+      bogus-priv = true;
+      no-resolv = true;
+      neg-ttl = 3600;
+      dns-forward-max = 250;
+      no-poll = true;
       listen-address = "127.0.0.1";
       bind-interfaces = true;
       server = [
         "1.1.1.1"
         "8.8.8.8"
       ];
-
       cache-size = 1000;
       log-queries = false;
       log-facility = "/dev/null";
@@ -76,4 +82,5 @@
 
   networking.useHostResolvConf = false;
   networking.nameservers = ["127.0.0.1"];
+  services.resolvd.enable = false;
 }
