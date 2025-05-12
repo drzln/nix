@@ -29,7 +29,7 @@
     {device = "/dev/disk/by-uuid/255bc5a7-978c-4606-a7ae-bcc20385e830";}
   ];
   # networking.useDHCP = lib.mkDefault true;
-  networking.useDHCP = false;
+  networking.useDHCP = lib.mkDefault false;
 
   networking.interfaces."enp0s31f6".ipv4.addresses = [
     {
