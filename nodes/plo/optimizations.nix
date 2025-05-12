@@ -28,4 +28,10 @@
   boot.loader.timeout = 1;
   boot.loader.grub.default = "saved";
   boot.loader.configurationLimit = 100;
+
+  hardware.bluetooth.enable = false;
+  services.printing.enable = false;
+  services.avahi.enable = false;
+  services.modemManager.enable = false;
+  networking.networkmanager.enable = false;
 }
