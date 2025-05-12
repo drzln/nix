@@ -42,4 +42,5 @@
   '';
   systemd.network.waitOnline.enable = false;
   services.getty.autovts = 2;
+  boot.initrd.compress = "lz4";
 }
