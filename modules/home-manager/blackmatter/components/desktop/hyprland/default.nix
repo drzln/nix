@@ -5,7 +5,7 @@
   ...
 }:
 with lib; let
-  inherit (pkgs.stdenv.hostPlatform) isLinux isDarwin;
+  # inherit (pkgs.stdenv.hostPlatform) isLinux isDarwin;
   cfg = config.blackmatter.components.desktop.hyprland;
 
   nord.graphics.indicator = ">";
@@ -23,66 +23,65 @@ with lib; let
     error.red = highlight;
     error.background.grey = "#4c566a";
   };
-
-  themes.nord = rec {
-    rofi = "Arc-Dark";
-    globals = {
-      colors.focused = {
-        border = nord.colors.background.blue;
-        background = nord.colors.background.blue;
-        text = nord.colors.text.white;
-        indicator = nord.graphics.indicator;
-        childBorder = nord.graphics.border.child;
-      };
-      colors.focusedInactive = {
-        border = nord.colors.background.blue;
-        background = nord.colors.background.blue;
-        text = nord.colors.text.white;
-        indicator = nord.graphics.indicator;
-        childBorder = nord.graphics.border.child;
-      };
-      colors.unfocused = {
-        border = nord.colors.background.blue;
-        background = nord.colors.background.blue;
-        text = nord.colors.text.white;
-        indicator = nord.graphics.indicator;
-        childBorder = nord.graphics.border.child;
-      };
-      colors.urgent = {
-        border = nord.colors.error.red;
-        background = nord.colors.error.background.grey;
-        text = nord.colors.text.white;
-        indicator = nord.graphics.indicator;
-        childBorder = nord.graphics.border.child;
-      };
-      colors.hovered = {
-        border = nord.colors.background.teal;
-        background = nord.colors.background.blue;
-        text = nord.colors.text.white;
-        indicator = nord.graphics.indicator;
-        childBorder = nord.graphics.border.child;
-      };
-    };
-    initialization = {
-      # manipulate the path or we do not find pamixer
-      script = "PATH=$HOME/.nix-profile/bin:$PATH polybar top &";
-    };
-    styling = {
-      font-0 = "RobotoMono Nerd Font:antialias=true:hinting=true;size=10;2";
-      padding = 2;
-    };
-    dimensions = {
-      height = 30;
-      width = "100%";
-    };
-    elements = {
-      separator = "|";
-    };
-    colors = {
-      background = nord.colors.background.blue;
-      foreground = nord.colors.foreground;
-    };
-  };
+  # themes.nord = rec {
+  #   rofi = "Arc-Dark";
+  #   globals = {
+  #     colors.focused = {
+  #       border = nord.colors.background.blue;
+  #       background = nord.colors.background.blue;
+  #       text = nord.colors.text.white;
+  #       indicator = nord.graphics.indicator;
+  #       childBorder = nord.graphics.border.child;
+  #     };
+  #     colors.focusedInactive = {
+  #       border = nord.colors.background.blue;
+  #       background = nord.colors.background.blue;
+  #       text = nord.colors.text.white;
+  #       indicator = nord.graphics.indicator;
+  #       childBorder = nord.graphics.border.child;
+  #     };
+  #     colors.unfocused = {
+  #       border = nord.colors.background.blue;
+  #       background = nord.colors.background.blue;
+  #       text = nord.colors.text.white;
+  #       indicator = nord.graphics.indicator;
+  #       childBorder = nord.graphics.border.child;
+  #     };
+  #     colors.urgent = {
+  #       border = nord.colors.error.red;
+  #       background = nord.colors.error.background.grey;
+  #       text = nord.colors.text.white;
+  #       indicator = nord.graphics.indicator;
+  #       childBorder = nord.graphics.border.child;
+  #     };
+  #     colors.hovered = {
+  #       border = nord.colors.background.teal;
+  #       background = nord.colors.background.blue;
+  #       text = nord.colors.text.white;
+  #       indicator = nord.graphics.indicator;
+  #       childBorder = nord.graphics.border.child;
+  #     };
+  #   };
+  #   initialization = {
+  #     # manipulate the path or we do not find pamixer
+  #     script = "PATH=$HOME/.nix-profile/bin:$PATH polybar top &";
+  #   };
+  #   styling = {
+  #     font-0 = "RobotoMono Nerd Font:antialias=true:hinting=true;size=10;2";
+  #     padding = 2;
+  #   };
+  #   dimensions = {
+  #     height = 30;
+  #     width = "100%";
+  #   };
+  #   elements = {
+  #     separator = "|";
+  #   };
+  #   colors = {
+  #     background = nord.colors.background.blue;
+  #     foreground = nord.colors.foreground;
+  #   };
+  # };
 in {
   options = {
     blackmatter = {
@@ -148,7 +147,7 @@ in {
       };
 
       home.sessionVariables = {
-        NIXOS_OZONE_WL=1;
+        NIXOS_OZONE_WL = 1;
         OZONE_PLATFORM = "wayland";
         LIBVA_DRIVER_NAME = "nvidia";
         __GLX_VENDOR_LIBRARY_NAME = "nvidia";
@@ -165,7 +164,6 @@ in {
         _JAVA_AWT_WM_NONREPARENTING = "1";
       };
 
-      # hyprland
       home.file.".config/hypr/hyprland.conf".source = ./hyprland.conf;
       home.file.".config/hypr/env.conf".source = ./env.conf;
       home.file.".config/hypr/input.conf".source = ./input.conf;
@@ -174,22 +172,13 @@ in {
       home.file.".config/hypr/bindings.conf".source = ./bindings.conf;
       home.file.".config/hypr/autostart.conf".source = ./autostart.conf;
       home.file.".config/hypr/cursor.conf".source = ./cursor.conf;
-
-      #waybar
+      home.file.".config/hypr/optimizations.conf".source = ./optimizations.conf;
       home.file.".config/waybar/config".source = ./waybar-config.json;
       home.file.".config/waybar/style.css".source = ./waybar-style.css;
-
-      # hyprpaper
       home.file.".config/hypr/wallpaper.jpg".source = ./wallpaper.jpg;
       home.file.".config/hypr/hyprpaper.conf".source = ./hyprpaper.conf;
-
-      # hypridle
       home.file.".config/hypr/hypridle.conf".source = ./hypridle.conf;
-
-      #hyprlock
       home.file.".config/hypr/hyprlock.conf".source = ./hyprlock.conf;
-
-      #xdph
       home.file.".config/hypr/xdph.conf".source = ./xdph.conf;
 
       # notifications
