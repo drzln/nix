@@ -8,7 +8,6 @@ function M.has_words_before()
 	local cursor = vim.api.nvim_win_get_cursor(0)
 	local line = cursor[1]
 	local col = cursor[2]
-
 	return col ~= 0 and vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match("^%s*$") == nil
 end
 
@@ -29,7 +28,6 @@ function M.read_aws_credentials_from_profile(profile_name)
 	if not file then
 		return nil, "Error: Unable to open AWS config file: " .. config_file
 	end
-
 	local profile_found = false
 	for line in file:lines() do
 		if line:match("%[profile " .. profile_name .. "%]") then
@@ -45,14 +43,12 @@ function M.read_aws_credentials_from_profile(profile_name)
 		end
 	end
 	file:close()
-
 	if not profile_found then
 		return nil, "Error: Profile [" .. profile_name .. "] not found."
 	end
 	if not credentials.aws_access_key_id or not credentials.aws_secret_access_key or not credentials.aws_region then
 		return nil, "Error: Missing AWS credentials in profile [" .. profile_name .. "]"
 	end
-
 	return credentials
 end
 
