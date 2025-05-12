@@ -100,4 +100,9 @@
     "nvidia-drm.modeset=1"
     "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
   ];
+  environment.variables = {
+    "__GL_MaxFramesAllowed" = "1";
+    "__GL_GSYNC_ALLOWED" = "1";
+    "__GL_VRR_ALLOWED" = "1";
+  };
 }
