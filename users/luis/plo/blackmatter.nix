@@ -1,8 +1,6 @@
 # user/luis/plo/blackmatter.nix
 {inputs, ...}: {
-  imports = [
-    inputs.self.homeManagerModules.blackmatter
-  ];
+  imports = [inputs.self.homeManagerModules.blackmatter];
   blackmatter.enable = true;
   blackmatter.profiles.winter.enable = false;
   blackmatter.profiles.blizzard.enable = true;
