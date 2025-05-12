@@ -1,4 +1,2 @@
 # users/luis/plo/default.nix
-{
-  imports = [./home.nix];
-}
+{imports = [./home.nix];}
