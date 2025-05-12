@@ -1,8 +1,6 @@
 # users/luis/common.nix
 {inputs, ...}: {
-  imports = [
-    inputs.self.homeManagerModules.blackmatter
-  ];
+  imports = [inputs.self.homeManagerModules.blackmatter];
   home.username = "luis";
   home.homeDirectory = "/home/luis";
   programs.ssh.enable = true;
