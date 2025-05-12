@@ -83,4 +83,8 @@
   networking.useHostResolvConf = false;
   networking.nameservers = ["127.0.0.1"];
   services.resolvd.enable = false;
+
+  environment.systemPackages = [
+    pkgs.nvme-cli
+  ];
 }
