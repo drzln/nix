@@ -87,4 +87,17 @@
   environment.systemPackages = [
     pkgs.nvme-cli
   ];
+
+  services.xserver.enable = true;
+  services.xserver.videoDrivers = ["nvidia"];
+  hardware.opengl.enable = true;
+  hardware.opengl.driSupport = true;
+  hardware.opengl.driSupport32bit = true;
+  hardware.nvidia.modesetting.enable = true;
+  hardware.nvidia.open = false;
+  boot.blacklistedKernelModules = ["nouveau"];
+  bool.kernelParams = [
+    "nvidia-drm.modeset=1"
+    "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
+  ];
 }
