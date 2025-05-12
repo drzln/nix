@@ -1,3 +1,5 @@
 # plo
 
-a nixos desktop node
+- nvidia video card
+- intel cpu
+- asus board
