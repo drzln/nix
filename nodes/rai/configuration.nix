@@ -27,10 +27,10 @@ in {
   imports = [
     inputs.self.nixosModules.blackmatter
     inputs.nix-kubernetes.nixosModules.kubernetes
+    ./base-configuration.nix
+    ./base-hardware.nix
     # ./kubernetes
     # ./secrets.nix
-    # ./base-configuration.nix
-    # ./base-hardware.nix
   ];
   # blackmatter.profiles.blizzard.enable = true;
   # makes /bin/bash work
