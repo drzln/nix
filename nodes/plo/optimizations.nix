@@ -24,4 +24,8 @@
     "net.core.default_qdisc" = "fq";
     "net.ipv4.tcp_congestion_control" = "bbr";
   };
+
+  boot.loader.timeout = 1;
+  boot.loader.grub.default = "saved";
+  boot.loader.configurationLimit = 100;
 }
