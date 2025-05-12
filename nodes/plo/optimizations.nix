@@ -16,4 +16,12 @@
 
   # balance interrupts across cpus
   services.irqbalance.enable = true;
+
+  boot.kernel.sysctl = {
+    "vm.swappiness" = 10;
+    "vm.vfs_cache_pressure" = 50;
+    "fs.inotify.max_user_watches" = 524288;
+    "net.core.default_qdisc" = "fq";
+    "net.ipv4.tcp_congestion_control" = "bbr";
+  };
 }
