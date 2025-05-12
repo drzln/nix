@@ -10,8 +10,8 @@ in {
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowImportFromDerivation = true;
   imports = [
-    inputs.self.nixosModules.blackmatter
     inputs.nix-kubernetes.nixosModules.kubernetes
+    inputs.self.nixosModules.blackmatter
     ./base-configuration.nix
     ./base-hardware.nix
   ];
