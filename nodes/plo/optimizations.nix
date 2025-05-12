@@ -34,4 +34,12 @@
   services.avahi.enable = false;
   services.modemManager.enable = false;
   networking.networkmanager.enable = false;
+  services.journald.storage = "volatile";
+  services.journald.systemMaxUse = "100M";
+  systemd.extraConfig = ''
+    DefaultTimeoutStartSec=10s
+    DefaultTimeoutStopSec=10s
+  '';
+  systemd.network.waitOnline.enable = false;
+  services.getty.autovts = 2;
 }
