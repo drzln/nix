@@ -27,6 +27,7 @@ in {
   imports = [
     inputs.self.nixosModules.blackmatter
     inputs.nix-kubernetes.nixosModules.kubernetes
+    ./hosts.nix
     ./kubernetes
     ./secrets.nix
     ./base-configuration.nix
