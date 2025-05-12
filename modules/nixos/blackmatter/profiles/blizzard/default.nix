@@ -10,7 +10,7 @@ with lib; let
 in {
   imports = [
     ./displayManager
-    ./virtualisation
+    # ./virtualisation
     ./networking
     ./bluetooth
     ./xserver
