@@ -8,7 +8,14 @@
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
   hardware.nvidia.open = true;
-  boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod"];
+  boot.initrd.availableKernelModules = [
+    "usb_storage"
+    "xhci_pci"
+    "usbhid"
+    "sd_mod"
+    "nvme"
+    "ahci"
+  ];
   boot.initrd.kernelModules = [];
   boot.kernelModules = ["kvm-amd"];
   boot.extraModulePackages = [];
@@ -28,20 +35,15 @@
   swapDevices = [
     {device = "/dev/disk/by-uuid/255bc5a7-978c-4606-a7ae-bcc20385e830";}
   ];
-  # networking.useDHCP = lib.mkDefault true;
   networking.useDHCP = lib.mkDefault false;
-
   networking.interfaces."enp7s0".ipv4.addresses = [
     {
       address = "192.168.50.2";
       prefixLength = 24;
     }
   ];
-
   networking.defaultGateway = "192.168.50.1";
-
   networking.nameservers = ["1.1.1.1" "8.8.8.8"];
-
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }
