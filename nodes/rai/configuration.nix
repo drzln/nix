@@ -12,6 +12,7 @@ in {
   imports = [
     inputs.nix-kubernetes.nixosModules.kubernetes
     inputs.self.nixosModules.blackmatter
+    ./secrets.nix
     ./base-configuration.nix
     ./base-hardware.nix
     ../common/kubernetes
