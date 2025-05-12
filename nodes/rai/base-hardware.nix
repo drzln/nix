@@ -28,7 +28,20 @@
   swapDevices = [
     {device = "/dev/disk/by-uuid/255bc5a7-978c-4606-a7ae-bcc20385e830";}
   ];
-  networking.useDHCP = lib.mkDefault true;
+  # networking.useDHCP = lib.mkDefault true;
+  networking.useDHCP = false;
+
+  networking.interfaces."enp0s31f6".ipv4.addresses = [
+    {
+      address = "192.168.50.2";
+      prefixLength = 24;
+    }
+  ];
+
+  networking.defaultGateway = "192.168.50.1";
+
+  networking.nameservers = ["1.1.1.1" "8.8.8.8"];
+
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }
