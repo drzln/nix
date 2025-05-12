@@ -28,7 +28,8 @@
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/6D41-D3E4";
     fsType = "vfat";
-    options = ["fmask=0077" "dmask=0077"];
+    # noatime and discard are suggested performance optizations
+    options = ["fmask=0077" "dmask=0077" "noatime" "discard"];
   };
   swapDevices = [
     {device = "/dev/disk/by-uuid/ceba2ede-58d4-4acf-8d80-bea673024ac1";}
