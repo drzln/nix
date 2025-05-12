@@ -31,7 +31,7 @@
   # networking.useDHCP = lib.mkDefault true;
   networking.useDHCP = lib.mkDefault false;
 
-  networking.interfaces."enp0s31f6".ipv4.addresses = [
+  networking.interfaces."enp7s0".ipv4.addresses = [
     {
       address = "192.168.50.2";
       prefixLength = 24;
