@@ -52,4 +52,9 @@
 
   nix.optimise.automatic = true;
   nix.optimise.dates = ["06:00"];
+
+  nix.extraOptions = ''
+    min-free = 104857600
+    max-free = 1073741824
+  '';
 }
