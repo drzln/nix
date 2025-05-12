@@ -2,6 +2,6 @@
 {
   imports = [
     ./configuration.nix
-    ./optimizations.nix
+    ./optimizations
   ];
 }
