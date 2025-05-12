@@ -1,1 +1,0 @@
-initrd=\EFI\nixos\8wd0m80hxlhancr4qrl3yhblmcks08sn-initrd-linux-6.12.28-initrd.efi init=/nix/store/8ifvjqgavfsx6lpqzm2c35yyiqxqqjr7-nixos-system-plo-25.05.20250510.d89fc19/init nvidia-drm.modeset=1 fbdev=1 selinux=0 apparmor=0 loglevel=4 nvidia-drm.modeset=1 nvidia-drm.fbdev=1
