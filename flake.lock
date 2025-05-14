@@ -906,11 +906,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1747220218,
-        "narHash": "sha256-aBcjSrEKBx+z+bIRyklwCGGWWID6gf7UGMAMyIDnZJw=",
+        "lastModified": 1747220572,
+        "narHash": "sha256-gaAMjGAKExxPJslY7t3JwvONAHZsrL/tFeRha3WhlzY=",
         "owner": "drzln",
         "repo": "nix-kubernetes",
-        "rev": "1df208fb3c87175415dc4b072dd7569c24564a7f",
+        "rev": "16fc1e45114388cb51365921a190a7d3a5366f3a",
         "type": "github"
       },
       "original": {
