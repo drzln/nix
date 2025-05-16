@@ -906,11 +906,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1747409748,
-        "narHash": "sha256-PuSznIiTAnVcuLAawOppyxHFYKws8stQcdiQt/uh97g=",
+        "lastModified": 1747418324,
+        "narHash": "sha256-Bpabrsme24IgevByc9QSmI3fcCZjVpxkCmxTg28WX/g=",
         "owner": "drzln",
         "repo": "nix-kubernetes",
-        "rev": "9185885b9e67463fc3ac7a0e7f6b5b3e5e7d4ca7",
+        "rev": "7fc7176899b479038058e6d75772ccf895b5940e",
         "type": "github"
       },
       "original": {
@@ -1307,11 +1307,11 @@
         "tinted-zed": "tinted-zed"
       },
       "locked": {
-        "lastModified": 1747406390,
-        "narHash": "sha256-rDUCzrFPKCOrwJ0Pg9Mo6+8q/7EcSTstl+SotwDL3tA=",
+        "lastModified": 1747415633,
+        "narHash": "sha256-ZRHZrMVrqnallhB2Y+eTZHxF92a+K6tiVAwj++PGk4I=",
         "owner": "danth",
         "repo": "stylix",
-        "rev": "0e5b1613bd9285700c99e5ecf0a4e31da8cb5e04",
+        "rev": "49b1eb937152b686626be269ee3fe462d1541d5a",
         "type": "github"
       },
       "original": {
