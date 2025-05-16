@@ -3,7 +3,7 @@ set -euo pipefail
 export KUBECONFIG=/run/secrets/kubernetes/configs/admin/kubeconfig
 HOSTNAME=$(hostname)
 echo "[+] Creating Kubernetes service account 'admin'..."
-${pkgs.kubernetes}/bin/kubectl apply -f - <<EOF
+kubectl apply -f - <<EOF
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -11,7 +11,7 @@ metadata:
   namespace: default
 EOF
 echo "[+] Binding cluster-admin role to 'admin' service account..."
-${pkgs.kubernetes}/bin/kubectl create clusterrolebinding admin-binding \
+kubectl create clusterrolebinding admin-binding \
   --clusterrole=cluster-admin \
   --serviceaccount=default:admin \
   --dry-run=client -o yaml | ${pkgs.kubernetes}/bin/kubectl apply -f -
