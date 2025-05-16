@@ -7,6 +7,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: admin-token
+  namespace: default
   annotations:
     kubernetes.io/service-account.name: admin
 type: kubernetes.io/service-account-token
