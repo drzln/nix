@@ -2,7 +2,7 @@ set -euo pipefail
 export KUBECONFIG=/run/secrets/kubernetes/configs/admin/kubeconfig
 SERVER=kubectl config view -o jsonpath='{.clusters[0].cluster.server}')
 CA_CERT=kubectl config view --raw -o jsonpath='{.clusters[0].cluster.certificate-authority-data}')
-TOKEN=kubectl get secret $(${pkgs.kubernetes}/bin/kubectl get sa admin -o jsonpath='{.secrets[0].name}') -o jsonpath='{.data.token}' | base64 --decode)
+TOKEN=kubectl get secret kubectl get sa admin -o jsonpath='{.secrets[0].name}') -o jsonpath='{.data.token}' | base64 --decode)
 cat > admin.kubeconfig <<EOF
 apiVersion: v1
 kind: Config
