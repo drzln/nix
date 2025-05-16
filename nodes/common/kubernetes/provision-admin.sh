@@ -14,5 +14,5 @@ echo "[+] Binding cluster-admin role to 'admin' service account..."
 kubectl create clusterrolebinding admin-binding \
   --clusterrole=cluster-admin \
   --serviceaccount=default:admin \
-  --dry-run=client -o yaml | ${pkgs.kubernetes}/bin/kubectl apply -f -
+  --dry-run=client -o yaml | kubectl apply -f -
 echo "[✓] Admin service account provisioned successfully."
