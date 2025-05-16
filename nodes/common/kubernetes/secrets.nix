@@ -6,7 +6,7 @@
       mode = "0444";
       owner = "root";
       group = "root";
-      sopsFile = ../../secrets.yaml;
+      sopsFile = ../../../secrets.yaml;
       path = "/var/lib/blackmatter/pki/admin.token";
     };
   };
