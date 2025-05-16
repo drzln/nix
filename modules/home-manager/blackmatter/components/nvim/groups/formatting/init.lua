@@ -7,6 +7,11 @@ function M.setup()
 				args = { "fmt", "--stdin" },
 				stdin = true,
 			},
+			gofmt = {
+				command = "gofmt",
+				args = { "-s" },
+				stdin = true,
+			},
 		},
 		formatters_by_ft = {
 			zig = { "zigfmt" },
@@ -30,6 +35,7 @@ function M.setup()
 			toml = { "taplo" },
 			zsh = { "shfmt" },
 			sh = { "shfmt" },
+			go = { "gofmt" },
 		},
 	})
 end
