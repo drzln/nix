@@ -2,12 +2,12 @@
 {...}: {
   sops.age.keyFile = "/var/lib/sops-nix/key.txt";
   sops.secrets = {
-    "kubernetes/configs/scheduler/kubeconfig" = {
+    "cluster/token" = {
       mode = "0444";
       owner = "root";
       group = "root";
       sopsFile = ../../secrets.yaml;
-      path = "/var/lib/blackmatter/pki/scheduler.kubeconfig";
+      path = "/var/lib/blackmatter/pki/admin.token";
     };
   };
 }
