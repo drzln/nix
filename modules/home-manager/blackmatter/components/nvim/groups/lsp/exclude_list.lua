@@ -201,7 +201,6 @@ return {
 	"psalm",
 	"regal",
 	"templ",
-	"gopls",
 	"sqls",
 	"pbls",
 	"svls",
