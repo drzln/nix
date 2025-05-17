@@ -572,11 +572,11 @@
         "xdph": "xdph"
       },
       "locked": {
-        "lastModified": 1747480093,
-        "narHash": "sha256-OHChPEsZvMhz0+CkFpnlhUXJsFNrceuoCPHxKQw1r/8=",
+        "lastModified": 1747501638,
+        "narHash": "sha256-SLAv+PkP2VblEXSqAU8SVNNQ/MCbaTwuOXth8xJ1cG8=",
         "ref": "refs/heads/main",
-        "rev": "18377d221d8c440c6ec3a1d2313947d81c4741e1",
-        "revCount": 6118,
+        "rev": "c19f383685000fcf61706c95feb4d80d22c9afe5",
+        "revCount": 6122,
         "type": "git",
         "url": "https://github.com/hyprwm/Hyprland"
       },
@@ -884,11 +884,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1747496746,
-        "narHash": "sha256-Trmqywkre4XXM0aOc8U14keTujFI4rQL3Ir3yMoDsbI=",
+        "lastModified": 1747503507,
+        "narHash": "sha256-lIspOZYxIvOHhsCPdaIZx+KcG9fHLQPptRj9QFTJdiQ=",
         "owner": "drzln",
         "repo": "nix-kubernetes",
-        "rev": "cc03ffbf1e842bfe979fd45c05cbfab61b2b221d",
+        "rev": "ddb711cbcea2787871058e0b44db099c8cab0b87",
         "type": "github"
       },
       "original": {
