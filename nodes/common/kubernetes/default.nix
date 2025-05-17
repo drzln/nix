@@ -11,7 +11,7 @@
     fluxcd.branch = "main";
     fluxcd.path = "clusters/rai";
     fluxcd.patFile = "/run/secrets/kubernetes/fluxcd/pat";
-    fluxcd.runAtBoot = false;
+    fluxcd.runAtBoot = true;
     fluxcd.lockFile = "/var/lib/blackmatter/fluxcd-bootstrap.lock";
   };
 }
