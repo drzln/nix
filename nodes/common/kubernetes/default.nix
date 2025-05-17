@@ -10,7 +10,7 @@
     fluxcd.repo = "kube-clusters";
     fluxcd.branch = "main";
     fluxcd.path = "clusters/rai";
-    fluxcd.patFile = "/run/secrets/kubernetes/fluxcd/pat";
+    fluxcd.patFile = "/run/secrets/fluxcd/kube-clusters/pat";
     fluxcd.runAtBoot = true;
     fluxcd.lockFile = "/var/lib/blackmatter/fluxcd-bootstrap.lock";
   };
